@@ -34,6 +34,7 @@ static int ack_handler(struct nl_msg *msg, void *arg)
 /* no sequence check handler for event receiver */
 static int no_seq_handler(struct nl_msg *msg, void *arg)
 {
+	printf("seq\n");
 	return NL_OK;
 }
 
@@ -44,6 +45,9 @@ static int my_event_handler(struct nl_msg *msg, void *arg)
 	struct nlattr *msg_attr_buff[NL80211_ATTR_MAX + 1];
 	char ifname[100];
 	__u16 status;
+	
+	if(CHNL_SWITCH_DEBUG)
+		printf("my_event_handler: entering\n");
 
 	nla_parse(msg_attr_buff, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
 		  genlmsg_attrlen(gnlh, 0), NULL);
@@ -93,8 +97,11 @@ static int my_event_handler(struct nl_msg *msg, void *arg)
                         printf("unknown event %d\n", gnlh->cmd);
                         break;
 	}
+	
+	if(CHNL_SWITCH_DEBUG)
+		printf("my_event_handler: end\n");
 
-	fflush(stdout);
+	//fflush(stdout);
 	return NL_SKIP;
 }
 

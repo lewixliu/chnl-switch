@@ -18,6 +18,7 @@
 #include "scan.h"
 #include "cb_handlers.c"
 #include "sysr.c"
+#include "genl.c"
 
 /* Initialise connection data structure */
 int conn_init( struct conn_data *cd )

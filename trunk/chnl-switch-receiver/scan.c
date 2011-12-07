@@ -5,12 +5,15 @@
  *
  */
 
+#include <asm/errno.h>
 #include <stdio.h>
 #include <netlink/genl/genl.h>
 #include <netlink/genl/family.h>
 #include <netlink/genl/ctrl.h>  
 #include <netlink/msg.h>
 #include <netlink/attr.h>
+
+#include <linux/genetlink.h>
 
 #include "scan.h"
 #include "cb_handlers.c"

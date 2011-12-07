@@ -8,8 +8,7 @@
  */
 
 /* called on error */
-static int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err,
-			 void *arg)
+static int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
 {
 	printf("err=%d\n", err->error);
 	int *ret = arg;
@@ -182,8 +181,6 @@ static int my_cb_handler(struct nl_msg *msg, void *arg)
 	{
                	printf("name: %s\n", nla_get_string(msg_attr_buff[NL80211_ATTR_WIPHY_NAME]));
 		printf("--------------------------------------------------------\n");
-	}
-
 	}
 
 	return NL_SKIP;

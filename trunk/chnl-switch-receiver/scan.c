@@ -114,7 +114,7 @@ __u32 listen_events( struct conn_data *cd )
 	if (!cb) 
         {
 		fprintf(stderr, "failed to allocate netlink callbacks\n");
-		return -ENOMEM;
+		return -1;	//-ENOMEM
 	}
 
 	/* no sequence checking for multicast messages */
@@ -172,7 +172,7 @@ int mgmt_register( struct conn_data *cd )
          * or four bytes for vendor frames including the OUI. The registration cannot be dropped, but is 
          * removed automatically when the netlink socket is closed. Multiple registrations can be made. 
          */
-	genlmsg_put(msg, 0, 0, genl_family_get_id(cd.nl80211), 0, 0, NL80211_CMD_REGISTER_FRAME, 0);
+	genlmsg_put(msg, 0, 0, genl_family_get_id(cd->nl80211), 0, 0, NL80211_CMD_REGISTER_FRAME, 0);
 	
 	/* Device interface index to use (hardcoded) */
 	devid = if_nametoindex("wlan0");
@@ -188,10 +188,10 @@ int mgmt_register( struct conn_data *cd )
         NLA_PUT(msg, NL80211_ATTR_FRAME_MATCH, 1, 0);       
 
 	/* Added in new version */
-	nl_socket_set_cb(cd.nl_sock, s_cb);
+	nl_socket_set_cb(cd->nl_sock, s_cb);
 		
 	/* Send message */
-	error = nl_send_auto_complete(cd.nl_sock, msg);
+	error = nl_send_auto_complete(cd->nl_sock, msg);
 	if(error < 0)
 	{
 		printf("err!");	
@@ -216,7 +216,7 @@ int mgmt_register( struct conn_data *cd )
 	
         /* Wait for ACK */
 	while(error > 0)
-		nl_recvmsgs(cd.nl_sock, cb);
+		nl_recvmsgs(cd->nl_sock, cb);
 
         /* Clean */
 	nl_cb_put(cb);

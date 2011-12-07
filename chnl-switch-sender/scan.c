@@ -216,7 +216,7 @@ int main(int argc, char **argv)
 	
 	//@TODO: Command handler
 	// freq
-	NLA_PUT_U32(freqs, 1, 2422);
+	NLA_PUT_U32(freqs, 1, 2412);
 	// Add ies
 	NLA_PUT(msg, NL80211_ATTR_IE, 64, "123456");
 	//ssids

@@ -22,6 +22,9 @@
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 
+/* debug */
+#define CHNL_SWITCH_DEBUG 1
+
 /* sysfs directory for PCI bus devices */
 #define DEVICE_DIR "/sys/bus/pci/devices/"
 

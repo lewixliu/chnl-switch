@@ -208,7 +208,7 @@ int mgmt_register( struct conn_data *cd )
 	genlmsg_put(msg, 0, 0, genl_family_get_id(cd->nl80211), 0, 0, NL80211_CMD_REGISTER_FRAME, 0);
 	
 	/* Device interface index to use (hardcoded) */
-	devid = if_nametoindex("mon0");
+	devid = if_nametoindex("wlan0");
 	NLA_PUT_U32(msg, NL80211_ATTR_IFINDEX, devid);
 
         /* I chose to receive Probe Request frames (code 0x0040) */
@@ -219,7 +219,7 @@ int mgmt_register( struct conn_data *cd )
          * In case of Probe Requests it is equal to 0 (SSID parameter set).
          */
 	memset(match, 0, 3);
-        NLA_PUT(msg, NL80211_ATTR_FRAME_MATCH, 1, &match[0]);       
+        NLA_PUT(msg, NL80211_ATTR_FRAME_MATCH, 0, NULL);       
 
 	/* Added in new version */
 	nl_socket_set_cb(cd->nl_sock, s_cb);

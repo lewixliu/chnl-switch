@@ -26,22 +26,17 @@
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 
+#include <asm/errno.h> 
+#include <netlink/msg.h>
+#include <netlink/attr.h>
+#include <linux/genetlink.h>
+
 /** Debug flag */
 #define CHNL_SWITCH_DEBUG 1
 
-/** 
- * Names of interface types- the way they are defined in nl80211.h file 
- */
-static const char *if_types[NL80211_IFTYPE_MAX+1] =
-{
-	"UNSPECIFIED",
-	"AD-HOC",
-	"STATION",
-	"ACCESS POINT",
-	"VLAN ACCESS POINT",
-	"WDS",
-	"MONITOR",
-	"MESH POINT"
+struct handler_args {
+	const char *group;
+	int id;
 };
 
 /** 
@@ -57,6 +52,15 @@ struct conn_data
 	struct genl_family *nl80211;
 };
 
+/* Prototypes for cb_handlers */
+int err_handler( struct sockaddr_nl * , struct nlmsgerr * , void * );
+int fin_handler( struct nl_msg * , void * );
+int ack_handler( struct nl_msg * , void * );
+int no_seq_handler(struct nl_msg * , void * );
+int family_handler(struct nl_msg *, void * );
+int custom_event_handler(struct nl_msg * , void * );
+
+
 /* Prototypes for sniffer */
 int conn_init( struct conn_data * );
 
@@ -66,8 +70,6 @@ __u32 listen_events( struct conn_data * );
 int mgmt_register( struct conn_data *, char *, __u16 );
 
 void conn_clean( struct conn_data * );
-
-/* Prototypes for cb_handlers */
 
 
 #endif

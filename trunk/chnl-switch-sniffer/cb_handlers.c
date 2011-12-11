@@ -18,7 +18,7 @@
  *
  * @warning override
  */
-static int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
+int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
 {
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: error %d\n", err->error);
@@ -31,7 +31,7 @@ static int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
  *
  * @warning override
  */
-static int fin_handler(struct nl_msg *msg, void *arg)
+int fin_handler(struct nl_msg *msg, void *arg)
 {
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: finished\n");
@@ -44,7 +44,7 @@ static int fin_handler(struct nl_msg *msg, void *arg)
  *
  * @warning override
  */
-static int ack_handler(struct nl_msg *msg, void *arg)
+int ack_handler(struct nl_msg *msg, void *arg)
 {
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: accepted\n");
@@ -57,11 +57,49 @@ static int ack_handler(struct nl_msg *msg, void *arg)
  *
  * @warning override
  */
-static int no_seq_handler(struct nl_msg *msg, void *arg)
+int no_seq_handler(struct nl_msg *msg, void *arg)
 {
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: sequence\n");
 	return NL_OK;
+}
+
+/**
+ * Handler for netlink family
+ *
+ * @warning Should be in netlink API
+ */
+int family_handler(struct nl_msg *msg, void *arg)
+{
+	struct handler_args *grp = arg;
+	struct nlattr *tb[CTRL_ATTR_MAX + 1];
+	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
+	struct nlattr *mcgrp;
+	int rem_mcgrp;
+
+	nla_parse(tb, CTRL_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
+		  genlmsg_attrlen(gnlh, 0), NULL);
+
+        if (!tb[CTRL_ATTR_MCAST_GROUPS])
+		return NL_SKIP;
+
+	nla_for_each_nested(mcgrp, tb[CTRL_ATTR_MCAST_GROUPS], rem_mcgrp) {
+		struct nlattr *tb_mcgrp[CTRL_ATTR_MCAST_GRP_MAX + 1];
+
+		nla_parse(tb_mcgrp, CTRL_ATTR_MCAST_GRP_MAX,
+			  nla_data(mcgrp), nla_len(mcgrp), NULL);
+
+		if (!tb_mcgrp[CTRL_ATTR_MCAST_GRP_NAME] ||
+		    !tb_mcgrp[CTRL_ATTR_MCAST_GRP_ID])
+			continue;
+		if (strncmp(nla_data(tb_mcgrp[CTRL_ATTR_MCAST_GRP_NAME]),
+			    grp->group, nla_len(tb_mcgrp[CTRL_ATTR_MCAST_GRP_NAME])))
+			continue;
+		grp->id = nla_get_u32(tb_mcgrp[CTRL_ATTR_MCAST_GRP_ID]);
+		break;
+	}
+	
+	return NL_SKIP;
 }
 
 /**
@@ -70,7 +108,7 @@ static int no_seq_handler(struct nl_msg *msg, void *arg)
  * @param msg   Message from interface
  * @param arg   It is possible to pass additional arguments
  */
-static int custom_event_handler(struct nl_msg *msg, void *arg)
+int custom_event_handler(struct nl_msg *msg, void *arg)
 {
         /** Generic netlink message header */
 	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
@@ -124,7 +162,7 @@ static int custom_event_handler(struct nl_msg *msg, void *arg)
 	}
 	
 	if(CHNL_SWITCH_DEBUG)
-		printf("my_event_handler: end\n");
+		printf("custom_event_handler: end\n");
 
 	//fflush(stdout);
 	return NL_SKIP;

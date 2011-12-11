@@ -20,9 +20,9 @@
  */
 int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
 {
+	int *ret = arg;
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: error %d\n", err->error);
-	int *ret = arg;
 	*ret = 0;
 	return NL_STOP;
 }
@@ -33,9 +33,9 @@ int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
  */
 int fin_handler(struct nl_msg *msg, void *arg)
 {
+	int *ret = arg;
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: finished\n");
-	int *ret = arg;
 	*ret = 0;
 	return NL_SKIP;
 }
@@ -46,9 +46,9 @@ int fin_handler(struct nl_msg *msg, void *arg)
  */
 int ack_handler(struct nl_msg *msg, void *arg)
 {
+	int *ret = arg;
         if(CHNL_SWITCH_DEBUG)
                 printf("netlink message: accepted\n");
-	int *ret = arg;
 	*ret = 0;
 	return NL_STOP;
 }
@@ -114,8 +114,6 @@ int custom_event_handler(struct nl_msg *msg, void *arg)
 	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
         /** Buffer for attributes from netlink message */
 	struct nlattr *msg_attr_buff[NL80211_ATTR_MAX + 1];
-        /** Frame TX status */
-	__u16 status;
 	
 	if(CHNL_SWITCH_DEBUG)
 		printf("custom_event_handler: entering\n");
@@ -134,9 +132,6 @@ int custom_event_handler(struct nl_msg *msg, void *arg)
                  * acknowledged the frame.
                  */
                 case NL80211_CMD_FRAME_TX_STATUS:
-                        printf("mgmt TX status (cookie %llx): %s\n",
-                                (unsigned long long)nla_get_u64(msg_attr_buff[NL80211_ATTR_COOKIE]),
-                                msg_attr_buff[NL80211_ATTR_ACK] ? "acked" : "no ack");
                         break;
                 /*
                  * Management frame TX request and RX notification. This command is used both as a request 
@@ -164,6 +159,6 @@ int custom_event_handler(struct nl_msg *msg, void *arg)
 	if(CHNL_SWITCH_DEBUG)
 		printf("custom_event_handler: end\n");
 
-	//fflush(stdout);
+	/*fflush(stdout);*/
 	return NL_SKIP;
 }

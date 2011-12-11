@@ -3,7 +3,7 @@ CC = gcc
 obj = sniffer.o cb_handlers.o
 LIB_PATH = /usr/lib/
 INC_PATH = /usr/include/
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -pedantic
 LDFLAGS = -lnl
 
 all: sniff

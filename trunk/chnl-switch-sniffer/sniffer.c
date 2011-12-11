@@ -22,11 +22,13 @@
  * Should be availble in netlink API
  * @warning possible override
  */
-int nl_get_multicast_id(struct nl_sock *sock, const char *family, const char *group)
+int nl_get_multicast_id(struct nl_handle *sock, const char *family, const char *group)
 {
 	struct nl_msg *msg;
 	struct nl_cb *cb;
 	int ret, ctrlid;
+	
+	/** This rises pedantic warnigs but is allowed under C99 */
 	struct handler_args grp = {
 		.group = group,
 		.id = -ENOENT,
@@ -133,12 +135,11 @@ int conn_init( struct conn_data *cd )
  */
 int listen_events_init( struct conn_data *cd )
 {
+	int multicast_id;
+        int ret;
 
 	if(CHNL_SWITCH_DEBUG)
 		printf("listen_events_init: entering\n");
-	
-	int multicast_id;
-        int ret;
 
 	/* Get configuration multicast group ID */
 	multicast_id = nl_get_multicast_id(cd->nl_sock, "nl80211", "config");
@@ -187,19 +188,18 @@ int listen_events_init( struct conn_data *cd )
  */
 __u32 listen_events( struct conn_data *cd )
 {
-	
-	if(CHNL_SWITCH_DEBUG)
-		printf("listen_events: entering\n");	
-
         /** Default netlink callback */
 	struct nl_cb *cb = nl_cb_alloc(NL_CB_DEFAULT);
         /** Command */
 	__u32 command; 
 
+	if(CHNL_SWITCH_DEBUG)
+		printf("listen_events: entering\n");	
+
 	if (!cb) 
         {
 		fprintf(stderr, "failed to allocate netlink callbacks\n");
-		return -1;	//-ENOMEM
+		return -ENOMEM;
 	}
 
 	/* no sequence checking for multicast messages */
@@ -357,14 +357,13 @@ void conn_clean( struct conn_data *cd)
 /** Main application flow */
 int main(int argc, char **argv)
 {
-	
-	if(CHNL_SWITCH_DEBUG)
-		printf("main: entering\n");	
-
 	/** Connection data ( netlink socket etc. ) */
 	struct conn_data cd;
 	/** Error returned */
 	int error;
+
+	if(CHNL_SWITCH_DEBUG)
+		printf("main: entering\n");	
 
 	/* Initialize connection data */
 	error = conn_init(&cd);
@@ -390,12 +389,11 @@ int main(int argc, char **argv)
         /* Listen to events */
         listen_events(&cd);
 		
-	// cleanup 
+	/* Cleanup */ 
 	conn_clean(&cd);
 	
 	if(CHNL_SWITCH_DEBUG)
 		printf("main: end\n");
-	
-nla_put_failure:
+
 	return 0;
 }

@@ -1,6 +1,8 @@
 /* 
  * @file sniffer.c
- * Sniffer initializes netlink sockets to listen for chosen events/frames
+ * @brief Main chnl-switch-sniffer file.
+ * 
+ * @details Sniffer initializes netlink sockets to listen for chosen events/frames
  * 
  * @author Marcin Harasimczuk
  *
@@ -19,16 +21,18 @@
 #include "sniffer.h"
 
 /** 
- * Should be availble in netlink API
+ * @brief Should be availble in netlink API
  * @warning possible override
  */
 int nl_get_multicast_id(struct nl_handle *sock, const char *family, const char *group)
 {
+        /* Netlink message */
 	struct nl_msg *msg;
+        /* Callback */
 	struct nl_cb *cb;
 	int ret, ctrlid;
 	
-	/** This rises pedantic warnigs but is allowed under C99 */
+	/* This rises pedantic warnigs but is allowed under C99 */
 	struct handler_args grp = {
 		.group = group,
 		.id = -ENOENT,
@@ -76,10 +80,11 @@ int nl_get_multicast_id(struct nl_handle *sock, const char *family, const char *
 }
 
 /**
- * Initialize connection data structure
+ * @brief Initialize connection data structure
  */
 int conn_init( struct conn_data *cd )
 {
+        /* Return value for functions */
 	int error = 0;
 
 	
@@ -129,13 +134,15 @@ int conn_init( struct conn_data *cd )
 }
 
 /** 
- * Register connection data for nl80211 events.
+ * @brief Register connection data for nl80211 events.
  *
  * @pre Initialize connection data first.
  */
 int listen_events_init( struct conn_data *cd )
 {
+        /* ID of found multicast group */
 	int multicast_id;
+        /* Return value for functions */
         int ret;
 
 	if(CHNL_SWITCH_DEBUG)
@@ -182,15 +189,15 @@ int listen_events_init( struct conn_data *cd )
 }
 
 /**
- * Wait for events 
+ * @brief Wait for events 
  *
  * @pre Initialize connection data for event listening.
  */
 __u32 listen_events( struct conn_data *cd )
 {
-        /** Default netlink callback */
+        /* Default callback */
 	struct nl_cb *cb = nl_cb_alloc(NL_CB_DEFAULT);
-        /** Command */
+        /* Command */
 	__u32 command; 
 
 	if(CHNL_SWITCH_DEBUG)
@@ -223,7 +230,7 @@ __u32 listen_events( struct conn_data *cd )
 }
 
 /**
- * Register Management frame type/subtype for processing in userspace
+ * @brief Register Management frame type/subtype for processing in userspace
  *
  * @pre Initialize connection data
  *
@@ -234,17 +241,15 @@ __u32 listen_events( struct conn_data *cd )
  */
 int mgmt_register( struct conn_data *cd, char *if_name, __u16 fr_type )
 {
-	/** Callback */
+	/* Callback */
 	struct nl_cb *cb;
-        /** Callback 
-         * @warning new version
-         */
+        /* Callback - new version */
 	struct nl_cb *s_cb;
-        /** Message to send */
+        /* Message to send */
 	struct nl_msg *msg;
-        /** Return value of functions */
+        /* Return value of functions */
 	int error;
-        /** Device ID of if_name*/
+        /* Device ID of if_name */
 	int devid = 0;  
 
 
@@ -337,7 +342,7 @@ nla_put_failure:
 }
 
 /**
- * Clean connection data
+ * @brief Clean connection data
  */
 void conn_clean( struct conn_data *cd)
 {
@@ -354,12 +359,12 @@ void conn_clean( struct conn_data *cd)
 	
 }
 
-/** Main application flow */
+/** @brief Main application flow */
 int main(int argc, char **argv)
 {
-	/** Connection data ( netlink socket etc. ) */
+	/* Connection data ( netlink socket etc. ) */
 	struct conn_data cd;
-	/** Error returned */
+	/* Error returned */
 	int error;
 
 	if(CHNL_SWITCH_DEBUG)

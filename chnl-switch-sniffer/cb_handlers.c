@@ -1,20 +1,20 @@
 /**
  * @file cb_handlers.c 
- * Implementation of callback handlers.
- * Implementation of callbacks used for custom actions while receiving 
+ * @brief Implementation of callback handlers.
+ *
+ * @details Implementation of callbacks used for custom actions while receiving 
  * messages from nl80211 interface. 
  *
  * @author Marcin Harasimczuk
  *
  * @date 10.12.2011
  *
- *
  */
 
 #include "sniffer.h"
 
 /**
- * Handler called when netlink interface answers with an error.
+ * @brief Handler called when netlink interface answers with an error.
  *
  * @warning override
  */
@@ -27,7 +27,7 @@ int err_handler(struct sockaddr_nl *nla, struct nlmsgerr *err, void *arg)
 	return NL_STOP;
 }
 /**
- * Handler called in series of packets
+ * @brief Handler called in series of packets.
  *
  * @warning override
  */
@@ -40,7 +40,7 @@ int fin_handler(struct nl_msg *msg, void *arg)
 	return NL_SKIP;
 }
 /**
- * Handler called when message has been accepted by netlink
+ * @brief Handler called when message has been accepted by netlink.
  *
  * @warning override
  */
@@ -53,7 +53,7 @@ int ack_handler(struct nl_msg *msg, void *arg)
 	return NL_STOP;
 }
 /**
- * Handler called between received events
+ * @brief Handler called between received events.
  *
  * @warning override
  */
@@ -65,7 +65,7 @@ int no_seq_handler(struct nl_msg *msg, void *arg)
 }
 
 /**
- * Handler for netlink family
+ * @brief Handler for netlink family.
  *
  * @warning Should be in netlink API
  */
@@ -103,16 +103,16 @@ int family_handler(struct nl_msg *msg, void *arg)
 }
 
 /**
- * Handler called when event is ready to be processed
+ * @brief Handler called when event is ready to be processed.
  *
- * @param msg   Message from interface
- * @param arg   It is possible to pass additional arguments
+ * @param msg   Message from interface.
+ * @param arg   It is possible to pass additional arguments.
  */
 int custom_event_handler(struct nl_msg *msg, void *arg)
 {
-        /** Generic netlink message header */
+        /* Generic netlink message header */
 	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
-        /** Buffer for attributes from netlink message */
+        /* Buffer for attributes from netlink message */
 	struct nlattr *msg_attr_buff[NL80211_ATTR_MAX + 1];
 	
 	if(CHNL_SWITCH_DEBUG)

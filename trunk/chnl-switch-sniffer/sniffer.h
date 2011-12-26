@@ -1,7 +1,8 @@
 /** 
  * @file sniffer.h
- * Main header for chnl-switch-sniffer.
- * Netlink communication structures and functions.
+ * @brief Main header for chnl-switch-sniffer.
+ *
+ * @details Netlink communication structures and functions.
  *
  * @author Marcin Harasimczuk
  *
@@ -31,16 +32,17 @@
 #include <netlink/attr.h>
 #include <linux/genetlink.h>
 
-/** Debug flag */
+/** @brief Debug flag */
 #define CHNL_SWITCH_DEBUG 1
 
+/** @brief arguments of handler @warning override */
 struct handler_args {
 	const char *group;
 	int id;
 };
 
 /** 
- * Structure containing netlink connection data 
+ * @brief Structure containing netlink connection data 
  */
 struct conn_data 
 {

@@ -1,0 +1,45 @@
+\begin{thebibliography}{1}
+
+\bibitem{pub:Comparison}
+A.Barbalace, A.Lucheta, G.Manduchi, M.Moro, A.Soppelsa, and C.Taliercio.
+\newblock \emph{Performance Comparison of VxWorks, Linux, RTAI and Xenomai in a
+  Hard Real-time Application}, 2007.
+
+\bibitem{std:IEEE80211}
+IEEE~Standards Association.
+\newblock \emph{IEEE802.11-2007: Wireless LAN Medium Access Control (MAC) and
+  Physical Layer (PHY) specifications}, 2007.
+
+\bibitem{std:IEEE80211n}
+IEEE~Standards Association.
+\newblock \emph{IEEE802.11n-2009: Wireless LAN Medium Access Control (MAC) and
+  Physical Layer (PHY) specifications}, 2009.
+
+\bibitem{pub:802.11e}
+Gianluca Cena, Lucia Seno, Adiano Valenzano, and Claudio Zunino.
+\newblock \emph{On the Performance of IEEE 802.11e Wireless Infrastructures for
+  Soft-Real-Time Industrial Applications}, 2010.
+
+\bibitem{www:LinuxTCHowto}
+Bert Hubert, Thomas Graf, Gregory Maxwell, Remco van Mook, Martijn van
+  Oosterhout, Paul~B Schroeder, Jasper Spaans, and Pedro Larroy.
+\newblock \emph{Linux Advanced Routing \& Traffic Control HOWTO}.
+
+\bibitem{pub:QoS}
+Richard Kelly and Joseph Gasparakis.
+\newblock \emph{Common Functionality in the 2.6 Linux Network Stack}, 2010.
+
+\bibitem{www:DieMan}
+Linux manual.
+\newblock \emph{die.net}.
+
+\bibitem{wiki:RTLinux}
+Theodore Ts'o, Darren Hart, and John Kacur.
+\newblock \emph{Real-Time Linux Wiki}, 2008.
+
+\bibitem{pub:DCS}
+Gang Wu, Sathyanarayana Singh, and Tzi cker Chiueh.
+\newblock \emph{Implementation of Dynamic Channel Switching on IEEE
+  802.11-Based Wireless Mesh Networks}, 2008.
+
+\end{thebibliography}

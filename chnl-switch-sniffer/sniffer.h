@@ -54,6 +54,9 @@ struct conn_data
 	struct genl_family *nl80211;
 };
 
+/* Prototypes for counter */
+void handle_frame( struct nlattr *nl_frame );
+
 /* Prototypes for cb_handlers */
 int err_handler( struct sockaddr_nl * , struct nlmsgerr * , void * );
 int fin_handler( struct nl_msg * , void * );

@@ -19,6 +19,7 @@
 #include <net/if.h>
 
 #include "sniffer.h"
+#include "usr_iface.h"
 
 /** 
  * @brief Should be availble in netlink API
@@ -341,10 +342,30 @@ nla_put_failure:
 	return 0;
 }
 
+int roaming_init( struct conn_data *cd )
+{
+        int error;
+
+        error = 0;
+
+        /* Disassociate frame */
+        error = mgmt_register(cd, "wlan0", 0x0100);
+        if(error < 0)
+                return error;
+
+        /* Association response */
+        error = mgmt_register(cd, "wlan0", 0x0010);
+        if(error < 0)
+                return error;
+
+        return error;
+}
+
+
 /**
  * @brief Clean connection data
  */
-void conn_clean( struct conn_data *cd)
+void conn_clean( struct conn_data *cd )
 {
 			
 	if(CHNL_SWITCH_DEBUG)
@@ -367,6 +388,11 @@ int main(int argc, char **argv)
 	/* Error returned */
 	int error;
 
+        /* File holding experiment output */
+        FILE exp_fd;
+        /* Roaming data */
+        roaming_data rd;
+
 	if(CHNL_SWITCH_DEBUG)
 		printf("main: entering\n");	
 
@@ -375,12 +401,31 @@ int main(int argc, char **argv)
 	if(error < 0) 
 		return -1;
 	
-        /* Register for MGMT Probe Request processing in user space */
-        error = mgmt_register(&cd, "wlan0", 0x0040);
-        if(error < 0)
+        /* Get user input: Experiment file */
+        error = open_exp(&exp_fd);
+        if(error <  0)
         {
                 conn_clean(&cd);
                 return -2;
+        }
+
+        /* Get user input: Roaming data */
+        error = init_roaming_data(&rd);
+        if(error < 0)
+        {
+                close_exp(&exp_fd);
+                conn_clean(&cd);
+                return -3;
+        }
+
+        /* Register roaming 802.11 data frames in kernel */
+        error = roaming_init(&cd);
+        if(error < 0)
+        {
+                close_exp(&exp_fd);
+                conn_clean(&cd);
+                clean_roaming_data(&rd);
+                return -4;
         }
 
         /* Prepare to listen to nl80211 events */

@@ -49,12 +49,17 @@ void handle_frame(struct nlattr *nl_frame)
 	        case 0x10: /* assoc resp */
 	        case 0x30: /* reassoc resp */
                 case 0x00: /* assoc req */
+                        printf("[assoc req]\n");
+                        break;
                 case 0x20: /* reassoc req */
                 case 0x40: /* probe req */
                 case 0x50: /* probe resp */
                 case 0xb0: /* auth */
                 case 0xa0: /* disassoc */
+                        printf("[disassoc]\n");
+                        break;
                 case 0xc0: /* deauth */
+                        break;
         }
 
 }

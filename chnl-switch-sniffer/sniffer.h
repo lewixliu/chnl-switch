@@ -31,6 +31,8 @@
 #include <netlink/msg.h>
 #include <netlink/attr.h>
 #include <linux/genetlink.h>
+#include <sys/time.h>
+#include <stdbool.h>
 
 /** @brief Debug flag */
 #define CHNL_SWITCH_DEBUG 1
@@ -54,6 +56,14 @@ struct conn_data
 	struct genl_family *nl80211;
 };
 
+struct event_handler_args
+{
+   	struct timeval ts;
+	bool have_ts;
+	bool frame, time, reltime;
+        void (*handle_frame)(struct nlattr *nl_frame);
+};
+
 /* Prototypes for counter */
 void handle_frame( struct nlattr *nl_frame );
 
@@ -70,7 +80,7 @@ int custom_event_handler(struct nl_msg * , void * );
 int conn_init( struct conn_data * );
 
 int listen_events_init( struct conn_data * );
-__u32 listen_events( struct conn_data * );
+__u32 listen_events( struct conn_data *, void (*fptr_handle_frame)(struct nlattr *nl_frame) );
 
 int mgmt_register( struct conn_data *, char *, __u16 );
 

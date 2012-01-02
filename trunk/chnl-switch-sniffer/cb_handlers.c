@@ -114,9 +114,15 @@ int custom_event_handler(struct nl_msg *msg, void *arg)
 	struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
         /* Buffer for attributes from netlink message */
 	struct nlattr *msg_attr_buff[NL80211_ATTR_MAX + 1];
-	
+	struct event_handler_args *args = arg;
+        
 	if(CHNL_SWITCH_DEBUG)
 		printf("custom_event_handler: entering\n");
+
+        gettimeofday(&args->ts, NULL);
+	unsigned long long usec = 1000000LL * args->ts.tv_sec + args->ts.tv_usec;	
+	printf("%llu.%06llu\n", usec/1000000, usec % 1000000);
+	args->have_ts = true;
 
         /* Extract attributes */
 	nla_parse(msg_attr_buff, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
@@ -149,7 +155,8 @@ int custom_event_handler(struct nl_msg *msg, void *arg)
                  * frames at CCK rate or not in 2GHz band. 
                  */
                 case NL80211_CMD_FRAME:
-                        printf("Frame recieved!\n");
+                        if(msg_attr_buff[NL80211_ATTR_FRAME])
+                                args->handle_frame(msg_attr_buff[NL80211_ATTR_FRAME]);
                         break;
                 default:
                         printf("unknown event %d\n", gnlh->cmd);

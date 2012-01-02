@@ -194,12 +194,17 @@ int listen_events_init( struct conn_data *cd )
  *
  * @pre Initialize connection data for event listening.
  */
-__u32 listen_events( struct conn_data *cd )
+__u32 listen_events( struct conn_data *cd, void (*fptr_handle_frame)(struct nlattr *nl_frame) )
 {
         /* Default callback */
 	struct nl_cb *cb = nl_cb_alloc(NL_CB_DEFAULT);
         /* Command */
 	__u32 command; 
+        /* Argument */
+        struct event_handler_args args;
+        memset(&args, 0, sizeof(args));
+        args.have_ts = false;
+        args.handle_frame = fptr_handle_frame;
 
 	if(CHNL_SWITCH_DEBUG)
 		printf("listen_events: entering\n");	
@@ -213,7 +218,7 @@ __u32 listen_events( struct conn_data *cd )
 	/* no sequence checking for multicast messages */
 	nl_cb_set(cb, NL_CB_SEQ_CHECK, NL_CB_CUSTOM, no_seq_handler, NULL);
         /* set custom event handler */
-	nl_cb_set(cb, NL_CB_VALID, NL_CB_CUSTOM, custom_event_handler, NULL);
+	nl_cb_set(cb, NL_CB_VALID, NL_CB_CUSTOM, custom_event_handler, &args);
 
 	command = 0;
 
@@ -348,16 +353,21 @@ int roaming_init( struct conn_data *cd )
 
         error = 0;
 
-        /* Disassociate frame */
-        error = mgmt_register(cd, "wlan0", 0x0100);
+        /* Association request frame */
+        error = mgmt_register(cd, "wlan0", 0x0000);
         if(error < 0)
                 return error;
 
-        /* Association response */
+        /* Disassociate frame */
+        error = mgmt_register(cd, "wlan0", 0x00a0);
+        if(error < 0)
+                return error;
+
+        /* Association response 
         error = mgmt_register(cd, "wlan0", 0x0010);
         if(error < 0)
                 return error;
-
+        */
         return error;
 }
 
@@ -401,7 +411,8 @@ int main(int argc, char **argv)
 	if(error < 0) 
 		return -1;
 	
-        /* Get user input: Experiment file */
+
+        /* Get user input: Experiment file 
         error = open_exp(&exp_fd);
         if(error <  0)
         {
@@ -409,7 +420,7 @@ int main(int argc, char **argv)
                 return -2;
         }
 
-        /* Get user input: Roaming data */
+        /a* Get user input: Roaming data
         error = init_roaming_data(&rd);
         if(error < 0)
         {
@@ -417,6 +428,7 @@ int main(int argc, char **argv)
                 conn_clean(&cd);
                 return -3;
         }
+        */
 
         /* Register roaming 802.11 data frames in kernel */
         error = roaming_init(&cd);
@@ -437,7 +449,7 @@ int main(int argc, char **argv)
         }
 
         /* Listen to events */
-        listen_events(&cd);
+        listen_events(&cd, handle_frame);
 		
 	/* Cleanup */ 
 	conn_clean(&cd);

@@ -1,5 +1,62 @@
 #include "int.h"
 
+
+/* Lengths of 802.11 header components. */
+#define	IEEE802_11_FC_LEN		2
+#define	IEEE802_11_DUR_LEN		2
+#define	IEEE802_11_DA_LEN		6
+#define	IEEE802_11_SA_LEN		6
+#define	IEEE802_11_BSSID_LEN		6
+#define	IEEE802_11_RA_LEN		6
+#define	IEEE802_11_TA_LEN		6
+#define	IEEE802_11_SEQ_LEN		2
+#define	IEEE802_11_CTL_LEN		2
+#define	IEEE802_11_IV_LEN		3
+#define	IEEE802_11_KID_LEN		1
+
+/* Frame check sequence length. */
+#define	IEEE802_11_FCS_LEN		4
+
+/* Lengths of beacon components. */
+#define	IEEE802_11_TSTAMP_LEN		8
+#define	IEEE802_11_BCNINT_LEN		2
+#define	IEEE802_11_CAPINFO_LEN		2
+#define	IEEE802_11_LISTENINT_LEN	2
+
+#define	IEEE802_11_AID_LEN		2
+#define	IEEE802_11_STATUS_LEN		2
+#define	IEEE802_11_REASON_LEN		2
+
+/* Length of previous AP in reassocation frame */
+#define	IEEE802_11_AP_LEN		6
+
+#define	T_MGMT 0x0  /* management */
+#define	T_CTRL 0x1  /* control */
+#define	T_DATA 0x2 /* data */
+#define	T_RESV 0x3  /* reserved */
+
+#define	ST_ASSOC_REQUEST   	0x0
+#define	ST_ASSOC_RESPONSE 	0x1
+#define	ST_REASSOC_REQUEST   	0x2
+#define	ST_REASSOC_RESPONSE  	0x3
+#define	ST_PROBE_REQUEST   	0x4
+#define	ST_PROBE_RESPONSE   	0x5
+/* RESERVED 			0x6  */
+/* RESERVED 			0x7  */
+#define	ST_BEACON   		0x8
+#define	ST_ATIM			0x9
+#define	ST_DISASSOC		0xA
+#define	ST_AUTH			0xB
+#define	ST_DEAUTH		0xC
+#define	ST_ACTION		0xD
+/* RESERVED 			0xE  */
+/* RESERVED 			0xF  */
+
+#define	FC_TYPE(fc)		(((fc) >> 2) & 0x3)
+#define	FC_SUBTYPE(fc)		(((fc) >> 4) & 0xF)
+
+
+
 /*
  * Macros to extract possibly-unaligned little-endian integral values.
  * XXX - do loads on little-endian machines that support unaligned loads?
@@ -415,6 +472,121 @@ print_radiotap_field(struct cpack_state *s, u_int32_t bit, u_int8_t *flags)
 	return 0;
 }
 
+static u_int
+ieee802_11_print(const u_char *p, u_int length, u_int orig_caplen, int pad,
+    u_int fcslen)
+{
+	u_int16_t fc;
+	u_int caplen, hdrlen;
+	const u_int8_t *src, *dst;
+
+	caplen = orig_caplen;
+	/* Remove FCS, if present */
+	if (length < fcslen) {
+		printf("[|802.11]");
+		return caplen;
+	}
+	length -= fcslen;
+	if (caplen > length) {
+		/* Amount of FCS in actual packet data, if any */
+		fcslen = caplen - length;
+		caplen -= fcslen;
+		/*snapend -= fcslen;*/
+	}
+
+	if (caplen < IEEE802_11_FC_LEN) {
+		printf("[|802.11]");
+		return orig_caplen;
+	}
+
+	fc = EXTRACT_LE_16BITS(p);
+
+        if(FC_TYPE(fc) == T_MGMT)
+        {
+                switch (FC_SUBTYPE(fc)) {
+                case ST_ASSOC_REQUEST:
+                        printf("Assoc Request");
+                        /*return handle_assoc_request(p, length);*/
+                        break;
+                case ST_ASSOC_RESPONSE:
+                        printf("Assoc Response");
+                        /*return handle_assoc_response(p, length);*/
+                        break;
+                case ST_REASSOC_REQUEST:
+                        printf("ReAssoc Request");
+                        /*return handle_reassoc_request(p, length);*/
+                        break;
+                case ST_REASSOC_RESPONSE:
+                        printf("ReAssoc Response");
+                        /*return handle_reassoc_response(p, length);*/
+                        break;
+                case ST_PROBE_REQUEST:
+                        printf("Probe Request");
+                        /*return handle_probe_request(p, length);*/
+                        break;
+                case ST_PROBE_RESPONSE:
+                        printf("Probe Response");
+                        /*return handle_probe_response(p, length);*/
+                        break;
+                case ST_BEACON:
+                        printf("Beacon");
+                        /*return handle_beacon(p, length);*/
+                        break;
+                case ST_ATIM:
+                        printf("ATIM");
+                        /*return handle_atim();*/
+                        break;
+                case ST_DISASSOC:
+                        printf("Disassociation");
+                        /*return handle_disassoc(p, length);*/
+                        break;
+                case ST_AUTH:
+                        printf("Authentication");
+                        /*
+                        if (!TTEST2(*p, 3))
+                                return 0;
+                        if ((p[0] == 0 ) && (p[1] == 0) && (p[2] == 0)) {
+                                printf("Authentication (Shared-Key)-3 ");
+                                return wep_print(p);
+                        }
+                        return handle_auth(p, length);
+                        */
+                        break;
+                case ST_DEAUTH:
+                        printf("DeAuthentication");
+                        /*return handle_deauth(pmh, p, length);*/
+                        break;
+                case ST_ACTION:
+                        printf("Action");
+                        /*return handle_action(pmh, p, length);*/
+                        break;
+                default:
+                        printf("Unhandled Management subtype(%x)",
+                            FC_SUBTYPE(fc));
+                        break;
+                }
+        }
+        else
+        {
+                printf(" Not MGMT ");
+        }
+
+
+	return 0;
+}
+
+/*
+ * This is the top level routine of the printer.  'p' points
+ * to the 802.11 header of the packet, 'h->ts' is the timestamp,
+ * 'h->len' is the length of the packet off the wire, and 'h->caplen'
+ * is the number of bytes actually captured.
+ */
+u_int
+ieee802_11_if_print(const struct pcap_pkthdr *h, const u_char *p)
+{
+	return ieee802_11_print(p, h->len, h->caplen, 0, 0);
+}
+
 
 static u_int
 ieee802_11_radio_print(const u_char *p, u_int length, u_int caplen)
@@ -499,9 +671,8 @@ ieee802_11_radio_print(const u_char *p, u_int length, u_int caplen)
 	if (flags & IEEE80211_RADIOTAP_F_FCS)
 		fcslen = 4;	/* FCS at end of packet */
 out:
-	return len;
-        /*+ ieee802_11_print(p + len, length - len, caplen - len, pad,
-	    fcslen);*/
+	return len + ieee802_11_print(p + len, length - len, caplen - len, pad,
+	    fcslen);
 #undef BITNO_32
 #undef BITNO_16
 #undef BITNO_8

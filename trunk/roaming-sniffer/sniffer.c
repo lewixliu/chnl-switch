@@ -23,6 +23,8 @@
 #include <fcntl.h>
 #include <stdarg.h>
 
+
+
 #include "if.h"
 
 /* Signal compatibility */
@@ -45,6 +47,12 @@ static u_int nofpackets;
 /** Capture device */
 static pcap_t *pdev;
 
+/** Raw socket descriptor. */
+int skfd;
+/** ioctl request data. */
+struct iwreq wrq;
+
+
 /**
  * @brief Structure for additional args of sniffer loop.
  * @details Not used right now
@@ -53,6 +61,51 @@ struct loop_args
 {
         int arg;
 };
+
+/**
+ * @brief Translate frequency in double to structure iwfreq.
+ * @details No FP in kernel.
+ */
+void float2freq(double in, struct iw_freq *out)
+{
+        out->e = (short) (floor(log10(in)));
+        if(out->e > 8)
+        {
+                out->m = ((long) (floor(in / pow(10,out->e - 6)))) * 100;
+                out->e -= 8;
+        }
+        else
+        {
+                out->m = in;
+                out->e = 0;
+        }
+}
+
+/**
+ * @brief Return socket for commands.
+ * @details Try to create usefull socket.
+ */
+int sockets_open(void)
+{
+        int ipx_sock = -1;      /* IPX socket */
+        int ax25_sock = -1;     /* AX.25 socket */
+        int inet_sock = -1;     /* INET socket  */
+        int ddp_sock = -1;      /* Appletalk DDP socket */
+
+        inet_sock=socket(AF_INET, SOCK_DGRAM, 0);
+        ipx_sock=socket(AF_IPX, SOCK_DGRAM, 0);
+        ax25_sock=socket(AF_AX25, SOCK_DGRAM, 0);
+        ddp_sock=socket(AF_APPLETALK, SOCK_DGRAM, 0);
+        /* Now pick any (exisiting) useful socket family for generic queries */
+        if(inet_sock!=-1)
+                return inet_sock;
+        if(ipx_sock!=-1)
+                return ipx_sock;                                              
+        if(ax25_sock!=-1)
+                return ax25_sock;
+
+        return ddp_sock;
+}
 
 /**
  * @brief Function for opening external filter file.
@@ -151,7 +204,10 @@ main(int argc, char **argv)
 
         char *filter;
 
-        /**
+        char *ifname;
+        double freq;
+
+        /*
          * Hardcoded:
          * Always listen on mon0 monitor interface.
          * With snapshot size 65000.
@@ -162,6 +218,24 @@ main(int argc, char **argv)
 	cnt = -1;
 	device = "mon0";
         filter = read_filter("filter");
+        
+        /*
+         * Prepare data for channel switching ioctl
+         */
+        skfd = -1;
+        ifname = "wlan0";
+        freq = 2472000000;
+
+        /* Create channel to NET kernel */
+        if((skfd = sockets_open()) < 0)
+        {
+                fprintf(stderr,"cannot open socket\n");
+                exit(-1);
+        }
+
+        /* Pre-initialize ioctl data request structure */
+        strncpy(wrq.ifr_name, ifname, IFNAMSIZ);
+        float2freq(freq, &(wrq.u.freq));
 
         /* Create capture device */
         pdev = pcap_create(device, ebuf);
@@ -282,6 +356,7 @@ clean(int signo)
 {
 	alarm(0);
 	pcap_breakloop(pdev);
+        close(skfd);
 	exit(0);
 }
 

@@ -8,7 +8,25 @@
 #ifndef IF_H
 #define IF_H
 
+#include <sys/types.h>
+#include <sys/ioctl.h>
+#include <math.h>
+#include <errno.h>
+#include <ctype.h>
+#include <unistd.h>
+#include <netdb.h>      
+
+#include <linux/if_arp.h>        /* For ARPHRD_ETHER */
+#include <linux/socket.h>     /* For AF_INET & struct sockaddr */
+//#include <linux/in.h>         /* For struct sockaddr_in */
+
+/* Wireless extensions */
+#include <linux/wireless.h>
+
 #include<pcap.h>
+
+extern int skfd;
+extern struct iwreq wrq;
 
 /**
  * @brief Parse 802.11 frame.

@@ -110,7 +110,12 @@ ieee802_11_parse(const u_char *packet, u_int length, u_int orig_caplen, int padd
                         printf("ATIM\n");
                         break;
                 case ST_DISASSOC:
-                        printf("Disassociation\n");
+                        if(ioctl(skfd, SIOCSIWFREQ, &wrq) < 0)
+                        {
+                                fprintf(stderr, "failed to switch channel\n");
+                                return(-1);
+                        }                                                   
+                        printf("Disassociation - channel switched\n");
                         break;
                 case ST_AUTH:
                         printf("Authentication\n");

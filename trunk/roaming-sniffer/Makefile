@@ -2,12 +2,12 @@ CC = gcc
 
 obj = unpack.o ieee802_11.o sniffer.o
 CFLAGS = -Wall -g -pedantic
-LDFLAGS= -lpcap
+LDFLAGS= -lpcap -lm
 
 all: sniff
 
 sniff : $(obj)
-	$(CC) -o sniff $(LDFLAGS) $(obj)
+	$(CC) -o sniff $(obj) $(LDFLAGS)
 
 sniffer.o: sniffer.c
 	$(CC) $(CFLAGS) -c sniffer.c

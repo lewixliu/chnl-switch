@@ -1,3 +1,12 @@
+/**
+ * @file sniffer.c
+ * @brief Main sniffer loop initialization.
+ * @details Main function: Creating and initializing 
+ * capture device; parsing filter file; handling of interrupts;
+ * starting main loop.
+ *
+ * @author Marcin Harasimczuk
+ */
 
 #include <pcap.h>
 #include <signal.h>
@@ -10,29 +19,116 @@
 #include <pwd.h>
 #include <grp.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdarg.h>
 
-#include "int.h"
+#include "if.h"
 
 /* Signal compatibility */
 #define RETSIGTYPE void
 #define RETSIGVAL
-
-
-int32_t thiszone;		/* seconds offset from gmt to local time */
-char *program_name;
+/* POSIX compatybility */
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 static RETSIGTYPE clean(int);
 static RETSIGTYPE child_clean(int);
 
+/**
+ * @brief Handle packet that was not filtered by external filter expression.
+ */
 static void handle_packet(u_char *, const struct pcap_pkthdr *, const u_char *);
 static u_int nofpackets;
 
+/** Capture device */
 static pcap_t *pdev;
 
+/**
+ * @brief Structure for additional args of sniffer loop.
+ * @details Not used right now
+ */
 struct loop_args 
 {
         int arg;
 };
+
+/**
+ * @brief Function for opening external filter file.
+ * @details Function opens an external file and extracts filter string.
+ */
+char *read_filter(char *filename)
+{
+        register int i, fd, cc;
+        register char *cp;
+        struct stat buf;
+
+        fd = open(filename, O_RDONLY|O_BINARY);
+        if(fd < 0)
+        {
+                fprintf(stderr,"cannot open file.\n");
+        }
+
+        if(fstat(fd, &buf) < 0)
+        {
+                fprintf(stderr,"cannot stat.\n");
+        }
+
+        cp = malloc((u_int)buf.st_size + 1);
+        if(cp == NULL)
+        {
+                fprintf(stderr,"cannot malloc.\n");
+        }
+
+        cc = read(fd, cp, (u_int)buf.st_size);
+        if(cc < 0)
+        {
+                fprintf(stderr,"cannot read.\n");
+        }
+
+        if(cc != buf.st_size)
+        {
+                fprintf(stderr,"short read.\n");
+        }
+
+        close(fd);
+
+        cp[cc] = '\0';
+        return cp;
+}
+
+/**
+ * @biref Function printing relative time of packet arrival.
+ * @details Used for 802.11 measurments.
+ */
+void show_time(register const struct timeval *tv)
+{
+        static unsigned _sec;
+        static unsigned _usec;
+        static char time[sizeof("00:00:00.000000")];
+        int sec;
+        int usec;
+        
+        if(_sec == 0)
+        {
+                _usec = tv->tv_usec;
+                _sec = tv->tv_sec;
+        }
+
+        usec = tv->tv_usec - _usec;
+        sec = tv->tv_sec - _sec;
+
+        while(usec < 0)
+        {
+                usec += 1000000;
+                sec--;
+        }
+        
+        snprintf(time, sizeof(time), "%02d:%02d:%02d.%06u", 
+                        sec / 3600, (sec % 3600) / 60, sec % 60, usec);
+        printf("%s ", time);
+}
 
 int
 main(int argc, char **argv)
@@ -51,11 +147,21 @@ main(int argc, char **argv)
         struct bpf_program filtercode;
 
         pcap_handler callback;
-	RETSIGTYPE (*oldhandler)(int);
+        RETSIGTYPE(*oldhandler)(int);
 
+        char *filter;
+
+        /**
+         * Hardcoded:
+         * Always listen on mon0 monitor interface.
+         * With snapshot size 65000.
+         * Listen forever.
+         * Open filter filenamne "filter".
+         */
         snapshot_size = 65000;
 	cnt = -1;
 	device = "mon0";
+        filter = read_filter("filter");
 
         /* Create capture device */
         pdev = pcap_create(device, ebuf);
@@ -68,11 +174,13 @@ main(int argc, char **argv)
                 fprintf(stderr, "cannot set snapshot size: %s: %s\n",
                         device, pcap_statustostr(err));
 
+        /* Set promiscus mode */
         err = pcap_set_promisc(pdev, 1);
         if (err != 0)
                 fprintf(stderr, "cannot set promiscus mode: %s: %s\n",
                         device, pcap_statustostr(err));
 
+        /* Set timeout */
         err = pcap_set_timeout(pdev, 1000);
         if (err != 0)
                 fprintf(stderr, "cannot set timeout: %s: %s\n",
@@ -126,8 +234,8 @@ main(int argc, char **argv)
                 fprintf(stderr, "network lookup: %s\n", ebuf);
         }
 
-        /* Compile filter code - not used yet */
-	if (pcap_compile(pdev, &filtercode, NULL, 0, netmask) < 0)
+        /* Compile filter code */
+	if (pcap_compile(pdev, &filtercode, filter, 0, netmask) < 0)
 		fprintf(stderr, "filter compilation error: %s", pcap_geterr(pdev));
 
         /* Set signals for graceful exit */
@@ -139,7 +247,7 @@ main(int argc, char **argv)
 	if ((oldhandler = sigset(SIGHUP, clean)) != SIG_DFL)
 		sigset(SIGHUP, oldhandler);
 
-        /* Set compiled filter - not used yet, no filter assigned */ 
+        /* Set compiled filter */ 
 	if (pcap_setfilter(pdev, &filtercode) < 0)
 		printf("%s", pcap_geterr(pdev));
 
@@ -161,8 +269,7 @@ main(int argc, char **argv)
 		/*
 		 * Error.  Report it.
 		 */
-		fprintf(stderr, "pcap loop error: %s: %s\n",
-		        program_name, pcap_geterr(pdev));
+		fprintf(stderr, "pcap loop error: %s\n", pcap_geterr(pdev));
 	}
 
 	pcap_close(pdev);
@@ -177,6 +284,7 @@ clean(int signo)
 	pcap_breakloop(pdev);
 	exit(0);
 }
+
 /* Wait for child to exit */
 static RETSIGTYPE
 child_clean(int signo)
@@ -191,8 +299,9 @@ handle_packet(u_char *user, const struct pcap_pkthdr *h, const u_char *sp)
 	u_int hdrlen;
 
 	++nofpackets;
-        /*ts_print(&h->ts);*/
+        show_time(&h->ts);
 	loop_args = (struct loop_args *)user;
 
-        hdrlen = ieee802_11_radio_if_print(h, sp);
+        hdrlen = if_radiotap_parse(h, sp);
+        //printf("\n");
 }

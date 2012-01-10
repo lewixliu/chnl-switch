@@ -1,1 +1,1 @@
-(not subtype beacon && ether src host d8:5d:4c:f4:60:16) || (not subtype beacon && ether src host 00:16:44:e9:48:b9)
+(subtype assocresp && ether src host d8:5d:4c:f4:60:16) || (subtype disassoc && ether src host 00:16:44:e9:48:b9) || (subtype assocresp && ether src host b0:48:7a:86:db:18) 

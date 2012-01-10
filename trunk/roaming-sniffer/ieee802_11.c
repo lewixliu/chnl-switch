@@ -79,35 +79,37 @@ static u_int
 ieee802_11_parse(const u_char *packet, u_int length, u_int orig_caplen, int padding, u_int fcslen)
 {
 	u_int16_t fc;
+        struct mgmt_hdr *mh = (struct mgmt_hdr *) packet;
 
 	fc = EXTRACT_LE_16BITS(packet);
 
         if(EXTRACT_TYPE(fc) == T_MGMT)
         {
+                /* MGMT subtype */
                 switch (EXTRACT_SUBTYPE(fc)) {
                 case ST_ASSOC_REQUEST:
-                        printf("Assoc Request\n");
+                        printf("Assoc Request ");
                         break;
                 case ST_ASSOC_RESPONSE:
-                        printf("Assoc Response\n");
+                        printf("Assoc Response ");
                         break;
                 case ST_REASSOC_REQUEST:
-                        printf("ReAssoc Request\n");
+                        printf("ReAssoc Request ");
                         break;
                 case ST_REASSOC_RESPONSE:
-                        printf("ReAssoc Response\n");
+                        printf("ReAssoc Response ");
                         break;
                 case ST_PROBE_REQUEST:
-                        printf("Probe Request\n");
+                        printf("Probe Request ");
                         break;
                 case ST_PROBE_RESPONSE:
-                        printf("Probe Response\n");
+                        printf("Probe Response ");
                         break;
                 case ST_BEACON:
-                        printf("Beacon\n");
+                        printf("Beacon ");
                         break;
                 case ST_ATIM:
-                        printf("ATIM\n");
+                        printf("ATIM ");
                         break;
                 case ST_DISASSOC:
                         if(ioctl(skfd, SIOCSIWFREQ, &wrq) < 0)
@@ -115,22 +117,26 @@ ieee802_11_parse(const u_char *packet, u_int length, u_int orig_caplen, int padd
                                 fprintf(stderr, "failed to switch channel\n");
                                 return(-1);
                         }                                                   
-                        printf("Disassociation - channel switched\n");
+                        printf("Disassociation - channel switched ");
                         break;
                 case ST_AUTH:
-                        printf("Authentication\n");
+                        printf("Authentication ");
                         break;
                 case ST_DEAUTH:
-                        printf("DeAuthentication\n");
+                        printf("DeAuthentication ");
                         break;
                 case ST_ACTION:
-                        printf("Action\n");
+                        printf("Action ");
                         break;
                 default:
-                        printf("Unhandled Management subtype(%x)\n",
+                        printf("Unhandled Management subtype(%x) ",
                                 EXTRACT_SUBTYPE(fc));
                         break;
                 }
+
+                /* Address */
+                printf("SA: %x:%x:%x:%x:%x:%x ", mh->sa[0], mh->sa[1], 
+                                mh->sa[2], mh->sa[3], mh->sa[4], mh->sa[5]);
         }
         else
         {

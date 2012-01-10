@@ -68,14 +68,17 @@ struct loop_args
  */
 void float2freq(double in, struct iw_freq *out)
 {
+        /* Extract exponent. */
         out->e = (short) (floor(log10(in)));
         if(out->e > 8)
         {
+                /* Extract mantisa. */
                 out->m = ((long) (floor(in / pow(10,out->e - 6)))) * 100;
                 out->e -= 8;
         }
         else
         {
+                /* No exponent, only frequency. */
                 out->m = in;
                 out->e = 0;
         }
@@ -378,5 +381,5 @@ handle_packet(u_char *user, const struct pcap_pkthdr *h, const u_char *sp)
 	loop_args = (struct loop_args *)user;
 
         hdrlen = if_radiotap_parse(h, sp);
-        //printf("\n");
+        printf("\n");
 }

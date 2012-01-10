@@ -197,6 +197,19 @@
 		     (u_int64_t)*((const u_int8_t *)(p) + 1) << 8 | \
 		     (u_int64_t)*((const u_int8_t *)(p) + 0)))
 
+
+/**
+ * @brief Structure representing IEEE802.11 MGMT header
+ */
+struct mgmt_hdr
+{
+        u_int16_t fc;
+        u_int16_t duration;
+        u_int8_t da[6];
+        u_int8_t sa[6];
+        u_int8_t bssid[6];
+        u_int16_t seq_ctrl;
+};
 /** 
  * @brief Structure representing the Radiotap header. 
  */

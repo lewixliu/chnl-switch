@@ -1,0 +1,181 @@
+%
+ 
+Niniejszy rozdział poświęcony jest opisowi aplikacji powstałej na podstawie wymagań sformułowanych w opisie pomiaru (link). Analiza wymagań podyktowała stworzenie programu, który umożliwiałby pogląd ramek zarządzających komunikacją w standardzie 802.11 (ang. \emph{Management frames}) oraz analizę zależności czasowych między nimi. 
+
+Wymagane okazało się stworzenie aplikacji nasłuchującej (ang. \emph{sniffer}) przystosowanej do obserwacji typowych scenariuszy zachodzących w komunikacji w medium bezprzewodowym. Przystosowanie to rozumiem jako możliwość konfiguracji programu pod kątem wybranego zjawiska i środowiska pomiarowego. 
+
+\subsection{Środowisko pracy programu.}
+
+Program hop-sniffer został przygotowany dla systemu operacyjnego Linux w wersji jądra 2.6. W wyborze systemu operacyjnego kierowałem się głównie metodą implementacji sterowników urządzeń bezprzewodowych i obsługującej je warstwy pośredniej jądra. 
+
+System Linux był wyborem oczywistym ze względu na możliwość konfiguracji interfejsów NIC w sposób umożliwiający przetwarzanie ramek typu MGMT (ang. \emph{management}) standardu 802.11 za pomocą aplikacji w przestrzeni użytkownika.
+
+Kolejną zaletą wybranego systemu jest możliwość konfiguracji najbardziej odpowiedniej dystrybucji i kompilacji powstałego rozwiązania jedynie z użyciem opcji dedykowanych dla aplikacji pomiarowej. W tym wypadku najbardziej pożądane jest minimalistyczne środowisko, które w możliwie najmniejszym stopniu wpływało będzie na prezentowane przez program wyniki pomiarów. Jako środowisko zalecane wybrałem system Arch Linux (link).
+
+Biorąc pod uwagę program komunikujący się z kartą radiową w systemie Linux należy zwrócić szczególną uwagę na kwestię sterowników. Od sterowników urządzeń bezprzewodowych zależy jakie polecenia i tryby pracy interfejsów będą dostępne do konfiguracji w przestrzeni użytkownika. Ze względu na aktualne dążenie programistów jądra do unifikacji interfejsu obsługi urządzeń standardu 802.11 powstała warstwa pośrednia \emph{mac80211}. Postanowiłem oprzeć aplikację hop-sniffer o sterowniki działające w tej warstwie ze względu na wspólny, oparty na gniazdach interfejs komunikacyjny \emph{nl80211}. Kluczowym wymaganiem stawianym sterownikowi jest implementacja polecenia umożliwiającego utworzenie wirtualnego interfejsu karty radiowej pracującego w trybie \emph{monitor}.
+
+Wprowadzenie karty radiowej w tryb \emph{promiscuous} powoduje jedynie wyłączenie filtracji adresów MAC. Program hop-sniffer musi mieć możliwość odbierania ramek standardu 802.11 bez potrzeby asocjacji z SSID (ang. \emph{Service Set Identifier}) żadnej sieci. Wyłączenie filtracji SSID możliwe jest jedynie w trybie \emph{monitor}.
+
+W swojej pracy skoncentrowałem się na współpracy ze sterownikiem \emph{ath9k}. Jest to całkowicie otwarty sterownik do urządzeń standardu 802.11bgn firmy \emph{Atheros}. Za wykorzystaniem sterownika przemawia dostępność wspieranych przez niego urządzeń, implementacja szerokiej gamy poleceń interfejsu \emph{nl80211} oraz możliwość pracy w trybie \emph{monitor}.
+
+\subsection{Biblioteki programistyczne.}
+
+Implementacja aplikacji pomiarowej wymagała zastosowania API (ang. \emph{Application interface}) umożliwiającego pochwycenie ramek zarządzających komunikacją 802.11 w przestrzeni użytkownika. Podczas procesu tworzenia programu hop-sniffer rozpatrzyłem zastosowanie dwóch bibliotek: \emph{libnl} i \emph{libpcap}.
+
+\subsubsection{Nasłuchiwanie za pomocą interfejsu \emph{nl80211}.}
+
+\emph{Libnl} jest to API (ang. \emph{Application interface}) służące do komunikacji między przestrzenią użytkownika i warstwą \emph{mac80211} jądra systemu operacyjnego. Interfejs \emph{nl80211} tej warstwy oparty jest o system gniazd \emph{Generic Netlink} (w odróżnieniu od stosowanych dawniej wywołań systemowych \emph{IOCTL}).  
+
+Warstwa pośrednia definiuje rodzinę gniazd (ang. \emph{Generic netlink family}) oraz rejestruje w jej obrębie zestaw poleceń w postaci akceptowanych rodzajów wiadomości. Sterowniki urządzeń 802.11 implementują powyższy interfejs poprzez inicjalizację odpowiadających poleceniom wskaźników na funkcje własnymi operacjami. Każda wiadomość akceptowana przez daną rodzinę posiada własną nazwę oraz wskaźnik na strukturę określającą ilość i typy atrybutów (ang. \emph{Generic netlink attribute policy}), która pełni funkcję kontroli poprawności. Struktura ta zwana \emph{nla\_policy} stanowi wytyczne co do sposobu konstrukcji skierowanego do jądra polecenia oraz ekstrakcji danych z odebranej wiadomości.
+
+W wyniku analizy dokumentacji uznałem, że możliwa będzie implementacja programu nasłuchującego z wykorzystaniem następujących mechanizmów udostępnianych przez interfejs \emph{nl80211}:
+
+\begin{itemize}
+\item[--] Grupowych adresów (ang. \emph{Multicast groups}) odbiorców wiadomości.
+\item[--] Komendy \emph{NL80211\_CMD\_REGISTER\_FRAME}.
+\item[--] Własnych funkcji obsługi zdarzeń (ang. \emph{Custom callback}).
+\item[--] Komendy \emph{NL80211\_CMD\_FRAME}.
+\end{itemize}
+
+Adresy grupowe są wykorzystywane przez jądro do rozgłaszania zdarzeń warstwy \emph{mac80211} do zainteresowanych procesów (posiadających gniazdo z członkostwem w danej grupie rozgłaszania). W celu otrzymywania wszystkich zdarzeń należy zarejestrować gniazdo (\ref{code:MulticastExample}) we wszystkich czterech grupach: \emph{Configuration, Scan, Regulatory i MLME}. 
+
+\lstset{caption={Przykład rejestracji gniazda w grupie \emph{Configuration}.}, label={code:MulticastExample}}
+\begin{lstlisting}[frame=tb]
+/* Get configuration multicast group ID */
+multicast_id = nl_get_multicast_id(cd->nl_sock, 
+        "nl80211", "config");
+if (multicast_id < 0)
+        return multicast_id;
+                                        
+/* Add membership to configuration multicast group */
+ret = nl_socket_add_membership(cd->nl_sock, multicast_id);
+if (ret)
+        return ret;
+\end{lstlisting}
+
+Komenda \emph{NL80211\_CMD\_REGISTER\_FRAME} pozwala na rejestrację wybranych typów ramek do przetwarzania w przestrzeni użytkownika. Wymaga podania numeru interfejsu radiowego, typu ramki oraz wzorca zawierającego pierwsze bajty ramki, które powinny być dopasowane. Należy wziąć pod uwagę fakt, że w tym wypadku nasza aplikacja musi obsłużyć dany typ ramek, gdyż nie zostaną one odpowiednio przetworzone w jądrze. Zamknięcie gniazda komunikacyjnego za pomocą, którego dokonano rejestracji powoduje jej zakończenie. 
+
+W mojej aplikacji zgłaszanie ramek do obsługi przez program nasłuchujący jest częścią inicjalizacji. Należy zarejestrować wszelkie ramki niezbędne do obserwacji wybranego zjawiska. Proces budowania wiadomości (\ref{code:RegisterFrame}) zaczyna się od stworzenia nagłówka opatrzonego odpowiednim adresem odbiorcy (identyfikatorem rodziny) oraz nazwą polecenia do wykonania. Następnie dodaję atrybuty wybranej komendy podając jej identyfikator (potrzebny w celu sprawdzenia poprawności) oraz wartość. Numer interfejsu tłumaczony jest z nazwy (np. \emph{wlan0}) na indeks (typ całkowity). Rodzaj ramki to wartość typu \emph{u16}, a więc liczba 16-bitowa, którą w języku C możemy wprowadzić, przykładowo, jako \emph{0x0040} (ramka typu \emph{Probe Request}). 
+
+\lstset{caption={Przykład rejestracji ramki do obsługi w przestrzeni użytkownika.}, label={code:RegisterFrame}}
+\begin{lstlisting}[frame=tb]
+/* Build netlink message header */
+genlmsg_put(msg, 0, 0, genl_family_get_id(cd->nl80211), 
+        0, 0, NL80211_CMD_REGISTER_FRAME, 0);
+/* Device interface index to use */
+devid = if_nametoindex(if_name);
+NLA_PUT_U32(msg, NL80211_ATTR_IFINDEX, devid);
+/* Register frame type/subtype */
+NLA_PUT_U16(msg, NL80211_ATTR_FRAME_TYPE, fr_type);
+/* Frame match for MGMT frames is NULL */
+NLA_PUT(msg, NL80211_ATTR_FRAME_MATCH, 0, NULL);       
+/* Send message */
+error = nl_send_auto_complete(cd->nl_sock, msg);
+\end{lstlisting}
+
+Po przyłączeniu gniazda do odpowiednich grup rozgłaszania i wybraniu niezbędnych typów ramek do przetwarzania przez program pozostaje rozpocząć nasłuchiwanie zdarzeń interfejsu \emph{nl80211} (\ref{code:ListenEvents}). W mojej aplikacji wybór badanego zjawiska (sposobu reakcji na zdarzenia) zależy od rodzaju funkcji do której wskaźnik jest przekazywany podczas rozpoczęcia nasłuchu. Funkcja ta przekazywana jest jako argument procedury typu \emph{callback} używanej do przetwarzania odebranych wiadomości (zdarzeń). 
+
+\lstset{caption={Fragment kodu procedury rozpoczynającej obsługę zdarzeń.}, label={code:ListenEvents}}
+\begin{lstlisting}[frame=tb]
+/* Choose scenario type. */
+args.handle_frame = fptr_handle_frame;
+/* ... */
+/* set custom event handler and pass arguments to it. */
+nl_cb_set(cb, NL_CB_VALID, NL_CB_CUSTOM, custom_event_handler, &args);
+/* ... */
+/* Listen events. */
+while (!command)
+{
+        nl_recvmsgs(cd->nl_sock, cb);
+}
+\end{lstlisting}
+
+Komenda \emph{NL80211\_CMD\_FRAME} służy do nadawania i odbierania wybranych typów ramek z poziomu aplikacji użytkownika. W przypadku programu nasłuchującego interesuje mnie funkcjonowanie tej wiadomości jako zdarzenia propagowanego przez jądro w sytuacji otrzymania nieobsłużonej ramki. Powoduje to uruchomienie własnej procedury \emph{callback}, która na wejściu otrzymuje wskaźnik do wiadomości opisującej zdarzenie oraz przekazaną przez program główny strukturę argumentów zawierającą wskaźnik do funkcji, która powinna być użyta do obserwacji danego zjawiska. 
+
+Zdarzenie typu \emph{NL80211\_CMD\_FRAME} posiada interesujący mnie atrybut reprezentujący całą otrzymaną ramkę. Atrybut \emph{NL80211\_ATTR\_FRAME} przekazywany jest do funkcji obsługującej dane zjawisko (\emph{handle\_frame}), gdzie jest on rozpakowywany do postaci tablicy bajtów. Tablica ta służy do odczytania adresów MAC o rozmiarze sześciu bajtów (adres źródłowy z dziesiątego bajtu i adres docelowy z bajtu czwartego) oraz typu ramki z pola kontrolnego za pomocą maski bitowej \emph{0xfc}. W przypadku funkcji \emph{handle\_frame} obserwowanym zjawiskiem są ramki typu \emph{Disassociation} i \emph{Association Response}, które oznaczają odpowiednio rozpoczęcie i zakończenie procesu roamingu stacji klienckiej.
+
+\lstset{caption={Funkcja \emph{handle\_frame}.}, label={code:HandleFrame}}
+\begin{lstlisting}[frame=tb]
+void handle_frame(struct nlattr *nl_frame)
+{
+	uint8_t *frame;
+	size_t len;
+	int i;
+	char macbuf[6*3];
+	uint16_t tmp;
+        
+        /* ... */
+
+        /* Extract frame byte array from netlink attribute */
+	frame = nla_data(nl_frame);
+        
+        /* ... */
+
+	switch (frame[0] & 0xfc) 
+        {
+	        case 0x10: /* assoc resp */
+	        case 0x30: /* reassoc resp */
+                case 0x00: /* assoc req */
+                        printf("[assoc req]\n");
+                        break;
+                case 0x20: /* reassoc req */
+                case 0x40: /* probe req */
+                case 0x50: /* probe resp */
+                case 0xb0: /* auth */
+                case 0xa0: /* disassoc */
+                        printf("[disassoc]\n");
+                        break;
+                case 0xc0: /* deauth */
+                        break;
+        }
+
+}
+\end{lstlisting}
+
+Stworzona przeze mnie aplikacja oparta na powyższej opisanej metodyce spełniała założenia powstałe w fazie analizy wymagań dla testowanych ramek standardu 802.11 typu \emph{Probe Request}. Niestety rejestracja ramek dla interfejsu typu \emph{monitor} okazała się niemożliwa, a typy ramek możliwe do odbierania na poszczególnych interfejsach (ang. \emph{Supported RX frame types}) są całkowicie zależne od implementacji sterownika i mocno ograniczone ze względu na jego typ. Aktualnie typy ramek 802.11 możliwe do wysyłania i dobierania na danym interfejsie są dostępne i ogłaszane w atrybutach wirtualnego urządzenia reprezentującego kartę radiową (ang. \emph{Wiphy}). Urządzenie to jest zaimplementowane w warstwie pośredniej \emph{mac80211}, a struktury je opisujące wypełniane są przez odpowiadający mu sterownik.
+
+Inspekcja możliwych do obsługi w przestrzeni użytkownika ramek możliwa jest dzięki analizie odpowiedzi interfejsu \emph{nl80211} na komendę \emph{NL80211\_CMD\_GET\_WIPHY} z dodatkową flagą nagłówka \emph{netlink} o nazwie \emph{NLM\_F\_DUMP}, która powoduje przekazanie do wysyłającej aplikacji wiadomości ze wszystkimi parametrami wybranych urządzeń \emph{Wiphy}.
+
+\lstset{caption={Część atrybutów \emph{Wiphy} o identyfikatorze \emph{phy0} (program \emph{iw-3.2}).}, label={code:WiphyAttributes}}
+\begin{lstlisting}[frame=tb]
+marcin@marcin-PC:~/iw-3.2$ ./iw phy0 info
+Wiphy phy0
+        ...
+	Supported interface modes:
+		 * IBSS
+		 * managed
+		 * AP
+		 * AP/VLAN
+		 * WDS
+		 * monitor
+		 * mesh point
+		 * P2P-client
+		 * P2P-GO
+	software interface modes (can always be added):
+		 * AP/VLAN
+		 * monitor
+	interface combinations are not supported
+        ...
+	Supported RX frame types:
+		 * IBSS: 0x00d0
+		 * managed: 0x0040 0x00d0
+		 * AP: 0x0000 0x0020 0x0040 0x00a0 0x00b0 
+                   0x00c0 0x00d0
+		 * AP/VLAN: 0x0000 0x0020 0x0040 0x00a0 
+                   0x00b0 0x00c0 0x00d0
+		 * mesh point: 0x00b0 0x00c0 0x00d0
+		 * P2P-client: 0x0040 0x00d0
+		 * P2P-GO: 0x0000 0x0020 0x0040 0x00a0 
+                   0x00b0 0x00c0 0x00d0
+	Device supports RSN-IBSS.
+\end{lstlisting}
+
+Analiza możliwych do odebrania ramek wskazuje, że nie jest możliwa analiza zjawiska roamingu. Interfejsy nie pozwalają na rejestrację w jądrze ramek typu \emph{Association Response} (identyfikator \emph{0x1}), a odbieranie ramek typu \emph{Disassociation} (identyfikator 0xA) wymaga wprowadzenia interfejsu w tryb \emph{Master} (uruchomienia programu \emph{hostapd}, a więc utworzenia na komputerze punktu dostępowego). 
+
+Oczywiście, jeśli nasłuchiwanie nie będzie prowadzone w trybie \emph{monitor} to program i tak nie otrzyma ramek z sieci, której nie jest członkiem (ze względu na filtrację SSID). 
+
+Powyższe problemy powodują, że mimo uniwersalności i licznych zalet związanych z prostym sposobem ekstrakcji danych z ramek standardu 802.11 biblioteka \emph{Libnl} nie nadaje się do zastosowania w aplikacji opisanej wymaganiami sformułowanymi w fazie opisu procedury pomiarowej (link). 
+
+\subsection{Nasłuchiwanie za pomocą biblioteki typu \emph{pcap}.}
+
+ 

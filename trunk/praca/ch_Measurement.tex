@@ -1,0 +1,106 @@
+%
+
+Ciężko uniknąć sytuacji, w której systemy wykorzystujące do komunikacji standard \emph{802.11} napotykają potrzebę zmiany częstotliwości (przełączenia kanału) pracy swoich interfejsów kart radiowych NIC (ang. \emph{Network Interface Card}). Główną przyczyną podziału pasma jest wielodostęp, a więc unikanie wzajemnego zakłócania się urządzeń. Należy wziąć pod uwagę, że medium transmisyjne w środowisku przemysłowym jest zwykle wyjątkowo zaszumione w paśmie \emph{2.4 GHz}. Dla uzmysłowienia stopnia zakłóceń wystarczy wymienić część urządzeń pracujących w paśmie \emph{ISM} (ang. \emph{Industrial, scientific and medical}) takich jak:
+\begin{itemize}
+\item[--] Elektroniczne nianie
+\item[--] Urządzenia Bluetooth
+\item[--] Kuchenki mikrofalowe
+\item[--] Alarmy samochodowe
+\end{itemize}
+Łatwo zauważyć jak bardzo zróżnicowane urządzenia mogą doprowadzić do niespodziewanych problemów w bezprzewodowej komunikacji systemów czasu rzeczywistego.
+
+Warto wspomnieć, że istnieje już specyfikacja standardu pracującego w paśmie \emph{5 GHz} (\cite{std:IEEE80211n}), lecz nie jest on jeszcze powszechnie wspierany. Biorąc za przykład rozwiązania \emph{open-source} można zauważyć, że standard \emph{802.11n} jest obsługiwany przez nowe sterowniki (\emph{ath9k} dla urządzeń firmy \emph{Atheros}). Problemem jest natomiast fakt, że tego typu sterowniki dostępne są jedynie w najnowszych dystrybucjach systemów operacyjnych przeznaczonych dla urządzeń wbudowanych (przykładowo \emph{OpenWrt Backfire 10.03}), które nie zawsze od początku wspierają zadowalającą gamę urządzeń. Dla przykładu nadal istnieją problemy z dostępnością tego typu sterowników dla popularnej płytki \emph{MagicBox}.
+
+% Dodać więcej cytowań do WMN
+Biorąc pod uwagę fakt zaszumienia medium transmisyjnego wnioskuję, że możliwość zmiany częstotliwości pracy interfejsu \emph{NIC} w poszukiwaniu dogodnego kanału komunikacji jest jedną z jego kluczowych i wymagających uwagi cech. W ostatnich latach powstało wiele publikacji dotyczących możliwości adaptacji struktury sieci bezprzewodowych do panującej jakości medium komunikacyjnego (\cite{pub:DCS}). Prace te koncentrują się głównie na algorytmach dynamicznej modyfikacji częstotliwości pracy interfejsów w sieciach kratowych \emph{WMN} (ang. \emph{Wireless Mesh Network}). Oczywiście u podstaw zastosowanych rozwiązań leży zjawisko przełączania kanału radiowego.
+
+Powyższe czynniki sugerują, że całkowite wyeliminowanie potrzeby przełączania kanału (zmiany częstotliwości pracy) interfejsów radiowych nie jest aktualnie osiągalne. Co więcej, udostępnianie nowych pasm częstotliwości, w sytuacji ciągle rosnącego zapotrzebowania, jest jedynie tymczasowym rozwiązaniem.  
+
+
+\subsection{Przełączanie kanału radiowego}
+Opóźnienie związane ze zmianą częstotliwości pracy jest ważnym parametrem, gdyż w tym czasie stacja zaprzestaje reakcji na kierowane do niej dane. Ramki skierowane do stacji są tracone co w oczywisty sposób może wpłynąć na ograniczenia czasowe, w których działają komunikujące się systemy. 
+Typowe scenariusze, w których może zajść potrzeba zmiany częstotliwości pracy interfejsu NIC to:
+\begin{itemize}
+\item[--] Stacja kliencka w trybie \emph{Managed} dokonuje \emph{Roamingu} między dwoma punktami dostępowymi AP (ang. \emph{Access Point}) 
+\item[--] Stacja kliencka w trybie \emph{Managed} skanuje medium w poszukiwaniu punktów dostępowych AP (ang. \emph{Access Point})
+\item[--] Stacja kliencka w trybie \emph{Ad-hoc} skanuje medium po podniesieniu interfejsu lub samym przełączeniu kanału 
+\end{itemize}
+Identyfikacja powyższych sytuacji to pierwszy krok ku specyfikacji konkretnych scenariuszy pomiarowych. 
+
+Najczęstszą przyczyną przełączania kanału jest procedura skanowania medium komunikacyjnego. Podczas skanowania stacja wysyła ramki typu \emph{Probe Request} na każdej z dostępnych w specyfikacji (\cite{std:IEEE80211}) częstotliwości pracy i oczekuje na ramki \emph{Probe Response} od punktów dostępowych, lub stacji w trybie \emph{Ad-hoc} (w zależności od typu interfejsu NIC, czyli rodzaju docelowej sieci).
+
+Przełączanie kanału następuje również, kiedy stacja kliencka oddala się zbyt daleko od punktu dostępowego i musi rozpocząć poszukiwanie nowego w swoim zasięgu. Jest to sytuacja zwana roamingiem i wymaga uwagi podczas rozważania systemów, w których skład wchodzą mobilne stacje, czy agenci. Obszar działania systemu może być na tyle różnorodny pod względem zakłóceń, że konieczne będzie przełączanie kanału między kolejnymi punktami dostępowymi pracującymi na różnych częstotliwościach.
+
+\subsection{Metodyka pomiaru}
+Z punktu widzenia zjawiska komunikacji w standardzie 802.11 za kluczową uznałem możliwość prowadzenia pomiarów z minimalną ingerencją w strukturę i działanie stacji. Osiągnięcie tego celu wymaga uruchomienia dodatkowej maszyny, która prowadzi nasłuch w medium komunikacyjnym. Jedną z zalet tego typu rozwiązania jest fakt, że programistyczne środowisko pomiarowe przygotowuję tylko na jednej stacji. Jest to niezwykle ważne w przypadku, gdy w danym scenariuszu pomiarowym biorą udział systemy wbudowane (np. pełniące funkcję routerów) z ograniczonymi możliwościami instalacji rozbudowanych aplikacji i bibliotek programistycznych. 
+Opis stosowanych metodyk pomiarowych rozpocznę od definicji podstawowych pojęć opisujących środowisko i uczestników scenariuszy. Najważniejsze pojęcia to:
+\begin{itemize}
+\item[--] {\bf Stacja pomiarowa}: Komputer działający pod kontrolą interakcyjnego systemu operacyjnego, na którym uruchomiona jest aplikacja nasłuchująca ruch sieciowy (ang. \emph{sniffer}).
+\item[--] {\bf Stacja kliencka}: Komputer pełniący rolę klienta w sieci o strukturze wykorzystującej punkty dostępowe (ang. \emph{Infrastructure mode}). Może być to zarówno komputer pod kontrolą systemu interakcyjnego, lub wbudowanego.
+\item[--] {\bf Punkt dostępowy}: Komputer pełniący w trybie infrastruktury (ang. \emph{Infrastructure mode}) rolę stacji AP (ang. \emph{Access Point}). Może być to zarówno komputer pod kontrolą systemu interakcyjnego, lub wbudowanego.
+\item[--] {\bf Rozwiązanie asocjacji}: Zdarzenie wysłania ramki rozwiązującej asocjację między stacją kliencką, a punktem dostępowym (ang. \emph{Disassociation frame}).
+\item[--] {\bf Skanowanie}: Wysyłanie przez stację ramek typu \emph{Probe Request} na wszystkich dostępnych w specyfikacji (\cite{std:IEEE80211}) częstotliwościach pracy.
+\item[--] {\bf Scenariusz pomiaru}: Jeden ze scenariuszy możliwych do zaistnienia podczas komunikacji stacji w standardzie 802.11, w którego czasie następuje przełączenie kanału interfejsu NIC.
+\end{itemize}
+
+\subsection{Scenariusz pomiaru: Roaming 802.11}
+Roaming 802.11 to zjawisko zachodzące w sieciach, w trybie infrastruktury (ang. \emph{Infrastructure mode}). Podstawowym zadaniem procedury jest umożliwienie stacji klienckiej odłączenia się od punktu dostępowego i podjęcia próby odnalezienia i podłączenia się do stacji o mocniejszym sygnale. W warunkach rzeczywistych sytuacja taka najczęściej jest wynikiem ruchu mobilnej stacji klienckiej (np. przemieszczającego się pracownika biura, lub agenta w systemie przemysłowym), która dociera do granicy zasięgu dotychczas używanego punktu dostępowego. Aby zachować połączenie z systemem, lub usługami (np. dostęp do internetu) maszyna musi odnaleźć inną stację pracującą w trybie AP o mocniejszym sygnale. Na procedurę roamingu 802.11 składają się następujące kroki:
+\begin{itemize}
+\item[--] Stacja kliencka wykrywa, że poziom sygnału RF (ang. \emph{Radio Frequency})
+punktu dostępowego \#1 jest poniżej progu roamingu.
+\item[--] Stacja kliencka rozpoczyna nadawanie ramek rozwiązujących asocjację do punktu dostępowego \#1 do momentu potwierdzenia odebrania.
+\item[--] Punkt dostępowy \#1 otrzymuje ramkę rozwiązującą asocjację \emph{Disassociation frame} i usuwa stację kliencką z tablicy asocjacji.
+\item[--] Stacja kliencka rozpoczyna skanowanie medium komunikacyjnego i oczekuje na ramki typu \emph{Probe Response}.
+\item[--] Punkt dostępowy \#2 wysyła do stacji klienckiej ramkę typu \emph{Probe Response}
+\item[--] Stacja kliencka rozpoczyna wysyłanie do punktu dostępowego \#2 ramek typu \emph{Association request}.
+\item[--] Punkt dostępowy \#2 dokonuje asocjacji stacji klienckiej i potwierdza to zdarzenie wysyłając ramkę typu \emph{Association response}.
+\end{itemize}
+
+Łatwo zauważyć, że zjawisko roamingu jest kluczowe w przypadku systemu czasu rzeczywistego zarządzającego stacjami mobilnymi na rozległym obszarze (\ref{MobileAgentSystem}). System może wykorzystywać wiele punktów dostępowych, które obsługuje poprzez sieć przewodową (ang. \emph{Ethernet}). Każda zarządzana stacja w trybie AP przystosowana jest do działania w panujących na swoim obszarze warunkach zaszumienia łącza. Roaming 802.11 byłby w tym wypadku główną przyczyną przełączania kanału radiowego interfejsu NIC w mobilnych stacjach klienckich. 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=300px]{img/System_czasu_rzeczywistego}
+\caption{System z mobilnym agentem}
+\label{MobileAgentSystem}
+\end{center}
+\end{figure}
+
+Oczywiście roaming nie implikuje ruchu żadnej z maszyn, co ułatwia przeprowadzenie pomiaru. Wystarczy doprowadzić do sytuacji, w której moc sygnału punktu dostępowego spadnie poniżej progu (ang. \emph{roaming treshold}), który powoduje decyzję o rozwiązaniu asocjacji stacji klienckiej. 
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=300px]{img/Roaming}
+\caption{Roaming 802.11: Środowisko pomiarowe.}
+\label{RoamingEnviroment}
+\end{center}
+\end{figure}
+
+\subsubsection{Środowisko pomiarowe}
+
+W skład środowiska pomiarowego (\ref{RoamingEnviroment}) wchodzą dwa punkty dostępowe, stacja kliencka oraz stacja pomiarowa. Punkty dostępowe pracują na różnych częstotliwościach. Do wyboru, zgodnie ze standardem 802.11g (\cite{std:IEEE80211}), są kanały numer 1, 5, 9, lub 13. Są to nienachodzące na siebie zakresy częstotliwości. W celu ułatwienia roamingu stacja kliencka umieszczona jest na granicy zasięgu punktów dostępowych. Stacja pomiarowa musi znajdować się w zasięgu stacji klienckiej, oraz obydwu punktów dostępowych (musi być w stanie rejestrować ruch sieciowy). 
+Należy zwrócić uwagę na zapewnienie odpowiedniej jakości medium transmisyjnego. Wysoki poziom zakłóceń na kanałach wykorzystywanych w eksperymencie wprowadzi zakłamania, jeśli interesuje nas wyłącznie czas trwania samej procedury roamingu. 
+
+
+\subsubsection{Mierzona wartość: Czas roamingu}
+Czas roamingu 802.11 rozumiem jako czas (\ref{RoamingTime}) mierzony od momentu decyzji stacji klienckiej o zaprzestaniu normalnej wymiany danych z punktem dostępowym do momentu powiązania z nową stacją w trybie AP o mocniejszym sygnale. Zdarzeniem inicjującym pomiar jest wysłanie przez stację kliencką pierwszej ramki rozwiązującej asocjację (ang. \emph{Disassociation frame}). Pomiar zostaje zakończony w momencie wysłania przez nowy punkt dostępowy ramki potwierdzającej asocjację nowej stacji (ang. \emph{Association Response frame}).
+
+Podstawowa procedura pomiarowa składa się z następujących kroków:
+\begin{itemize}
+\item[--] Stacja kliencka przeprowadza asocjację z punktem dostępowym 1.
+\item[--] Stacja kliencka przemieszcza się poza zasięg punktu dostępowego 1 i wykonuje procedurę roamingu do punktu dostępowego 2.
+\item[--] Stacja pomiarowa wykrywa próbę rozwiązania asocjacji i rozpoczyna pomiar czasu.
+\item[--] Punkt dostępowy 2 dokonuje asocjacji stacji klienckiej.
+\item[--] Stacja pomiarowa rejestruje potwierdzenie asocjacji stacji klienckiej i zatrzymuje pomiar czasu.
+\end{itemize}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=300px]{img/RoamingTime}
+\caption{Roaming 802.11: Czas roamingu.}
+\label{RoamingTime}
+\end{center}
+\end{figure}
+
+\subsubsection{Wnioski}
+% Wnioski na temat tego scenariusza

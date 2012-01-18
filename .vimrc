@@ -157,3 +157,4 @@ set tags=./tags;/
 "Opening CTAG definitions in tabs and splits
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+set spelllang=pl,en

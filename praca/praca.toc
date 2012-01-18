@@ -1,5 +1,5 @@
 \select@language {polish}
-\contentsline {section}{\numberline {0.1}Wst\IeC {\k e}p}{2}{section.0.1}
+\contentsline {section}{\numberline {0.1}Cel pracy}{2}{section.0.1}
 \contentsline {section}{\numberline {0.2}Wprowadzenie do dziedziny}{2}{section.0.2}
 \contentsline {subsection}{\numberline {0.2.1}Problemy system\IeC {\'o}w czasu rzeczywistego}{2}{subsection.0.2.1}
 \contentsline {subsubsection}{System operacyjny Linux ( wersja j\IeC {\k a}dra 2.6 ).}{2}{section*.2}
@@ -25,8 +25,9 @@
 \contentsline {subsection}{\numberline {0.4.2}Interfejs wywo\IeC {\l }a\IeC {\'n} systemowych}{16}{subsection.0.4.2}
 \contentsline {subsection}{\numberline {0.4.3}Warstwa po\IeC {\'s}rednia \emph {mac80211}}{16}{subsection.0.4.3}
 \contentsline {subsection}{\numberline {0.4.4}Interfejs oparty na gniazdach \emph {nl80211}}{16}{subsection.0.4.4}
-\contentsline {section}{\numberline {0.5}Narz\IeC {\k e}dzie pomiarowe: chnl-switch-sniffer}{16}{section.0.5}
-\contentsline {subsection}{\numberline {0.5.1}\IeC {\'S}rodowisko pracy programu}{16}{subsection.0.5.1}
-\contentsline {subsection}{\numberline {0.5.2}Implementacja}{16}{subsection.0.5.2}
-\contentsline {subsection}{\numberline {0.5.3}Obs\IeC {\l }uga aplikacji}{16}{subsection.0.5.3}
-\contentsline {section}{\numberline {0.6}Podsumowanie}{16}{section.0.6}
+\contentsline {section}{\numberline {0.5}Narz\IeC {\k e}dzie pomiarowe: hop-sniffer}{16}{section.0.5}
+\contentsline {subsection}{\numberline {0.5.1}\IeC {\'S}rodowisko pracy programu.}{16}{subsection.0.5.1}
+\contentsline {subsection}{\numberline {0.5.2}Biblioteki programistyczne.}{17}{subsection.0.5.2}
+\contentsline {subsubsection}{Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} interfejsu \emph {nl80211}.}{17}{section*.15}
+\contentsline {subsection}{\numberline {0.5.3}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} biblioteki typu \emph {pcap}.}{22}{subsection.0.5.3}
+\contentsline {section}{\numberline {0.6}Podsumowanie}{22}{section.0.6}

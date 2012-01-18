@@ -5,10 +5,24 @@
 \usepackage{indentfirst}
 \usepackage{url}
 
+\usepackage{color}
+\usepackage{listings}
 \usepackage{graphicx}
 \usepackage{hyperref}
 
-%\newcommand{\bib}[1]{\cite{#1}}
+%\newcommand{\bib}[1]{\cite{#1}
+
+%\lstlistoflistings
+\definecolor{darkgray}{rgb}{0.95,0.95,0.95}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{language=C}
+\lstset{backgroundcolor=\color{darkgray}}
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt}
+\lstset{keywordstyle=\color{red}\bfseries\emph}
+\lstset{commentstyle=\color{dkgreen}}
+\lstset{stringstyle=\color{mauve}}
 
 \begin{document}
 \title{ 802.11 (Tytuł do ustalenia) }
@@ -23,23 +37,23 @@
 \mbox{}
 \bibliographystyle{plain}
 
-\section{Wstęp}
-\input{roz_Wstep}
+\section{Cel pracy}
+\input{ch_Target}
 
 \section{Wprowadzenie do dziedziny}
-\input{roz_Wprowadzenie_do_dziedziny}
+\input{ch_Introduction}
 
 \section{Pomiar czasu przełączania kanału radiowego}
-\input{roz_Pomiar_czasu_przelaczania_kanalu_radiowego}
+\input{ch_Measurement}
 
 \section{Obsługa 802.11 w systemie operacyjnym Linux}
-\input{roz_Obsluga_802.11_w_systemie_operacyjnym_Linux}
+\input{ch_Linux}
 
-\section{Narzędzie pomiarowe: chnl-switch-sniffer}
-\input{roz_Narzedzie_pomiarowe:_chnl-switch-sniffer}
+\section{Narzędzie pomiarowe: hop-sniffer}
+\input{ch_hop_sniffer}
 
 \section{Podsumowanie}
-\input{roz_Podsumowanie}
+\input{ch_Conclusion}
 
 \nocite{*}
 \bibliography{bibliografia}

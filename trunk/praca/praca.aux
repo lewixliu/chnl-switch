@@ -18,7 +18,7 @@
 \@writefile{lot}{\select@language{polish}}
 \bibstyle{plain}
 \citation{wiki:RTLinux}
-\@writefile{toc}{\contentsline {section}{\numberline {0.1}Wst\IeC {\k e}p}{2}{section.0.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {0.1}Cel pracy}{2}{section.0.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {0.2}Wprowadzenie do dziedziny}{2}{section.0.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {0.2.1}Problemy system\IeC {\'o}w czasu rzeczywistego}{2}{subsection.0.2.1}}
 \@writefile{toc}{\contentsline {subsubsection}{System operacyjny Linux ( wersja j\IeC {\k a}dra 2.6 ).}{2}{section*.2}}
@@ -50,8 +50,6 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces System z mobilnym agentem}}{14}{figure.0.2}}
 \newlabel{MobileAgentSystem}{{2}{14}{System z mobilnym agentem\relax }{figure.0.2}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Mierzona warto\IeC {\'s}\IeC {\'c}: Czas roamingu}{14}{section*.13}}
-\citation{*}
-\bibdata{bibliografia}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Roaming 802.11: \IeC {\'S}rodowisko pomiarowe.}}{15}{figure.0.3}}
 \newlabel{RoamingEnviroment}{{3}{15}{Roaming 802.11: Środowisko pomiarowe}{figure.0.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Roaming 802.11: Czas roamingu.}}{15}{figure.0.4}}
@@ -62,11 +60,24 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {0.4.2}Interfejs wywo\IeC {\l }a\IeC {\'n} systemowych}{16}{subsection.0.4.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {0.4.3}Warstwa po\IeC {\'s}rednia \emph  {mac80211}}{16}{subsection.0.4.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {0.4.4}Interfejs oparty na gniazdach \emph  {nl80211}}{16}{subsection.0.4.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {0.5}Narz\IeC {\k e}dzie pomiarowe: chnl-switch-sniffer}{16}{section.0.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.5.1}\IeC {\'S}rodowisko pracy programu}{16}{subsection.0.5.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.5.2}Implementacja}{16}{subsection.0.5.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.5.3}Obs\IeC {\l }uga aplikacji}{16}{subsection.0.5.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {0.6}Podsumowanie}{16}{section.0.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {0.5}Narz\IeC {\k e}dzie pomiarowe: hop-sniffer}{16}{section.0.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.5.1}\IeC {\'S}rodowisko pracy programu.}{16}{subsection.0.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.5.2}Biblioteki programistyczne.}{17}{subsection.0.5.2}}
+\@writefile{toc}{\contentsline {subsubsection}{Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} interfejsu \emph  {nl80211}.}{17}{section*.15}}
+\newlabel{code:MulticastExample}{{1}{18}{Przykład rejestracji gniazda w grupie \emph {Configuration}}{lstlisting.0.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Przyk\IeC {\l }ad rejestracji gniazda w grupie \emph  {Configuration}.}{18}{lstlisting.0.1}}
+\newlabel{code:RegisterFrame}{{2}{19}{Przykład rejestracji ramki do obsługi w przestrzeni użytkownika}{lstlisting.0.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Przyk\IeC {\l }ad rejestracji ramki do obs\IeC {\l }ugi w przestrzeni u\IeC {\.z}ytkownika.}{19}{lstlisting.0.2}}
+\newlabel{code:ListenEvents}{{3}{19}{Fragment kodu procedury rozpoczynającej obsługę zdarzeń}{lstlisting.0.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Fragment kodu procedury rozpoczynaj\IeC {\k a}cej obs\IeC {\l }ug\IeC {\k e} zdarze\IeC {\'n}.}{19}{lstlisting.0.3}}
+\newlabel{code:HandleFrame}{{4}{20}{Funkcja \emph {handle\_frame}}{lstlisting.0.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Funkcja \emph  {handle\_frame}.}{20}{lstlisting.0.4}}
+\newlabel{code:WiphyAttributes}{{5}{21}{Część atrybutów \emph {Wiphy} o identyfikatorze \emph {phy0} (program \emph {iw-3.2})}{lstlisting.0.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}Cz\IeC {\k e}\IeC {\'s}\IeC {\'c} atrybut\IeC {\'o}w \emph  {Wiphy} o identyfikatorze \emph  {phy0} (program \emph  {iw-3.2}).}{21}{lstlisting.0.5}}
+\citation{*}
+\bibdata{bibliografia}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.5.3}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} biblioteki typu \emph  {pcap}.}{22}{subsection.0.5.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {0.6}Podsumowanie}{22}{section.0.6}}
 \bibcite{pub:Comparison}{1}
 \bibcite{std:IEEE80211}{2}
 \bibcite{std:IEEE80211n}{3}

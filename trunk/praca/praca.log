@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  18 JAN 2012 03:16
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  22 JAN 2012 06:11
 entering extended mode
  %&-line parsing enabled.
 **praca.tex
@@ -316,6 +316,64 @@ Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 \Urlmuskip=\muskip10
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen108
+))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen109
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count89
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count90
+\leftroot@=\count91
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count92
+\DOTSCASE@=\count93
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen110
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count94
+\c@MaxMatrixCols=\count95
+\dotsspace@=\muskip11
+\c@parentequation=\count96
+\dspbrk@lvl=\count97
+\tag@help=\toks17
+\row@=\count98
+\column@=\count99
+\maxfields@=\count100
+\andhelp@=\toks18
+\eqnshift@=\dimen111
+\alignsep@=\dimen112
+\tagshift@=\dimen113
+\tagwidth@=\dimen114
+\totwidth@=\dimen115
+\lineht@=\dimen116
+\@envbody=\toks19
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
 (/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
@@ -326,31 +384,31 @@ Package color Info: Driver file: pdftex.def on input line 130.
 
 (/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
-\Gread@gobject=\count89
+\Gread@gobject=\count101
 ))
 (/usr/share/texmf-texlive/tex/latex/listings/listings.sty
 (/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks16
+\KV@toks@=\toks21
 )
-\lst@mode=\count90
-\lst@gtempboxa=\box26
-\lst@token=\toks17
-\lst@length=\count91
-\lst@currlwidth=\dimen108
-\lst@column=\count92
-\lst@pos=\count93
-\lst@lostspace=\dimen109
-\lst@width=\dimen110
-\lst@newlines=\count94
-\lst@lineno=\count95
-\lst@maxwidth=\dimen111
+\lst@mode=\count102
+\lst@gtempboxa=\box28
+\lst@token=\toks22
+\lst@length=\count103
+\lst@currlwidth=\dimen117
+\lst@column=\count104
+\lst@pos=\count105
+\lst@lostspace=\dimen118
+\lst@width=\dimen119
+\lst@newlines=\count106
+\lst@lineno=\count107
+\lst@maxwidth=\dimen120
 
 (/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
-\c@lstnumber=\count96
-\lst@skipnumbers=\count97
-\lst@framebox=\box27
+\c@lstnumber=\count108
+\lst@skipnumbers=\count109
+\lst@framebox=\box29
 )
 (/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
 File: listings.cfg 2007/02/22 1.4 listings configuration
@@ -371,8 +429,8 @@ File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 )
-\Gin@req@height=\dimen112
-\Gin@req@width=\dimen113
+\Gin@req@height=\dimen121
+\Gin@req@width=\dimen122
 )
 (/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
@@ -395,9 +453,9 @@ O)
 (/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
 Package: xcolor-patch 2009/10/02 xcolor patch
 ))
-\@linkdim=\dimen114
-\Hy@linkcounter=\count98
-\Hy@pagecounter=\count99
+\@linkdim=\dimen123
+\Hy@linkcounter=\count110
+\Hy@pagecounter=\count111
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
@@ -459,10 +517,10 @@ Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 )))
-\Fld@menulength=\count100
-\Field@Width=\dimen115
-\Fld@charsize=\dimen116
-\Field@toks=\toks18
+\Fld@menulength=\count112
+\Field@Width=\dimen124
+\Fld@charsize=\dimen125
+\Field@toks=\toks23
 Package hyperref Info: Hyper figures OFF on input line 4377.
 Package hyperref Info: Link nesting OFF on input line 4382.
 Package hyperref Info: Hyper index ON on input line 4385.
@@ -474,14 +532,14 @@ Package hyperref Info: PDF/A mode OFF on input line 4407.
 (/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
 )
-\Hy@abspage=\count101
-\c@Item=\count102
-\c@Hfootnote=\count103
+\Hy@abspage=\count113
+\c@Item=\count114
+\c@Hfootnote=\count115
 )
 *hyperref using default driver hpdftex*
 (/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
-\Fld@listcount=\count104
+\Fld@listcount=\count116
 )
 (/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
@@ -491,76 +549,76 @@ File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 ) (./praca.aux)
 \openout1 = `praca.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count105
-\scratchdimen=\dimen117
-\scratchbox=\box28
-\nofMPsegments=\count106
-\nofMParguments=\count107
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count108
-\MPscratchDim=\dimen118
-\MPnumerator=\count109
-\everyMPtoPDFconversion=\toks20
+\scratchcounter=\count117
+\scratchdimen=\dimen126
+\scratchbox=\box30
+\nofMPsegments=\count118
+\nofMParguments=\count119
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count120
+\MPscratchDim=\dimen127
+\MPnumerator=\count121
+\everyMPtoPDFconversion=\toks25
 )
-\c@lstlisting=\count110
-Package hyperref Info: Link coloring OFF on input line 27.
+\c@lstlisting=\count122
+Package hyperref Info: Link coloring OFF on input line 29.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count111
+\c@section@level=\count123
 )
-LaTeX Info: Redefining \ref on input line 27.
-LaTeX Info: Redefining \pageref on input line 27.
+LaTeX Info: Redefining \ref on input line 29.
+LaTeX Info: Redefining \pageref on input line 29.
  (./praca.out)
 (./praca.out)
 \@outlinefile=\write3
 \openout3 = `praca.out'.
 
-\AtBeginShipoutBox=\box29
-LaTeX Font Info:    Try loading font information for OML+plm on input line 31.
+\AtBeginShipoutBox=\box31
+LaTeX Font Info:    Try loading font information for OML+plm on input line 33.
  (/usr/share/texmf-texlive/tex/latex/polski/omlplm.fd
 File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
-LaTeX Font Info:    Try loading font information for OMS+plsy on input line 31.
+LaTeX Font Info:    Try loading font information for OMS+plsy on input line 33.
 
 
 (/usr/share/texmf-texlive/tex/latex/polski/omsplsy.fd
 File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
-LaTeX Font Info:    Try loading font information for OMX+plex on input line 31.
+LaTeX Font Info:    Try loading font information for OMX+plex on input line 33.
 
 
 (/usr/share/texmf-texlive/tex/latex/polski/omxplex.fd
 File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <12> on input line 31.
+(Font)              <12> on input line 33.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <8> on input line 31.
+(Font)              <8> on input line 33.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <6> on input line 31.
+(Font)              <6> on input line 33.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./praca.toc
@@ -574,10 +632,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.35 \newpage
+l.37 \newpage
               [1
 
-] (./ch_Target.tex) (./ch_Introduction.tex [2]
+] (./ch_Target.tex) (./ch_Introduction.tex [2] [3]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 26.
 
 (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
@@ -585,150 +643,179 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
- [3]
+ [4]
 Overfull \hbox (0.46843pt too wide) in paragraph at lines 46--47
 \OT4/cmr/m/n/10.95 prze-my-±la-nym prze-ciw-dzia-ªa-niu naj-cz¦st-szym przy-czy
 -nom dªu-gich opó¹-nie«.
  []
 
-[4] <img/XenomaiRTAI.png, id=125, 686.565pt x 420.57124pt>
+[5] <img/XenomaiRTAI.png, id=129, 686.565pt x 420.57124pt>
 File: img/XenomaiRTAI.png Graphic file (type png)
 
-<use img/XenomaiRTAI.png> [5 <./img/XenomaiRTAI.png (PNG copy)>]
+<use img/XenomaiRTAI.png> [6 <./img/XenomaiRTAI.png (PNG copy)>]
 Overfull \hbox (3.87207pt too wide) in paragraph at lines 88--89
 []\OT4/cmr/m/n/10.95 Niniejszy roz-dziaª po-±wi¦-cony jest prze-gl¡-dowi do-st¦
 p-nych roz-wi-ni¦¢ stan-
  []
 
-[6]
+
 Overfull \hbox (0.40576pt too wide) in paragraph at lines 98--99
 \OT4/cmr/m/n/10.95 wa-dze-nie pro-to-koªu do-st¦pu PCF (ang. \OT4/cmr/m/it/10.9
 5 Po-int Co-or-di-na-tion Func-tion\OT4/cmr/m/n/10.95 ). Opcja
  []
 
-[7] [8]
+[7] [8] [9]
 Overfull \hbox (1.39308pt too wide) in paragraph at lines 163--164
 []\OT4/cmr/m/n/10.95 Wst¦pnie do-st¦pne s¡ dwa ele-menty qdisc - in-gress i roo
 t (egress). Gªówna
  []
 
-[9]) (./ch_Measurement.tex [10] [11] [12]
+) [10] (./ch_Measurement.tex [11] [12] [13]
 Overfull \hbox (0.77255pt too wide) in paragraph at lines 59--60
 \OT4/cmr/m/n/10.95 ob-sza-rze ([]2[]). Sys-tem mo»e wy-ko-rzy-sty-wa¢ wiele pun
 k-tów do-st¦-po-wych, które
  []
 
-<img/System_czasu_rzeczywistego.png, id=184, 1014.79124pt x 540.0175pt>
+<img/System_czasu_rzeczywistego.png, id=188, 1014.79124pt x 540.0175pt>
 File: img/System_czasu_rzeczywistego.png Graphic file (type png)
 
 <use img/System_czasu_rzeczywistego.png>
-<img/Roaming.png, id=185, 874.26625pt x 496.85625pt>
+<img/Roaming.png, id=189, 874.26625pt x 496.85625pt>
 File: img/Roaming.png Graphic file (type png)
  <use img/Roaming.png>
-[13] <img/RoamingTime.png, id=196, 873.2625pt x 377.41pt>
+[14 <./img/System_czasu_rzeczywistego.png (PNG copy)>] [15 <./img/Roaming.png (
+PNG copy)>] <img/RoamingTime.png, id=206, 873.2625pt x 377.41pt>
 File: img/RoamingTime.png Graphic file (type png)
 
-<use img/RoamingTime.png> [14 <./img/System_czasu_rzeczywistego.png (PNG copy)>
-]) (./ch_Linux.tex) (./ch_hop_sniffer.tex [15 <./img/Roaming.png (PNG copy)> <.
-/img/RoamingTime.png (PNG copy)>] [16]
+<use img/RoamingTime.png>) (./ch_Linux.tex) (./ch_hop_sniffer.tex [16 <./img/Ro
+amingTime.png (PNG copy)>]
 Overfull \hbox (0.2309pt too wide) in paragraph at lines 19--20
 \OT4/cmr/m/it/10.95 ath9k\OT4/cmr/m/n/10.95 . Jest to caª-ko-wi-cie otwarty ste
 -row-nik do urz¡-dze« stan-dardu 802.11bgn
  []
 
 [17]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <9> on input line 45.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <5> on input line 45.
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 45.
  (/usr/share/texmf-texlive/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <9> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 45.
-
-Overfull \hbox (21.06396pt too wide) in paragraph at lines 51--52
-[][][][][][][][][][][][][][][][] 
- []
-
-[18]
-Overfull \hbox (1.35376pt too wide) in paragraph at lines 63--64
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (7.92383pt too wide) in paragraph at lines 83--84
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (99.90479pt too wide) in paragraph at lines 84--85
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-[19]
-Overfull \hbox (4.52383pt too wide) in paragraph at lines 95--96
-\OT4/cmr/m/n/10.95 but re-pre-zen-tu-j¡cy caª¡ otrzy-man¡ ramk¦. Atry-but \OT4/
-cmr/m/it/10.95 NL80211[]ATTR[]FRAME
- []
-
-
-Overfull \hbox (40.77417pt too wide) in paragraph at lines 109--110
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][] 
- []
-
-[20]
-Overfull \hbox (94.40402pt too wide) in paragraph at lines 137--138
-\OT4/cmr/m/n/10.95 liwa jest dzi¦ki ana-li-zie od-po-wie-dzi in-ter-fejsu \OT4/
-cmr/m/it/10.95 nl80211 \OT4/cmr/m/n/10.95 na ko-mend¦ \OT4/cmr/m/it/10.95 NL802
-11[]CMD[]GET[]WIPHY
- []
-
-
-Overfull \hbox (1.35376pt too wide) in paragraph at lines 154--155
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (14.4939pt too wide) in paragraph at lines 162--163
-[][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
+ [18] [19] [20]
 [21]
-Overfull \hbox (1.35376pt too wide) in paragraph at lines 164--165
-[][][][][][][][][][][][][][][][][][][][][][][] 
+Overfull \hbox (53.58482pt too wide) in paragraph at lines 164--165
+\OT4/cmr/m/n/10.95 dzi¦ki ana-li-zie od-po-wie-dzi in-ter-fejsu \OT4/cmr/m/it/1
+0.95 nl80211 \OT4/cmr/m/n/10.95 na ko-mend¦ \OT4/cmr/m/it/10.95 NL80211[]CMD[]G
+ET[]WIPHY
  []
 
-) (./ch_Conclusion.tex) (./praca.bbl [22]
+[22] [23] [24] [25] [26] [27]
+Overfull \hbox (1.837pt too wide) in paragraph at lines 345--346
+\OT4/cmr/m/n/10.95 rwa-nie p¦-tli prze-chwy-ty-wa-nia pa-kie-tów (zwol-nie-nie 
+za-so-bów urz¡-dze-nia prze-
+ []
+
+[28]
+Overfull \hbox (48.37572pt too wide) in paragraph at lines 378--379
+\OT4/cmr/m/n/10.95 cja \OT4/cmr/m/it/10.95 hop-sniffer \OT4/cmr/m/n/10.95 spraw
+-dza czy usta-wione s¡ flagi 0x10 (\OT4/cmr/m/it/10.95 IEEE80211[]RADIOTAP[]F[]
+FCS\OT4/cmr/m/n/10.95 )
+ []
+
+[29] <img/RadiotapHeader.png, id=465, 976.64874pt x 190.7125pt>
+File: img/RadiotapHeader.png Graphic file (type png)
+
+<use img/RadiotapHeader.png> [30 <./img/RadiotapHeader.png (PNG copy)>]
+
+LaTeX Warning: Reference `RadiotapUnpack' on page 31 undefined on input line 39
+6.
+
+
+Overfull \hbox (2.52484pt too wide) in paragraph at lines 398--399
+[]\OT4/cmr/m/n/10.95 Do roz-pa-ko-wy-wa-nia pól da-nych na-gªówka \OT4/cmr/m/it
+/10.95 ra-dio-tap \OT4/cmr/m/n/10.95 sªu»y struk-tura \OT4/cmr/m/it/10.95 unpac
+-
+ []
+
+
+Overfull \hbox (78.45145pt too wide) in paragraph at lines 403--404
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (45.15134pt too wide) in paragraph at lines 405--406
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][] 
+ []
+
+[31] <img/RadiotapWifi.png, id=487, 940.51375pt x 264.99pt>
+File: img/RadiotapWifi.png Graphic file (type png)
+
+<use img/RadiotapWifi.png> [32 <./img/RadiotapWifi.png (PNG copy)>]
+Overfull \hbox (3.16885pt too wide) in paragraph at lines 443--444
+\OT4/cmr/m/n/10.95 typu \OT4/cmr/m/it/10.95 As-so-cia-tion Re-sponse \OT4/cmr/m
+/n/10.95 z ad-re-sem ¹ró-dªo-wym MAC po-cz¡t-ko-wego punktu
+ []
+
+<img/TypeSubtype.png, id=494, 1006.76125pt x 551.05875pt>
+File: img/TypeSubtype.png Graphic file (type png)
+
+<use img/TypeSubtype.png> [33] [34 <./img/TypeSubtype.png (PNG copy)>]
+Overfull \hbox (1.77507pt too wide) in paragraph at lines 491--492
+\OT4/cmr/m/n/10.95 nych gniazd (IPX, AX.25, AP-PLE-TALK) w wy-padku nie-do-st¦p
+-no-±ci gniazda
+ []
+
+<img/FlowDiagram.png, id=519, 422.57875pt x 845.1575pt>
+File: img/FlowDiagram.png Graphic file (type png)
+
+<use img/FlowDiagram.png>) (./ch_Conclusion.tex) (./praca.bbl [35] [36 <./img/F
+lowDiagram.png (PNG copy)>]
 Underfull \hbox (badness 4913) in paragraph at lines 4--7
 []\OT4/cmr/m/n/10.95 A.Barbalace, A.Lucheta, G.Manduchi, M.Moro, A.Soppelsa, an
 d
  []
 
-) [23
+) [37
 
-] (./praca.aux) ) 
+] (./praca.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 7186 strings out of 494637
- 99306 string characters out of 1173845
- 220986 words of memory out of 3000000
- 10074 multiletter control sequences out of 15000+50000
- 14538 words of font info for 40 fonts, out of 3000000 for 9000
+ 8030 strings out of 494637
+ 109467 string characters out of 1173845
+ 229473 words of memory out of 3000000
+ 10771 multiletter control sequences out of 15000+50000
+ 18131 words of font info for 49 fonts, out of 3000000 for 9000
  309 hyphenation exceptions out of 8191
- 38i,6n,49p,1205b,1786s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/pl/plms.enc}{/usr/sh
-are/texmf-texlive/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texmf-texlive/fonts/e
-nc/dvips/pl/plit.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/pl/plbx10.pfb></usr/share/texmf-tex
-live/fonts/type1/public/pl/plbx12.pfb></usr/share/texmf-texlive/fonts/type1/pub
-lic/pl/plbxti10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr10.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/pl/plr12.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/pl/plr17.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/pl/plr6.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plsy10.pfb></usr/
-share/texmf-texlive/fonts/type1/public/pl/plti10.pfb>
-Output written on praca.pdf (24 pages, 335559 bytes).
+ 38i,6n,49p,1565b,1894s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/pl/plms.enc}{/usr/share/texmf-texli
+ve/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texmf-texlive/fonts/enc/dvips/pl/pli
+t.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/pl/plbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/p
+lbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plbxti10.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/pl/plr10.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/pl/plr12.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/pl
+r17.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr6.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/pl/plr9.pfb></usr/share/texmf-texlive/fonts/type
+1/public/pl/plsy9.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plti10.pf
+b>
+Output written on praca.pdf (38 pages, 518806 bytes).
 PDF statistics:
- 429 PDF objects out of 1000 (max. 8388607)
- 173 named destinations out of 1000 (max. 500000)
- 165 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 648 PDF objects out of 1000 (max. 8388607)
+ 291 named destinations out of 1000 (max. 500000)
+ 185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

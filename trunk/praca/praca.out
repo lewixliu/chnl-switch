@@ -1,18 +1,18 @@
-\BOOKMARK [1][-]{section.0.1}{Cel pracy}{}
-\BOOKMARK [1][-]{section.0.2}{Wprowadzenie do dziedziny}{}
+\BOOKMARK [1][-]{section.0.1}{Cel pracy.}{}
+\BOOKMARK [1][-]{section.0.2}{Wprowadzenie do dziedziny.}{}
 \BOOKMARK [2][-]{subsection.0.2.1}{Problemy system\363w czasu rzeczywistego}{section.0.2}
 \BOOKMARK [2][-]{subsection.0.2.2}{Standardy 802.11 w systemach czasu rzeczywistego}{section.0.2}
-\BOOKMARK [1][-]{section.0.3}{Pomiar czasu prze\233aczania kana\233u radiowego}{}
+\BOOKMARK [1][-]{section.0.3}{Pomiar czasu prze\233aczania kana\233u radiowego.}{}
 \BOOKMARK [2][-]{subsection.0.3.1}{Prze\233aczanie kana\233u radiowego}{section.0.3}
 \BOOKMARK [2][-]{subsection.0.3.2}{Metodyka pomiaru}{section.0.3}
 \BOOKMARK [2][-]{subsection.0.3.3}{Scenariusz pomiaru: Roaming 802.11}{section.0.3}
-\BOOKMARK [1][-]{section.0.4}{Obs\233uga 802.11 w systemie operacyjnym Linux}{}
-\BOOKMARK [2][-]{subsection.0.4.1}{Sterowniki kart radiowych}{section.0.4}
-\BOOKMARK [2][-]{subsection.0.4.2}{Interfejs wywo\233an systemowych}{section.0.4}
-\BOOKMARK [2][-]{subsection.0.4.3}{Warstwa posrednia mac80211}{section.0.4}
-\BOOKMARK [2][-]{subsection.0.4.4}{Interfejs oparty na gniazdach nl80211}{section.0.4}
-\BOOKMARK [1][-]{section.0.5}{Narzedzie pomiarowe: hop-sniffer}{}
-\BOOKMARK [2][-]{subsection.0.5.1}{Srodowisko pracy programu.}{section.0.5}
-\BOOKMARK [2][-]{subsection.0.5.2}{Biblioteki programistyczne.}{section.0.5}
-\BOOKMARK [2][-]{subsection.0.5.3}{Implementacja programu hop-sniffer.}{section.0.5}
-\BOOKMARK [1][-]{section.0.6}{Podsumowanie}{}
+\BOOKMARK [1][-]{section.0.4}{Narzedzie pomiarowe: hop-sniffer.}{}
+\BOOKMARK [2][-]{subsection.0.4.1}{Srodowisko pracy programu.}{section.0.4}
+\BOOKMARK [2][-]{subsection.0.4.2}{Biblioteki programistyczne.}{section.0.4}
+\BOOKMARK [2][-]{subsection.0.4.3}{Implementacja programu hop-sniffer.}{section.0.4}
+\BOOKMARK [1][-]{section.0.5}{Wnioski z pomiaru roamingu 802.11.}{}
+\BOOKMARK [2][-]{subsection.0.5.1}{Stan medium transmisyjnego.}{section.0.5}
+\BOOKMARK [2][-]{subsection.0.5.2}{Testowane modele kart radiowych i system\363w.}{section.0.5}
+\BOOKMARK [2][-]{subsection.0.5.3}{Metody usredniania wynik\363w.}{section.0.5}
+\BOOKMARK [2][-]{subsection.0.5.4}{Wnioski na temat wynik\363w pomiaru.}{section.0.5}
+\BOOKMARK [1][-]{section.0.6}{Kierunki rozwoju.}{}

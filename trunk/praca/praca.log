@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  22 JAN 2012 06:11
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  24 JAN 2012 08:11
 entering extended mode
  %&-line parsing enabled.
 **praca.tex
@@ -649,7 +649,7 @@ Overfull \hbox (0.46843pt too wide) in paragraph at lines 46--47
 -nom dªu-gich opó¹-nie«.
  []
 
-[5] <img/XenomaiRTAI.png, id=129, 686.565pt x 420.57124pt>
+[5] <img/XenomaiRTAI.png, id=130, 686.565pt x 420.57124pt>
 File: img/XenomaiRTAI.png Graphic file (type png)
 
 <use img/XenomaiRTAI.png> [6 <./img/XenomaiRTAI.png (PNG copy)>]
@@ -671,30 +671,29 @@ t (egress). Gªówna
  []
 
 ) [10] (./ch_Measurement.tex [11] [12] [13]
-Overfull \hbox (0.77255pt too wide) in paragraph at lines 59--60
+Overfull \hbox (0.77255pt too wide) in paragraph at lines 60--61
 \OT4/cmr/m/n/10.95 ob-sza-rze ([]2[]). Sys-tem mo»e wy-ko-rzy-sty-wa¢ wiele pun
 k-tów do-st¦-po-wych, które
  []
 
-<img/System_czasu_rzeczywistego.png, id=188, 1014.79124pt x 540.0175pt>
+<img/System_czasu_rzeczywistego.png, id=189, 1014.79124pt x 540.0175pt>
 File: img/System_czasu_rzeczywistego.png Graphic file (type png)
 
-<use img/System_czasu_rzeczywistego.png>
-<img/Roaming.png, id=189, 874.26625pt x 496.85625pt>
+<use img/System_czasu_rzeczywistego.png> [14 <./img/System_czasu_rzeczywistego.
+png (PNG copy)>] <img/Roaming.png, id=195, 874.26625pt x 496.85625pt>
 File: img/Roaming.png Graphic file (type png)
- <use img/Roaming.png>
-[14 <./img/System_czasu_rzeczywistego.png (PNG copy)>] [15 <./img/Roaming.png (
-PNG copy)>] <img/RoamingTime.png, id=206, 873.2625pt x 377.41pt>
-File: img/RoamingTime.png Graphic file (type png)
 
-<use img/RoamingTime.png>) (./ch_Linux.tex) (./ch_hop_sniffer.tex [16 <./img/Ro
-amingTime.png (PNG copy)>]
+<use img/Roaming.png> [15 <./img/Roaming.png (PNG copy)>]
+<img/RoamingTime.png, id=207, 873.2625pt x 377.41pt>
+File: img/RoamingTime.png Graphic file (type png)
+ <use img/RoamingTime.png>
+[16 <./img/RoamingTime.png (PNG copy)>] [17]) (./ch_hop_sniffer.tex [18]
 Overfull \hbox (0.2309pt too wide) in paragraph at lines 19--20
 \OT4/cmr/m/it/10.95 ath9k\OT4/cmr/m/n/10.95 . Jest to caª-ko-wi-cie otwarty ste
 -row-nik do urz¡-dze« stan-dardu 802.11bgn
  []
 
-[17]
+[19]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
 LaTeX Font Info:    External font `plex10' loaded for size
@@ -707,36 +706,36 @@ File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <9> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 45.
- [18] [19] [20]
-[21]
+ [20] [21] [22]
+[23]
 Overfull \hbox (53.58482pt too wide) in paragraph at lines 164--165
 \OT4/cmr/m/n/10.95 dzi¦ki ana-li-zie od-po-wie-dzi in-ter-fejsu \OT4/cmr/m/it/1
 0.95 nl80211 \OT4/cmr/m/n/10.95 na ko-mend¦ \OT4/cmr/m/it/10.95 NL80211[]CMD[]G
 ET[]WIPHY
  []
 
-[22] [23] [24] [25] [26] [27]
+[24] [25] [26] [27] [28] [29]
 Overfull \hbox (1.837pt too wide) in paragraph at lines 345--346
 \OT4/cmr/m/n/10.95 rwa-nie p¦-tli prze-chwy-ty-wa-nia pa-kie-tów (zwol-nie-nie 
 za-so-bów urz¡-dze-nia prze-
  []
 
-[28]
+[30]
 Overfull \hbox (48.37572pt too wide) in paragraph at lines 378--379
 \OT4/cmr/m/n/10.95 cja \OT4/cmr/m/it/10.95 hop-sniffer \OT4/cmr/m/n/10.95 spraw
 -dza czy usta-wione s¡ flagi 0x10 (\OT4/cmr/m/it/10.95 IEEE80211[]RADIOTAP[]F[]
 FCS\OT4/cmr/m/n/10.95 )
  []
 
-[29] <img/RadiotapHeader.png, id=465, 976.64874pt x 190.7125pt>
+[31] <img/RadiotapHeader.png, id=484, 976.64874pt x 190.7125pt>
 File: img/RadiotapHeader.png Graphic file (type png)
 
-<use img/RadiotapHeader.png> [30 <./img/RadiotapHeader.png (PNG copy)>]
+<use img/RadiotapHeader.png>
 
-LaTeX Warning: Reference `RadiotapUnpack' on page 31 undefined on input line 39
+LaTeX Warning: Reference `RadiotapUnpack' on page 32 undefined on input line 39
 6.
 
-
+[32 <./img/RadiotapHeader.png (PNG copy)>]
 Overfull \hbox (2.52484pt too wide) in paragraph at lines 398--399
 []\OT4/cmr/m/n/10.95 Do roz-pa-ko-wy-wa-nia pól da-nych na-gªówka \OT4/cmr/m/it
 /10.95 ra-dio-tap \OT4/cmr/m/n/10.95 sªu»y struk-tura \OT4/cmr/m/it/10.95 unpac
@@ -757,35 +756,48 @@ Overfull \hbox (45.15134pt too wide) in paragraph at lines 405--406
 [][][][] 
  []
 
-[31] <img/RadiotapWifi.png, id=487, 940.51375pt x 264.99pt>
+[33] <img/RadiotapWifi.png, id=504, 940.51375pt x 264.99pt>
 File: img/RadiotapWifi.png Graphic file (type png)
 
-<use img/RadiotapWifi.png> [32 <./img/RadiotapWifi.png (PNG copy)>]
+<use img/RadiotapWifi.png>
 Overfull \hbox (3.16885pt too wide) in paragraph at lines 443--444
 \OT4/cmr/m/n/10.95 typu \OT4/cmr/m/it/10.95 As-so-cia-tion Re-sponse \OT4/cmr/m
 /n/10.95 z ad-re-sem ¹ró-dªo-wym MAC po-cz¡t-ko-wego punktu
  []
 
-<img/TypeSubtype.png, id=494, 1006.76125pt x 551.05875pt>
+[34 <./img/RadiotapWifi.png (PNG copy)>]
+<img/TypeSubtype.png, id=514, 1006.76125pt x 551.05875pt>
 File: img/TypeSubtype.png Graphic file (type png)
 
-<use img/TypeSubtype.png> [33] [34 <./img/TypeSubtype.png (PNG copy)>]
+<use img/TypeSubtype.png> [35 <./img/TypeSubtype.png (PNG copy)>] [36]
 Overfull \hbox (1.77507pt too wide) in paragraph at lines 491--492
 \OT4/cmr/m/n/10.95 nych gniazd (IPX, AX.25, AP-PLE-TALK) w wy-padku nie-do-st¦p
 -no-±ci gniazda
  []
 
-<img/FlowDiagram.png, id=519, 422.57875pt x 845.1575pt>
+<img/FlowDiagram.png, id=537, 422.57875pt x 845.1575pt>
 File: img/FlowDiagram.png Graphic file (type png)
 
-<use img/FlowDiagram.png>) (./ch_Conclusion.tex) (./praca.bbl [35] [36 <./img/F
-lowDiagram.png (PNG copy)>]
+<use img/FlowDiagram.png>) (./ch_Conclusion.tex [37] [38]
+Overfull \hbox (13.68365pt too wide) in paragraph at lines 49--50
+[]\OT4/cmr/m/n/10.95 Komputer oso-bi-sty wy-po-sa-»ony jest w kart¦ ra-diow¡ \O
+T4/cmr/m/it/10.95 PCI-Express 802.11bgn
+ []
+
+[39]
+Overfull \hbox (4.43643pt too wide) in paragraph at lines 69--70
+[]\OT4/cmr/m/n/10.95 W pierw-szym przy-padku po-mia-ro-wym z u»y-ciem uwie-rzy-
+tel-nia-nia \OT4/cmr/m/it/10.95 WPA2-
+ []
+
+[40] [41]) (./ch_Sumup.tex) [42] (./praca.bbl [43] [44 <./img/FlowDiagram.png (
+PNG copy)>]
 Underfull \hbox (badness 4913) in paragraph at lines 4--7
 []\OT4/cmr/m/n/10.95 A.Barbalace, A.Lucheta, G.Manduchi, M.Moro, A.Soppelsa, an
 d
  []
 
-) [37
+) [45
 
 ] (./praca.aux)
 
@@ -793,13 +805,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 8030 strings out of 494637
- 109467 string characters out of 1173845
- 229473 words of memory out of 3000000
- 10771 multiletter control sequences out of 15000+50000
- 18131 words of font info for 49 fonts, out of 3000000 for 9000
+ 8056 strings out of 494637
+ 109674 string characters out of 1173845
+ 232473 words of memory out of 3000000
+ 10773 multiletter control sequences out of 15000+50000
+ 19216 words of font info for 51 fonts, out of 3000000 for 9000
  309 hyphenation exceptions out of 8191
- 38i,6n,49p,1565b,1894s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,49p,1676b,1836s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/pl/plms.enc}{/usr/share/texmf-texli
 ve/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texmf-texlive/fonts/enc/dvips/pl/pli
 t.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/
@@ -812,10 +824,10 @@ ts/type1/public/pl/plr12.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/pl
 r17.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr6.pfb></usr/share/te
 xmf-texlive/fonts/type1/public/pl/plr9.pfb></usr/share/texmf-texlive/fonts/type
 1/public/pl/plsy9.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plti10.pf
-b>
-Output written on praca.pdf (38 pages, 518806 bytes).
+b></usr/share/texmf-texlive/fonts/type1/public/pl/plti12.pfb>
+Output written on praca.pdf (46 pages, 551096 bytes).
 PDF statistics:
- 648 PDF objects out of 1000 (max. 8388607)
- 291 named destinations out of 1000 (max. 500000)
+ 704 PDF objects out of 1000 (max. 8388607)
+ 314 named destinations out of 1000 (max. 500000)
  185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

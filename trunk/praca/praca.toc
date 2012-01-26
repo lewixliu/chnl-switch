@@ -1,39 +1,39 @@
 \select@language {polish}
-\contentsline {section}{\numberline {0.1}Cel pracy.}{2}{section.0.1}
-\contentsline {section}{\numberline {0.2}Wprowadzenie do dziedziny.}{3}{section.0.2}
-\contentsline {subsection}{\numberline {0.2.1}Problemy system\IeC {\'o}w czasu rzeczywistego}{3}{subsection.0.2.1}
-\contentsline {subsubsection}{System operacyjny Linux ( wersja j\IeC {\k a}dra 2.6 ).}{3}{section*.2}
-\contentsline {subsubsection}{Techniki programistyczne w standardzie POSIX}{5}{section*.3}
-\contentsline {subsubsection}{Xenomai i RTAI}{6}{section*.4}
-\contentsline {subsubsection}{Por\IeC {\'o}wnanie Linux 2.6, Xenomai, RTAI i VxWorks}{6}{section*.5}
-\contentsline {subsection}{\numberline {0.2.2}Standardy 802.11 w systemach czasu rzeczywistego}{7}{subsection.0.2.2}
-\contentsline {subsubsection}{Problemy w 802.11 MAC - opcja DCF}{7}{section*.6}
-\contentsline {subsubsection}{802.11 MAC - opcja PCF}{8}{section*.7}
-\contentsline {subsubsection}{Wsparcie dla QoS w standardzie 802.11e}{8}{section*.8}
-\contentsline {subsubsection}{Zastosowanie 802.11e w przyk\IeC {\l }adowym \IeC {\'s}rodowisku komunikacyjnym}{9}{section*.9}
-\contentsline {subsubsection}{Rozwi\IeC {\k a}zania na poziomie oprogramowania Linux}{9}{section*.10}
-\contentsline {subsubsection}{Stos IP RTnet}{10}{section*.11}
-\contentsline {section}{\numberline {0.3}Pomiar czasu prze\IeC {\l }\IeC {\k a}czania kana\IeC {\l }u radiowego.}{11}{section.0.3}
-\contentsline {subsection}{\numberline {0.3.1}Prze\IeC {\l }\IeC {\k a}czanie kana\IeC {\l }u radiowego}{12}{subsection.0.3.1}
-\contentsline {subsection}{\numberline {0.3.2}Metodyka pomiaru}{12}{subsection.0.3.2}
-\contentsline {subsection}{\numberline {0.3.3}Scenariusz pomiaru: Roaming 802.11}{13}{subsection.0.3.3}
-\contentsline {subsubsection}{\IeC {\'S}rodowisko pomiarowe}{15}{section*.12}
-\contentsline {subsubsection}{Mierzona warto\IeC {\'s}\IeC {\'c}: Czas roamingu}{15}{section*.13}
-\contentsline {subsubsection}{Wymagania co do aplikacji \emph {hop-sniffer}.}{16}{section*.14}
-\contentsline {section}{\numberline {0.4}Narz\IeC {\k e}dzie pomiarowe: \emph {hop-sniffer}.}{18}{section.0.4}
-\contentsline {subsection}{\numberline {0.4.1}\IeC {\'S}rodowisko pracy programu.}{18}{subsection.0.4.1}
-\contentsline {subsection}{\numberline {0.4.2}Biblioteki programistyczne.}{19}{subsection.0.4.2}
-\contentsline {subsubsection}{Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} interfejsu \emph {nl80211}.}{19}{section*.15}
-\contentsline {subsubsection}{Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} biblioteki typu \emph {pcap}.}{25}{section*.16}
-\contentsline {subsection}{\numberline {0.4.3}Implementacja programu \emph {hop-sniffer}.}{29}{subsection.0.4.3}
-\contentsline {subsubsection}{Obs\IeC {\l }uga sygna\IeC {\l }\IeC {\'o}w i zwalnianie zasob\IeC {\'o}w.}{30}{section*.17}
-\contentsline {subsubsection}{Pomiar zale\IeC {\.z}no\IeC {\'s}ci czasowych mi\IeC {\k e}dzy ramkami.}{30}{section*.18}
-\contentsline {subsubsection}{Przetwarzanie nag\IeC {\l }\IeC {\'o}wka \emph {radiotap}.}{31}{section*.19}
-\contentsline {subsubsection}{Przetwarzanie nag\IeC {\l }\IeC {\'o}wka standardu \emph {802.11}.}{34}{section*.20}
-\contentsline {subsubsection}{Prze\IeC {\l }\IeC {\k a}czanie kana\IeC {\l }u radiowego stacji pomiarowej.}{36}{section*.21}
-\contentsline {section}{\numberline {0.5}Wnioski z pomiaru roamingu \emph {802.11}.}{37}{section.0.5}
-\contentsline {subsection}{\numberline {0.5.1}Stan medium transmisyjnego.}{38}{subsection.0.5.1}
-\contentsline {subsection}{\numberline {0.5.2}Testowane modele kart radiowych i system\IeC {\'o}w.}{39}{subsection.0.5.2}
-\contentsline {subsection}{\numberline {0.5.3}Metody u\IeC {\'s}redniania wynik\IeC {\'o}w.}{39}{subsection.0.5.3}
-\contentsline {subsection}{\numberline {0.5.4}Wnioski na temat wynik\IeC {\'o}w pomiaru.}{40}{subsection.0.5.4}
-\contentsline {section}{\numberline {0.6}Kierunki rozwoju.}{42}{section.0.6}
+\contentsline {chapter}{\numberline {1}Cel pracy.}{4}{chapter.1}
+\contentsline {chapter}{\numberline {2}Wprowadzenie do dziedziny.}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Problemy system\IeC {\'o}w czasu rzeczywistego.}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}System operacyjny Linux ( wersja j\IeC {\k a}dra 2.6 ).}{5}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Techniki programistyczne w standardzie POSIX.}{7}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Xenomai i RTAI.}{8}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Por\IeC {\'o}wnanie Linux 2.6, Xenomai, RTAI i VxWorks.}{8}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Standardy 802.11 w systemach czasu rzeczywistego.}{9}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Problemy w 802.11 MAC - opcja DCF.}{9}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}802.11 MAC - opcja PCF.}{9}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Wsparcie dla QoS w standardzie 802.11e.}{10}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Zastosowanie 802.11e w przyk\IeC {\l }adowym \IeC {\'s}rodowisku.}{11}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Rozwi\IeC {\k a}zania na poziomie oprogramowania Linux.}{11}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Stos IP RTnet.}{12}{subsection.2.2.6}
+\contentsline {chapter}{\numberline {3}Pomiar czasu prze\IeC {\l }\IeC {\k a}czania kana\IeC {\l }u radiowego.}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Prze\IeC {\l }\IeC {\k a}czanie kana\IeC {\l }u radiowego.}{14}{section.3.1}
+\contentsline {section}{\numberline {3.2}Metodyka pomiaru.}{15}{section.3.2}
+\contentsline {section}{\numberline {3.3}Scenariusz pomiaru: Roaming 802.11.}{15}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}\IeC {\'S}rodowisko pomiarowe.}{17}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Mierzona warto\IeC {\'s}\IeC {\'c}: Czas roamingu.}{17}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Wymagania co do aplikacji \emph {hop-sniffer}.}{18}{subsection.3.3.3}
+\contentsline {chapter}{\numberline {4}Narz\IeC {\k e}dzie pomiarowe: \emph {hop-sniffer}.}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}\IeC {\'S}rodowisko pracy programu.}{21}{section.4.1}
+\contentsline {section}{\numberline {4.2}Biblioteki programistyczne.}{22}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} interfejsu \emph {nl80211}.}{22}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} biblioteki typu \emph {pcap}.}{27}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Implementacja programu \emph {hop-sniffer}.}{32}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Obs\IeC {\l }uga sygna\IeC {\l }\IeC {\'o}w i zwalnianie zasob\IeC {\'o}w.}{32}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Pomiar zale\IeC {\.z}no\IeC {\'s}ci czasowych mi\IeC {\k e}dzy ramkami.}{32}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Przetwarzanie nag\IeC {\l }\IeC {\'o}wka \emph {radiotap}.}{33}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Przetwarzanie nag\IeC {\l }\IeC {\'o}wka standardu \emph {802.11}.}{36}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Prze\IeC {\l }\IeC {\k a}czanie kana\IeC {\l }u radiowego stacji pomiarowej.}{38}{subsection.4.3.5}
+\contentsline {chapter}{\numberline {5}Wnioski z pomiaru roamingu \emph {802.11}.}{41}{chapter.5}
+\contentsline {section}{\numberline {5.1}Stan medium transmisyjnego.}{42}{section.5.1}
+\contentsline {section}{\numberline {5.2}Testowane modele kart radiowych i system\IeC {\'o}w.}{42}{section.5.2}
+\contentsline {section}{\numberline {5.3}Metody u\IeC {\'s}redniania wynik\IeC {\'o}w.}{43}{section.5.3}
+\contentsline {section}{\numberline {5.4}Wnioski na temat wynik\IeC {\'o}w pomiaru.}{43}{section.5.4}
+\contentsline {chapter}{\numberline {6}Kierunki rozwoju.}{46}{chapter.6}

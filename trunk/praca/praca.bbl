@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{pub:Comparison}
 A.Barbalace, A.Lucheta, G.Manduchi, M.Moro, A.Soppelsa, and C.Taliercio.
@@ -15,10 +15,18 @@ IEEE~Standards Association.
 \newblock \emph{IEEE802.11n-2009: Wireless LAN Medium Access Control (MAC) and
   Physical Layer (PHY) specifications}, 2009.
 
+\bibitem{www:IW}
+Johannes Berg.
+\newblock \emph{http://linuxwireless.org/en/users/Documentation/iw}.
+
 \bibitem{pub:802.11e}
 Gianluca Cena, Lucia Seno, Adiano Valenzano, and Claudio Zunino.
 \newblock \emph{On the Performance of IEEE 802.11e Wireless Infrastructures for
   Soft-Real-Time Industrial Applications}, 2010.
+
+\bibitem{www:ArchLinux}
+Arch~Linux distribution.
+\newblock \emph{http://www.archlinux.org/}.
 
 \bibitem{www:LinuxTCHowto}
 Bert Hubert, Thomas Graf, Gregory Maxwell, Remco van Mook, Martijn van
@@ -31,7 +39,7 @@ Richard Kelly and Joseph Gasparakis.
 
 \bibitem{www:DieMan}
 Linux manual.
-\newblock \emph{die.net}.
+\newblock \emph{http://www.die.net/}.
 
 \bibitem{wiki:RTLinux}
 Theodore Ts'o, Darren Hart, and John Kacur.

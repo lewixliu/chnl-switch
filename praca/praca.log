@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  26 JAN 2012 03:12
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  26 JAN 2012 07:52
 entering extended mode
  %&-line parsing enabled.
 **praca.tex
@@ -675,7 +675,7 @@ Overfull \vbox (60.46744pt too high) detected at line 4
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./img/pw_logo.pdf>]
-Overfull \hbox (12.0pt too wide) in paragraph at lines 31--40
+Overfull \hbox (12.0pt too wide) in paragraph at lines 30--39
  [] 
  []
 
@@ -865,7 +865,7 @@ Rozdzia\l  6.
 Here is how much of TeX's memory you used:
  8321 strings out of 494637
  113840 string characters out of 1173845
- 236486 words of memory out of 3000000
+ 237486 words of memory out of 3000000
  11000 multiletter control sequences out of 15000+50000
  20102 words of font info for 52 fonts, out of 3000000 for 9000
  309 hyphenation exceptions out of 8191
@@ -883,7 +883,7 @@ e1/public/pl/plr17.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr6.pfb
 ></usr/share/texmf-texlive/fonts/type1/public/pl/plr9.pfb></usr/share/texmf-tex
 live/fonts/type1/public/pl/plsy9.pfb></usr/share/texmf-texlive/fonts/type1/publ
 ic/pl/plti10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plti12.pfb>
-Output written on praca.pdf (51 pages, 656825 bytes).
+Output written on praca.pdf (51 pages, 656806 bytes).
 PDF statistics:
  842 PDF objects out of 1000 (max. 8388607)
  328 named destinations out of 1000 (max. 500000)

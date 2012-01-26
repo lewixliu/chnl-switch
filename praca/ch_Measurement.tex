@@ -7,7 +7,7 @@ Ciężko uniknąć sytuacji, w której systemy wykorzystujące do komunikacji st
 \item[--] Kuchenki mikrofalowe
 \item[--] Alarmy samochodowe
 \end{itemize}
-Łatwo zauważyć jak bardzo zróżnicowane urządzenia mogą doprowadzić do niespodziewanych problemów w bezprzewodowej komunikacji systemów czasu rzeczywistego.
+Łatwo zauważyć jak bardzo zróżnicowane urządzenia mogą doprowadzić do problemów w bezprzewodowej komunikacji systemów czasu rzeczywistego.
 
 Warto wspomnieć, że istnieje już specyfikacja standardu pracującego w paśmie \emph{5 GHz} (\cite{std:IEEE80211n}), lecz nie jest on jeszcze powszechnie wspierany. Biorąc za przykład rozwiązania \emph{open-source} można zauważyć, że standard \emph{802.11n} jest obsługiwany przez nowe sterowniki (\emph{ath9k} dla urządzeń firmy \emph{Atheros}). Problemem jest natomiast fakt, że tego typu sterowniki dostępne są jedynie w najnowszych dystrybucjach systemów operacyjnych przeznaczonych dla urządzeń wbudowanych (przykładowo \emph{OpenWrt Backfire 10.03}), które nie zawsze od początku wspierają zadowalającą gamę urządzeń. Dla przykładu nadal istnieją problemy z dostępnością tego typu sterowników dla popularnej płytki \emph{MagicBox}.
 
@@ -17,7 +17,7 @@ Biorąc pod uwagę fakt zaszumienia medium transmisyjnego wnioskuję, że możli
 Powyższe czynniki sugerują, że całkowite wyeliminowanie potrzeby przełączania kanału (zmiany częstotliwości pracy) interfejsów radiowych nie jest aktualnie osiągalne. Co więcej, udostępnianie nowych pasm częstotliwości, w sytuacji ciągle rosnącego zapotrzebowania, jest jedynie tymczasowym rozwiązaniem.  
 
 
-\subsection{Przełączanie kanału radiowego}
+\section{Przełączanie kanału radiowego.}
 Opóźnienie związane ze zmianą częstotliwości pracy jest ważnym parametrem, gdyż w tym czasie stacja zaprzestaje reakcji na kierowane do niej dane. Ramki skierowane do stacji są tracone co w oczywisty sposób może wpłynąć na ograniczenia czasowe, w których działają komunikujące się systemy. 
 Typowe scenariusze, w których może zajść potrzeba zmiany częstotliwości pracy interfejsu NIC to:
 \begin{itemize}
@@ -31,7 +31,7 @@ Najczęstszą przyczyną przełączania kanału jest procedura skanowania medium
 
 Przełączanie kanału następuje również, kiedy stacja kliencka oddala się zbyt daleko od punktu dostępowego i musi rozpocząć poszukiwanie nowego w swoim zasięgu. Jest to sytuacja zwana roamingiem i wymaga uwagi podczas rozważania systemów, w których skład wchodzą mobilne stacje, czy agenci. Obszar działania systemu może być na tyle różnorodny pod względem zakłóceń, że konieczne będzie przełączanie kanału między kolejnymi punktami dostępowymi pracującymi na różnych częstotliwościach.
 
-\subsection{Metodyka pomiaru}
+\section{Metodyka pomiaru.}
 Z punktu widzenia zjawiska komunikacji w standardzie 802.11 za kluczową uznałem możliwość prowadzenia pomiarów z minimalną ingerencją w strukturę i działanie stacji. Osiągnięcie tego celu wymaga uruchomienia dodatkowej maszyny, która prowadzi nasłuch w medium komunikacyjnym. Jedną z zalet tego typu rozwiązania jest fakt, że programistyczne środowisko pomiarowe przygotowuję tylko na jednej stacji. Jest to niezwykle ważne w przypadku, gdy w danym scenariuszu pomiarowym biorą udział systemy wbudowane (np. pełniące funkcję routerów) z ograniczonymi możliwościami instalacji rozbudowanych aplikacji i bibliotek programistycznych. 
 Opis stosowanych metodyk pomiarowych rozpocznę od definicji podstawowych pojęć opisujących środowisko i uczestników scenariuszy. Najważniejsze pojęcia to:
 \begin{itemize}
@@ -44,14 +44,14 @@ Opis stosowanych metodyk pomiarowych rozpocznę od definicji podstawowych poję�
 \item[--] {\bf Zdarzenie }: Przechwycenie ramki standardu 802.11 biorącej udział w scenariuszu pomiarowym. 
 \end{itemize}
 
-\subsection{Scenariusz pomiaru: Roaming 802.11}
-Roaming 802.11 to zjawisko zachodzące w sieciach, w trybie infrastruktury (ang. \emph{Infrastructure mode}). Podstawowym zadaniem procedury jest umożliwienie stacji klienckiej odłączenia się od punktu dostępowego i podjęcia próby odnalezienia i podłączenia się do stacji o mocniejszym sygnale. W warunkach rzeczywistych sytuacja taka najczęściej jest wynikiem ruchu mobilnej stacji klienckiej (np. przemieszczającego się pracownika biura, lub agenta w systemie przemysłowym), która dociera do granicy zasięgu dotychczas używanego punktu dostępowego. Aby zachować połączenie z systemem, lub usługami (np. dostęp do internetu) maszyna musi odnaleźć inną stację pracującą w trybie AP o mocniejszym sygnale. Na procedurę roamingu 802.11 składają się następujące kroki:
+\section{Scenariusz pomiaru: Roaming 802.11.}
+Roaming 802.11 to zjawisko zachodzące w sieciach, w trybie infrastruktury (ang. \emph{Infrastructure mode}). Podstawowym celem jest umożliwienie stacji klienckiej odłączenia się od punktu dostępowego i podjęcia próby odnalezienia i podłączenia się do stacji o mocniejszym sygnale. W warunkach rzeczywistych sytuacja taka najczęściej jest wynikiem ruchu mobilnej stacji klienckiej (np. przemieszczającego się pracownika biura, lub agenta w systemie przemysłowym), która dociera do granicy zasięgu dotychczas używanego punktu dostępowego. Aby zachować połączenie z systemem, lub usługami (np. dostęp do internetu) maszyna musi odnaleźć inną stację pracującą w trybie AP o mocniejszym sygnale. Na procedurę roamingu 802.11 składają się następujące kroki:
 \begin{itemize}
 \item[--] Stacja kliencka wykrywa, że poziom sygnału RF (ang. \emph{Radio Frequency})
 punktu dostępowego \#1 jest poniżej progu roamingu.
 \item[--] Stacja kliencka rozpoczyna nadawanie ramek rozwiązujących asocjację do punktu dostępowego \#1 do momentu potwierdzenia odebrania.
 \item[--] Punkt dostępowy \#1 otrzymuje ramkę rozwiązującą asocjację \emph{Disassociation frame} i usuwa stację kliencką z tablicy asocjacji.
-\item[--] Stacja kliencka rozpoczyna skanowanie medium komunikacyjnego i oczekuje na ramki typu \emph{Probe Response}.
+\item[--] Stacja kliencka rozpoczyna skanowanie medium komunikacyjnego i oczekuje ramek \emph{Probe Response}.
 \item[--] Punkt dostępowy \#2 wysyła do stacji klienckiej ramkę typu \emph{Probe Response}
 \item[--] Stacja kliencka rozpoczyna wysyłanie do punktu dostępowego \#2 ramek typu \emph{Association request}.
 \item[--] Punkt dostępowy \#2 dokonuje asocjacji stacji klienckiej i potwierdza to zdarzenie wysyłając ramkę typu \emph{Association response}.
@@ -67,7 +67,7 @@ punktu dostępowego \#1 jest poniżej progu roamingu.
 \end{center}
 \end{figure}
 
-Oczywiście roaming nie implikuje ruchu żadnej z maszyn, co ułatwia przeprowadzenie pomiaru. Wystarczy doprowadzić do sytuacji, w której moc sygnału punktu dostępowego spadnie poniżej progu (ang. \emph{roaming treshold}), który powoduje decyzję o rozwiązaniu asocjacji stacji klienckiej. 
+Oczywiście roaming nie implikuje ruchu żadnej z maszyn, co ułatwia przeprowadzenie pomiaru. Wystarczy doprowadzić do sytuacji, w której moc sygnału punktu dostępowego spadnie poniżej progu (ang. \emph{roaming threshold}), który powoduje decyzję o rozwiązaniu asocjacji stacji klienckiej. 
 
 \begin{figure}[htb]
 \begin{center}
@@ -77,12 +77,13 @@ Oczywiście roaming nie implikuje ruchu żadnej z maszyn, co ułatwia przeprowad
 \end{center}
 \end{figure}
 
-\subsubsection{Środowisko pomiarowe}
+\subsection{Środowisko pomiarowe.}
+\label{sec:MeasurementEnviroment}
 
 W skład środowiska pomiarowego (\ref{RoamingEnviroment}) wchodzą dwa punkty dostępowe, stacja kliencka oraz stacja pomiarowa. Punkty dostępowe pracują na różnych częstotliwościach. Do wyboru, zgodnie ze standardem 802.11g (\cite{std:IEEE80211}), są kanały numer 1, 5, 9, lub 13. Są to nienachodzące na siebie zakresy częstotliwości. W celu ułatwienia roamingu stacja kliencka umieszczona jest na granicy zasięgu punktów dostępowych. Stacja pomiarowa musi znajdować się w zasięgu stacji klienckiej, oraz obydwu punktów dostępowych (musi być w stanie rejestrować ruch sieciowy). 
 Należy zwrócić uwagę na zapewnienie odpowiedniej jakości medium transmisyjnego. Wysoki poziom zakłóceń na kanałach wykorzystywanych w eksperymencie wprowadzi zakłamania, jeśli interesuje nas wyłącznie czas trwania samej procedury roamingu. 
 
-\subsubsection{Mierzona wartość: Czas roamingu}
+\subsection{Mierzona wartość: Czas roamingu.}
 Czas roamingu 802.11 rozumiem jako czas (\ref{RoamingTime}) mierzony od momentu decyzji stacji klienckiej o zaprzestaniu normalnej wymiany danych z punktem dostępowym do momentu powiązania z nową stacją w trybie AP o mocniejszym sygnale. Zdarzeniem inicjującym pomiar jest wysłanie przez stację kliencką pierwszej ramki rozwiązującej asocjację (ang. \emph{Disassociation frame}). Pomiar zostaje zakończony w momencie wysłania przez nowy punkt dostępowy ramki potwierdzającej asocjację nowej stacji (ang. \emph{Association Response frame}).
 
 Podstawowa procedura pomiarowa składa się z następujących kroków:
@@ -102,7 +103,8 @@ Podstawowa procedura pomiarowa składa się z następujących kroków:
 \end{center}
 \end{figure}
 
-\subsubsection{Wymagania co do aplikacji \emph{hop-sniffer}.}
+\subsection{Wymagania co do aplikacji \emph{hop-sniffer}.}
+\label{sec:ApplicationRequirements}
 
 Do przeprowadzenia powyżej zdefiniowanej procedury pomiaru opóźnienia roamingu stacji klienckiej niezbędne jest wytworzenie oprogramowania pomocniczego. Aplikacja ta działa w środowisku stacji pomiarowej i służy do przechwytywania i reagowania na zdarzenia scenariusza. Powinna ona spełniać wszelkie wymagania funkcjonalne i niefunkcjonalne stawiane przez procedurę pomiarową. W wyniku analizy zidentyfikowałem następujące wymagania: 
 \begin{enumerate}
@@ -120,7 +122,7 @@ Scentralizowana architektura aplikacji oznacza działanie jej składników wył�
 
 Działanie na komputerze przenośnym jest podyktowane łatwą organizacją określonego w specyfikacji środowiska. Stacja pomiarowa musi znajdować się w zasięgu wszystkich uczestników obserwowanego scenariusza, więc możliwa powinna być łatwa manipulacja jej położeniem.
 
-Obserwacja i pomiary opóźnień w dowolnym zjawisku w standardzie 802.11 wymaga dostępu do elementarnych zdarzeń sterujących jego przebiegiem. Pochodną tego wymagania jest potrzeba nasłuchiwania w medium transmisyjnym w celu przechwytywania nie tyle ramek danych, co ramek porządkujących cały proces komunikacji (ang. \emph{Management frames}). Za ich pomocą stacje informują innych uczestników protokołu komunikacyjnego o rozpoczęciu, przebiegu i zakończeniu roamingu i innych opisanych w standardzie zjawisk. 
+Obserwacja opóźnień dowolnego zjawiska w standardzie 802.11 wymaga dostępu do elementarnych zdarzeń sterujących jego przebiegiem. Pochodną tego wymagania jest potrzeba nasłuchiwania w medium transmisyjnym w celu przechwytywania nie tyle ramek danych, co ramek porządkujących cały proces komunikacji (ang. \emph{Management frames}). Za ich pomocą stacje informują innych uczestników protokołu komunikacyjnego o rozpoczęciu, przebiegu i zakończeniu roamingu i innych opisanych w standardzie zjawisk. 
 
 Niezwykle ważna jest konieczność obejścia dwóch niskopoziomowych filtrów pakietów, które stoją na przeszkodzie obserwacji wszystkich zdarzeń. Filtry te służą zwiększeniu wydajności komunikacji poprzez wczesne odrzucenie pakietów, które z pewnością nie interesują danej stacji. Pierwszym z nich jest filtr adresów \emph{MAC}, który odrzuca wszystkie ramki nie kierowane do danego interfejsu. Kolejnym jest filtr identyfikatorów \emph{SSID} (ang. \emph{Service Set Indetifier}), który upuszcza pakiety nie pochodzące z infrastruktury, której stacja nie jest członkiem. Stacja pomiarowa nie powinna być w asocjacji z żadnym punktem dostępowym, ale być w stanie przechwycić komunikaty pochodzące z dowolnego \emph{AP} (ang. \emph{Access Point}). 
 

@@ -1,0 +1,5 @@
+\begin{figure}[ht]
+  \centering
+  \resizebox{\textwidth}{!}{\includegraphics{img/smime_msg.png}}
+  \caption{Mechanizm tworzenia wiadomości S/MIME}
+\end{figure}

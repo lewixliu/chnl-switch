@@ -5,6 +5,11 @@
 \usepackage{indentfirst}
 \usepackage{url}
 
+\usepackage{appendix}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{array}
+
 \usepackage{amsmath}
 \usepackage{color}
 \usepackage{listings}
@@ -12,6 +17,19 @@
 \usepackage{hyperref}
 
 %\newcommand{\bib}[1]{\cite{#1}
+
+% marginesy
+\textwidth\paperwidth
+\advance\textwidth -55mm
+\oddsidemargin-0.9in
+\advance\oddsidemargin 33mm
+\evensidemargin-0.9in
+\advance\evensidemargin 33mm
+\topmargin -1in
+\advance\topmargin 25mm
+\setlength\textheight{48\baselineskip}
+\addtolength\textheight{\topskip}
+\marginparwidth 15mm
 
 %\lstlistoflistings
 \definecolor{darkgray}{rgb}{0.95,0.95,0.95}
@@ -26,10 +44,16 @@
 \lstset{commentstyle=\color{dkgreen}}
 \lstset{stringstyle=\color{mauve}}
 
+\linespread{1.2}
+
 \begin{document}
-\title{ \emph{hop-sniffer}: Narzędzie pomiaru opóźnień w standardzie \emph{802.11}. }
-\author{ Marcin Harasimczuk }
-\maketitle
+%\title{ Pomiar opóźnienia ramek standardu 802.11 - narzędzie \emph{hop-sniffer}. }
+%\author{ Marcin Harasimczuk }
+%\maketitle
+
+\input{Title_Page}
+\input{cv}
+\input{Abstract}
 
 \tableofcontents
 
@@ -39,22 +63,22 @@
 \mbox{}
 \bibliographystyle{plain}
 
-\section{Cel pracy.}
+\chapter{Cel pracy.}
 \input{ch_Target}
 
-\section{Wprowadzenie do dziedziny.}
+\chapter{Wprowadzenie do dziedziny.}
 \input{ch_Introduction}
 
-\section{Pomiar czasu przełączania kanału radiowego.}
+\chapter{Pomiar czasu przełączania kanału radiowego.}
 \input{ch_Measurement}
 
-\section{Narzędzie pomiarowe: \emph{hop-sniffer}.}
+\chapter{Narzędzie pomiarowe: \emph{hop-sniffer}.}
 \input{ch_hop_sniffer}
 
-\section{Wnioski z pomiaru roamingu \emph{802.11}.}
+\chapter{Wnioski z pomiaru roamingu \emph{802.11}.}
 \input{ch_Conclusion}
 
-\section{Kierunki rozwoju.}
+\chapter{Kierunki rozwoju.}
 \input{ch_Sumup}
 
 \nocite{*}

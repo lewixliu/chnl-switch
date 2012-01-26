@@ -22,7 +22,7 @@ Podczas roamingu ważnym parametrem jest moc sygnału punktów dostępowych. W z
 
 Ostatecznie badam wpływ obecności stacji nie przewidzianych w specyfikacji scenariusza. W tym celu wykorzystuję pracujące w medium transmisyjnym punkty dostępowe nie będące uczestnikami pomiaru. Ustawiam ich kanały pracy na częstotliwości wykorzystywane w eksperymencie. 
 
-\subsection{Stan medium transmisyjnego.}
+\section{Stan medium transmisyjnego.}
 
 Eksperyment pomiarowy przeprowadzam w warunkach domowych miejskich. W czasie pomiarów widoczny był sygnał z pięciu punktów dostępowych o zróżnicowanej mocy i częstotliwości pracy:
 
@@ -36,9 +36,9 @@ Eksperyment pomiarowy przeprowadzam w warunkach domowych miejskich. W czasie pom
 
 Jest to typowa sytuacja, z którą można się spotkać w bloku mieszkalnym. Część mieszkań posiada działające \emph{AP} pracujące w różnej odległości od środowiska pomiarowego. W celu realizacji scenariusza przewidującego minimalne zakłócenia nie wykorzystuję kanału szóstego o największej zajętości.
 
-\subsection{Testowane modele kart radiowych i systemów.}
+\section{Testowane modele kart radiowych i systemów.}
 
-Zorganizowane środowisko pomiarowe jest zgodne ze specyfikacją (link) i przedstawia się następująco:
+Zorganizowane środowisko pomiarowe jest zgodne ze specyfikacją \ref{sec:MeasurementEnviroment} i przedstawia się następująco:
 \begin{itemize}
 \item[--] {\bf Punkt dostępowy 1:} Stacja \emph{PC} pod kontrolą systemu \emph{Linux} w wersji jądra 2.6.
 \item[--] {\bf Punkt dostępowy 2:} Router \emph{802.11g} pod kontrolą wbudowanego systemu operacyjnego.
@@ -46,17 +46,17 @@ Zorganizowane środowisko pomiarowe jest zgodne ze specyfikacją (link) i przeds
 \item[--] {\bf Stacja pomiarowa:} Komputer przenośny pod kontrolą systemu \emph{Linux} w wersji jądra 2.6.
 \end{itemize}
 
-Komputer osobisty wyposażony jest w kartę radiową \emph{PCI-Express 802.11bgn} obsługiwaną przez sterownik \emph{ath9k} z \emph{chipsetem Atheros Communications Inc. AR9285} pozwalającą na utworzenie interfejsu w trybie \emph{AP} na bazie warstwy \emph{mac80211}. Funkcjonalność punktu dostępowego realizowana jest w przestrzeni użytkownika przez demona \emph{hostapd}, który steruje asocjacją i uwierzytelnianiem stacji klienckich. 
+Komputer osobisty wyposażony jest w kartę radiową \emph{PCI-Express 802.11bgn} obsługiwaną przez sterownik \emph{ath9k} z \emph{chipsetem} \emph{AR9285} firmy \emph{Atheros} pozwalającą na utworzenie interfejsu w trybie \emph{AP} na bazie warstwy \emph{mac80211}. Funkcjonalność punktu dostępowego realizowana jest w przestrzeni użytkownika przez demona \emph{hostapd}, który steruje asocjacją i uwierzytelnianiem stacji klienckich. 
 
 Rolę punktu dostępowego docelowego (numer 2) pełni router \emph{802.11bg TP-Link TL-WR543G}. Działa on pod kontrolą systemu wbudowanego i umożliwia konfigurację parametrów \emph{AP} poprzez interfejs sieciowy. 
 
 Stacja kliencka wykorzystuje zarządce połączeń bezprzewodowych \emph{WZC} (ang. \emph{Wireless Zero Configuration}) dostępnego na systemach \emph{Windows XP}. Karta radiowa oparta jest o \emph{chipset Realtek RT8187B}. Zarządca pozwala ustawienie preferowanych punktów dostępowych i automatyczny roaming w razie osłabienia jakości łącza. 
 
-Stacja pomiarowa jest zgodna z projektem środowiska wykonawczego programu \emph{hop-sniffer} (link). Jest uruchomiona na komputerze przenośnym \emph{ASUS eeePC} z kartą radiową \emph{802.11bgn} obsługiwaną przez sterownik \emph{ath9k} posiadającą \emph{chipset} \emph{Atheros Communications Inc. AR9285}.
+Stacja pomiarowa jest zgodna z projektem środowiska wykonawczego programu \emph{hop-sniffer} \ref{sec:ProgramEnviroment}. Jest uruchomiona na komputerze przenośnym \emph{ASUS eeePC} z kartą radiową \emph{802.11bgn} obsługiwaną przez sterownik \emph{ath9k} posiadającą \emph{chipset} \emph{Atheros Communications Inc. AR9285}.
 
 Stacje umieszczone są we wspólnym pomieszczeniu.
 
-\subsection{Metody uśredniania wyników.}
+\section{Metody uśredniania wyników.}
 
 Ze względu na niedeterministyczne opóźnienia niezbędne jest wstępne zapoznanie się z charakterem wyników i określenie najbardziej odpowiedniej metodyki ich uśredniania. 
 
@@ -64,7 +64,7 @@ Wstępna analiza puli wyników wskazuje na okresowe pojawianie się wartości od
 
 Średnia arytmetyczna przedstawia mniej \emph{optymistyczną} wizję opóźnień uwzględniając duży wpływ szczególnie wysokich wartości odstających. \emph{Mediana} pomaga mi w obrazowaniu najbardziej prawdopodobnych wartości i umożliwia bardziej ogólne wnioskowanie na ich podstawie.
 
-\subsection{Wnioski na temat wyników pomiaru.}
+\section{Wnioski na temat wyników pomiaru.}
 
 W pierwszym przypadku pomiarowym z użyciem uwierzytelniania \emph{WPA2-PSK} mediana i średnia arytmetyczna wyników są do siebie zbliżone. Oznacza to, że wartości mierzone były zbierane przy minimalnym stopniu zakłóceń w łączu. Wynik ten nie jest zaskakujący, gdyż punkty dostępowe działają z mocą nadawania 20 \emph{dbM} na częstotliwościach o niskim zatłoczeniu.
 

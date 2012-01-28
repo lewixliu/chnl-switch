@@ -2,28 +2,28 @@
 
 Ciężko uniknąć sytuacji, w której systemy wykorzystujące do komunikacji standard \emph{802.11} napotykają potrzebę zmiany częstotliwości (przełączenia kanału) pracy swoich interfejsów kart radiowych NIC (ang. \emph{Network Interface Card}). Główną przyczyną podziału pasma jest wielodostęp, a więc unikanie wzajemnego zakłócania się urządzeń. Należy wziąć pod uwagę, że medium transmisyjne w środowisku przemysłowym jest zwykle wyjątkowo zaszumione w paśmie \emph{2.4 GHz}. Dla uzmysłowienia stopnia zakłóceń wystarczy wymienić część urządzeń pracujących w paśmie \emph{ISM} (ang. \emph{Industrial, scientific and medical}) takich jak:
 \begin{itemize}
-\item[--] Elektroniczne nianie
-\item[--] Urządzenia Bluetooth
-\item[--] Kuchenki mikrofalowe
-\item[--] Alarmy samochodowe
+\item[--] elektroniczne nianie,
+\item[--] urządzenia Bluetooth,
+\item[--] kuchenki mikrofalowe,
+\item[--] alarmy samochodowe
 \end{itemize}
 Łatwo zauważyć jak bardzo zróżnicowane urządzenia mogą doprowadzić do problemów w bezprzewodowej komunikacji systemów czasu rzeczywistego.
 
 Warto wspomnieć, że istnieje już specyfikacja standardu pracującego w paśmie \emph{5 GHz} (\cite{std:IEEE80211n}), lecz nie jest on jeszcze powszechnie wspierany. Biorąc za przykład rozwiązania \emph{open-source} można zauważyć, że standard \emph{802.11n} jest obsługiwany przez nowe sterowniki (\emph{ath9k} dla urządzeń firmy \emph{Atheros}). Problemem jest natomiast fakt, że tego typu sterowniki dostępne są jedynie w najnowszych dystrybucjach systemów operacyjnych przeznaczonych dla urządzeń wbudowanych (przykładowo \emph{OpenWrt Backfire 10.03}), które nie zawsze od początku wspierają zadowalającą gamę urządzeń. Dla przykładu nadal istnieją problemy z dostępnością tego typu sterowników dla popularnej płytki \emph{MagicBox}.
 
-% Dodać więcej cytowań do WMN
 Biorąc pod uwagę fakt zaszumienia medium transmisyjnego wnioskuję, że możliwość zmiany częstotliwości pracy interfejsu \emph{NIC} w poszukiwaniu dogodnego kanału komunikacji jest jedną z jego kluczowych i wymagających uwagi cech. W ostatnich latach powstało wiele publikacji dotyczących możliwości adaptacji struktury sieci bezprzewodowych do panującej jakości medium komunikacyjnego (\cite{pub:DCS}). Prace te koncentrują się głównie na algorytmach dynamicznej modyfikacji częstotliwości pracy interfejsów w sieciach kratowych \emph{WMN} (ang. \emph{Wireless Mesh Network}). Oczywiście u podstaw zastosowanych rozwiązań leży zjawisko przełączania kanału radiowego.
 
 Powyższe czynniki sugerują, że całkowite wyeliminowanie potrzeby przełączania kanału (zmiany częstotliwości pracy) interfejsów radiowych nie jest aktualnie osiągalne. Co więcej, udostępnianie nowych pasm częstotliwości, w sytuacji ciągle rosnącego zapotrzebowania, jest jedynie tymczasowym rozwiązaniem.  
 
 
+% Rozwiązanie z 2-3 interfejsami radiowymi ???
 \section{Przełączanie kanału radiowego.}
 Opóźnienie związane ze zmianą częstotliwości pracy jest ważnym parametrem, gdyż w tym czasie stacja zaprzestaje reakcji na kierowane do niej dane. Ramki skierowane do stacji są tracone co w oczywisty sposób może wpłynąć na ograniczenia czasowe, w których działają komunikujące się systemy. 
 Typowe scenariusze, w których może zajść potrzeba zmiany częstotliwości pracy interfejsu NIC to:
 \begin{itemize}
 \item[--] Stacja kliencka w trybie \emph{Managed} dokonuje \emph{Roamingu} między dwoma punktami dostępowymi AP (ang. \emph{Access Point}) 
 \item[--] Stacja kliencka w trybie \emph{Managed} skanuje medium w poszukiwaniu punktów dostępowych AP (ang. \emph{Access Point})
-\item[--] Stacja kliencka w trybie \emph{Ad-hoc} skanuje medium po podniesieniu interfejsu lub samym przełączeniu kanału 
+\item[--] Stacja kliencka w trybie \emph{Ad-hoc} skanuje medium po aktywacji interfejsu lub samym przełączeniu kanału 
 \end{itemize}
 Identyfikacja powyższych sytuacji to pierwszy krok ku specyfikacji konkretnych scenariuszy pomiarowych. 
 
@@ -33,6 +33,9 @@ Przełączanie kanału następuje również, kiedy stacja kliencka oddala się z
 
 \section{Metodyka pomiaru.}
 Z punktu widzenia zjawiska komunikacji w standardzie 802.11 za kluczową uznałem możliwość prowadzenia pomiarów z minimalną ingerencją w strukturę i działanie stacji. Osiągnięcie tego celu wymaga uruchomienia dodatkowej maszyny, która prowadzi nasłuch w medium komunikacyjnym. Jedną z zalet tego typu rozwiązania jest fakt, że programistyczne środowisko pomiarowe przygotowuję tylko na jednej stacji. Jest to niezwykle ważne w przypadku, gdy w danym scenariuszu pomiarowym biorą udział systemy wbudowane (np. pełniące funkcję routerów) z ograniczonymi możliwościami instalacji rozbudowanych aplikacji i bibliotek programistycznych. 
+
+Warto zauważyć, że stacje mogą pracować na różnych częstotliwościach i zmieniać je w trakcie trwania obserwacji. Stacja pomiarowa, będąca w posiadaniu informacji na temat aktualnie badanego zjawiska, musi mieć możliwość zmiany kanału pracy swojego interfejsu nasłuchującego w sposób, który nie spowoduje utraty informacji z łącza. Jednym z rozwiązań tego problemu jest zastosowanie wielu interfejsów radiowych, które podczas inicjalizacji procedury pomiarowej wprowadzane są na częstotliwości pracy przeznaczone do obserwacji konkretnych uczestników. 
+
 Opis stosowanych metodyk pomiarowych rozpocznę od definicji podstawowych pojęć opisujących środowisko i uczestników scenariuszy. Najważniejsze pojęcia to:
 \begin{itemize}
 \item[--] {\bf Stacja pomiarowa}: Komputer działający pod kontrolą interakcyjnego systemu operacyjnego, na którym uruchomiona jest aplikacja nasłuchująca ruch sieciowy (ang. \emph{sniffer}).
@@ -41,7 +44,7 @@ Opis stosowanych metodyk pomiarowych rozpocznę od definicji podstawowych poję�
 \item[--] {\bf Rozwiązanie asocjacji}: Zdarzenie wysłania ramki rozwiązującej asocjację między stacją kliencką, a punktem dostępowym (ang. \emph{Disassociation frame}).
 \item[--] {\bf Skanowanie}: Wysyłanie przez stację ramek typu \emph{Probe Request} na wszystkich dostępnych w specyfikacji (\cite{std:IEEE80211}) częstotliwościach pracy.
 \item[--] {\bf Scenariusz pomiaru}: Jeden ze scenariuszy możliwych do zaistnienia podczas komunikacji stacji w standardzie 802.11, w którego czasie następuje przełączenie kanału interfejsu NIC.
-\item[--] {\bf Zdarzenie }: Przechwycenie ramki standardu 802.11 biorącej udział w scenariuszu pomiarowym. 
+\item[--] {\bf Zdarzenie}: Przechwycenie ramki standardu 802.11 biorącej udział w scenariuszu pomiarowym. 
 \end{itemize}
 
 \section{Scenariusz pomiaru: Roaming 802.11.}
@@ -52,7 +55,7 @@ punktu dostępowego \#1 jest poniżej progu roamingu.
 \item[--] Stacja kliencka rozpoczyna nadawanie ramek rozwiązujących asocjację do punktu dostępowego \#1 do momentu potwierdzenia odebrania.
 \item[--] Punkt dostępowy \#1 otrzymuje ramkę rozwiązującą asocjację \emph{Disassociation frame} i usuwa stację kliencką z tablicy asocjacji.
 \item[--] Stacja kliencka rozpoczyna skanowanie medium komunikacyjnego i oczekuje ramek \emph{Probe Response}.
-\item[--] Punkt dostępowy \#2 wysyła do stacji klienckiej ramkę typu \emph{Probe Response}
+\item[--] Punkt dostępowy \#2 wysyła do stacji klienckiej ramkę typu \emph{Probe Response}.
 \item[--] Stacja kliencka rozpoczyna wysyłanie do punktu dostępowego \#2 ramek typu \emph{Association request}.
 \item[--] Punkt dostępowy \#2 dokonuje asocjacji stacji klienckiej i potwierdza to zdarzenie wysyłając ramkę typu \emph{Association response}.
 \end{itemize}

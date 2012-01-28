@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  26 JAN 2012 07:52
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.12)  28 JAN 2012 11:07
 entering extended mode
  %&-line parsing enabled.
 **praca.tex
@@ -586,22 +586,22 @@ File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 ) (./praca.aux)
 \openout1 = `praca.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -617,7 +617,7 @@ LaTeX Font Info:    ... okay on input line 49.
 \everyMPtoPDFconversion=\toks26
 )
 \c@lstlisting=\count129
-Package hyperref Info: Link coloring OFF on input line 49.
+Package hyperref Info: Link coloring OFF on input line 60.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
@@ -626,23 +626,21 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count130
 )
-LaTeX Info: Redefining \ref on input line 49.
-LaTeX Info: Redefining \pageref on input line 49.
+LaTeX Info: Redefining \ref on input line 60.
+LaTeX Info: Redefining \pageref on input line 60.
  (./praca.out)
 (./praca.out)
 \@outlinefile=\write3
 \openout3 = `praca.out'.
 
 \AtBeginShipoutBox=\box31
- (./Title_Page.tex
+ (./praca.toc
 LaTeX Font Info:    Try loading font information for OML+plm on input line 4.
-
-(/usr/share/texmf-texlive/tex/latex/polski/omlplm.fd
+ (/usr/share/texmf-texlive/tex/latex/polski/omlplm.fd
 File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Try loading font information for OMS+plsy on input line 4.
-
-(/usr/share/texmf-texlive/tex/latex/polski/omsplsy.fd
+ (/usr/share/texmf-texlive/tex/latex/polski/omsplsy.fd
 File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Try loading font information for OMX+plex on input line 4.
@@ -656,69 +654,20 @@ LaTeX Font Info:    External font `plex10' loaded for size
 (Font)              <8> on input line 4.
 LaTeX Font Info:    External font `plex10' loaded for size
 (Font)              <6> on input line 4.
+ [1
 
 
-pdfTeX warning: pdflatex (file ./img/pw_logo.pdf): PDF inclusion: found PDF ver
-sion <1.5>, but at most version <1.4> allowed
-<img/pw_logo.pdf, id=155, 256.96pt x 192.72pt>
-File: img/pw_logo.pdf Graphic file (type pdf)
- <use img/pw_logo.pdf>) (./cv.tex
-
-pdfTeX warning: pdflatex (file ./img/zdjecie.pdf): PDF inclusion: found PDF ver
-sion <1.5>, but at most version <1.4> allowed
-<img/zdjecie.pdf, id=157, 96.7615pt x 120.8515pt>
-File: img/zdjecie.pdf Graphic file (type pdf)
- <use img/zdjecie.pdf>
-Overfull \vbox (60.46744pt too high) detected at line 4
- []
-
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./img/pw_logo.pdf>]
-Overfull \hbox (12.0pt too wide) in paragraph at lines 30--39
- [] 
- []
-
-) (./Abstract.tex [2 <./img/zdjecie.pdf>]pdfTeX warning (ext4): destination wit
-h the same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.6 \end{abstract}
-                   [1]pdfTeX warning (ext4): destination with the same identifi
-er (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.17 \end{abstract}
-                    [1]) (./praca.tocpdfTeX warning (ext4): destination with th
-e same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.32 ...rdu \emph {802.11}.}{36}{subsection.4.3.4}
-                                                   [1
-
-])
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write4
 \openout4 = `praca.toc'.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.61 \newpage
-              [2] [3]
+ [2] [3]
 Rozdzia\l  1.
-(./ch_Target.tex)
-Overfull \hbox (6.00566pt too wide) in paragraph at lines 9--68
-[]\OT4/cmr/m/n/10.95 Ostatecznie ni-niej-sza praca wy-maga wy-ko-rzy-sta-nia ap
-li-ka-cji \OT4/cmr/m/it/10.95 hop-sniffer \OT4/cmr/m/n/10.95 w re-ali-za-cji up
-rzed-
- []
+(./ch_Target.tex [4
 
-[4
-
-]
+]) [5]
 Rozdzia\l  2.
-(./ch_Introduction.tex [5
+(./ch_Introduction.tex [6
 
 ]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 26.
@@ -728,45 +677,44 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
 
-[6]
-Overfull \hbox (5.70212pt too wide) in paragraph at lines 54--55
-\OT4/cmr/m/n/10.95 Wy-wªasz-cze-nie pro-cesu czasu rze-czy-wi-stego od-bywa si¦
- po-przez jawne wy-wo-ªa-nie \OT4/cmr/m/it/10.95 sched[]yield()\OT4/cmr/m/n/10.
-95 ,
+[7]
+Underfull \hbox (badness 2426) in paragraph at lines 54--55
+[]\OT4/cmr/m/n/10.95 Podstawowym kro-kiem ku za-pew-nie-niu, »e kod apli-ka-cji
+ uzy-ska czas pro-ce-sora
  []
 
-[7] <img/XenomaiRTAI.png, id=262, 686.565pt x 420.57124pt>
+
+Underfull \hbox (badness 2790) in paragraph at lines 54--55
+\OT4/cmr/m/n/10.95 bywa si¦ po-przez wy-bra-nie trybu ko-lej-ko-wa-nia i prio-r
+y-tetu dla za-da-nia. W celu
+ []
+
+[8] <img/XenomaiRTAI.png, id=244, 686.565pt x 420.57124pt>
 File: img/XenomaiRTAI.png Graphic file (type png)
 
-<use img/XenomaiRTAI.png> [8 <./img/XenomaiRTAI.png (PNG copy)>] [9] [10]
-[11]) [12]
+<use img/XenomaiRTAI.png> [9 <./img/XenomaiRTAI.png (PNG copy)>] [10] [11]
+[12]) [13]
 Rozdzia\l  3.
-(./ch_Measurement.tex [13
+(./ch_Measurement.tex [14
 
-] [14] [15]
-<img/System_czasu_rzeczywistego.png, id=313, 1014.79124pt x 540.0175pt>
+] [15] [16]
+<img/System_czasu_rzeczywistego.png, id=299, 1014.79124pt x 540.0175pt>
 File: img/System_czasu_rzeczywistego.png Graphic file (type png)
 
 <use img/System_czasu_rzeczywistego.png>
-<img/Roaming.png, id=314, 874.26625pt x 496.85625pt>
+<img/Roaming.png, id=300, 874.26625pt x 496.85625pt>
 File: img/Roaming.png Graphic file (type png)
  <use img/Roaming.png>
-[16 <./img/System_czasu_rzeczywistego.png (PNG copy)>] [17 <./img/Roaming.png (
-PNG copy)>] <img/RoamingTime.png, id=329, 873.2625pt x 377.41pt>
+[17 <./img/System_czasu_rzeczywistego.png (PNG copy)>] [18 <./img/Roaming.png (
+PNG copy)>] <img/RoamingTime.png, id=315, 873.2625pt x 377.41pt>
 File: img/RoamingTime.png Graphic file (type png)
 
-<use img/RoamingTime.png> [18 <./img/RoamingTime.png (PNG copy)>] [19])
-[20]
+<use img/RoamingTime.png> [19 <./img/RoamingTime.png (PNG copy)>] [20])
+[21]
 Rozdzia\l  4.
-(./ch_hop_sniffer.tex [21
+(./ch_hop_sniffer.tex [22
 
-]
-Overfull \hbox (4.34033pt too wide) in paragraph at lines 41--42
-[]\OT4/cmr/m/n/10.95 Adresy gru-powe s¡ wy-ko-rzy-sty-wane przez j¡-dro do roz-
-gªa-sza-nia zda-rze« war-stwy \OT4/cmr/m/it/10.95 mac80211
- []
-
-[22]
+] [23]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 45.
 LaTeX Font Info:    External font `plex10' loaded for size
@@ -774,118 +722,110 @@ LaTeX Font Info:    External font `plex10' loaded for size
 LaTeX Font Info:    External font `plex10' loaded for size
 (Font)              <5> on input line 46.
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 46.
- (/usr/share/texmf-texlive/tex/latex/base/omlcmr.fd
+
+(/usr/share/texmf-texlive/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <9> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 46.
- [23] [24]
-Overfull \hbox (33.25076pt too wide) in paragraph at lines 103--104
+ [24] [25]
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
 []\OT4/cmr/m/n/10.95 Niezb¦dna jest eks-trak-cja atry-bu-tów wia-do-mo-±ci za p
-o-moc¡ pro-ce-dury bi-blio-tecz-nej \OT4/cmr/m/it/10.95 nla[]parse(5)\OT4/cmr/m
-/n/10.95 ,
+o-moc¡ pro-ce-dury bi-
  []
 
 
-Overfull \hbox (15.50656pt too wide) in paragraph at lines 103--104
-\OT4/cmr/m/n/10.95 cz¡-tek li-sty atry-bu-tów (struk-tura \OT4/cmr/m/it/10.95 n
-lattr\OT4/cmr/m/n/10.95 ) zwra-cany przez funk-cj¦ bi-blio-teczn¡ \OT4/cmr/m/it
-/10.95 genlmsg[]attrdata(2)
- []
-
-[25]
-Overfull \hbox (13.38629pt too wide) in paragraph at lines 165--166
-\OT4/cmr/m/n/10.95 liwa jest dzi¦ki ana-li-zie od-po-wie-dzi in-ter-fejsu \OT4/
-cmr/m/it/10.95 nl80211 \OT4/cmr/m/n/10.95 na ko-mend¦ \OT4/cmr/m/it/10.95 NL802
-11[]CMD[]GET[]WIPHY
- []
-
-[26] [27] [28] [29]
-Overfull \hbox (32.71263pt too wide) in paragraph at lines 286--287
-[]\OT4/cmr/m/n/10.95 Kompilacja kodu fil-tra w bi-blio-tece \OT4/cmr/m/it/10.95
- libp-cap \OT4/cmr/m/n/10.95 od-bywa si¦ po-przez wy-wo-ªa-nie funk-cji \OT4/cm
-r/m/it/10.95 pcap[]compile(5)
+Underfull \hbox (badness 7667) in paragraph at lines 103--104
+\OT4/cmr/m/n/10.95 blio-tecz-nej \OT4/cmr/m/it/10.95 nla[]parse(5)\OT4/cmr/m/n/
+10.95 , która otrzy-muje bu-for na atry-buty (mo-g¡cy po-mie-±ci¢
  []
 
 
-Overfull \hbox (23.82135pt too wide) in paragraph at lines 288--289
+Underfull \hbox (badness 3769) in paragraph at lines 103--104
+\OT4/cmr/m/n/10.95 kich atry-bu-tów \OT4/cmr/m/it/10.95 NL80211[]ATTR[]MAX\OT4/
+cmr/m/n/10.95 , po-cz¡-tek li-sty atry-bu-tów (struk-tura \OT4/cmr/m/it/10.95 n
+lattr\OT4/cmr/m/n/10.95 )
+ []
+
+[26]
+Underfull \hbox (badness 5345) in paragraph at lines 165--166
+[]\OT4/cmr/m/n/10.95 Inspekcja do-st¦p-nych w prze-strzeni u»yt-kow-nika (dla d
+a-nego typu in-ter-fejsu)
+ []
+
+
+Underfull \hbox (badness 7814) in paragraph at lines 165--166
+\OT4/cmr/m/n/10.95 ra-mek mo»-liwa jest dzi¦ki ana-li-zie od-po-wie-dzi in-ter-
+fejsu \OT4/cmr/m/it/10.95 nl80211 \OT4/cmr/m/n/10.95 na ko-mend¦
+ []
+
+[27] [28] [29] [30]
+Underfull \hbox (badness 1708) in paragraph at lines 288--289
 []\OT4/cmr/m/n/10.95 Zako«czenie pro-cesu usta-la-nia fil-tra od-bywa si¦ za po
--moc¡ funk-cji bi-blio-tecz-nej \OT4/cmr/m/it/10.95 pcap[]setfilter(2)
+-moc¡ funk-cji bi-blio-tecz-nej
  []
 
-[30] [31]
-Overfull \hbox (4.72896pt too wide) in paragraph at lines 336--337
-[]\OT4/cmr/m/n/10.95 Gªównie ze wzgl¦du na fakt, i» funk-cja star-tu-j¡ca p¦-tl
-¦ prze-twa-rza-nia pa-kie-tów \OT4/cmr/m/it/10.95 pcap[]loop(4)
- []
-
-
-Overfull \hbox (7.14186pt too wide) in paragraph at lines 347--348
-\OT4/cmr/m/n/10.95 chwy-ty-wa-nia pa-kie-tów (zwol-nie-nie za-so-bów urz¡-dze-n
-ia prze-chwy-tu-j¡-cego) i zwol-nie-nie uchwytu
- []
-
-[32] <img/RadiotapHeader.png, id=591, 976.64874pt x 190.7125pt>
+[31] [32] [33] <img/RadiotapHeader.png, id=578, 976.64874pt x 190.7125pt>
 File: img/RadiotapHeader.png Graphic file (type png)
 
-<use img/RadiotapHeader.png> [33] [34 <./img/RadiotapHeader.png (PNG copy)>]
-<img/RadiotapUnpack.png, id=613, 759.83875pt x 175.65625pt>
+<use img/RadiotapHeader.png> [34] [35 <./img/RadiotapHeader.png (PNG copy)>]
+<img/RadiotapUnpack.png, id=599, 759.83875pt x 175.65625pt>
 File: img/RadiotapUnpack.png Graphic file (type png)
 
 <use img/RadiotapUnpack.png>
-Overfull \hbox (61.981pt too wide) in paragraph at lines 433--434
+Underfull \hbox (badness 10000) in paragraph at lines 433--434
 []\OT4/cmr/m/n/10.95 Odczytanie z bit-mapy usta-wio-nego bitu na po-zy-cji 1 oz
-na-cza atry-but \OT4/cmr/m/it/10.95 IEEE80211[]RADIOTAP[]FLAGS\OT4/cmr/m/n/10.9
-5 ,
+na-cza atry-but
  []
 
-[35 <./img/RadiotapUnpack.png (PNG copy)>]
-<img/RadiotapWifi.png, id=639, 940.51375pt x 178.6675pt>
+[36 <./img/RadiotapUnpack.png (PNG copy)>]
+<img/RadiotapWifi.png, id=625, 940.51375pt x 178.6675pt>
 File: img/RadiotapWifi.png Graphic file (type png)
 
-<use img/RadiotapWifi.png> [36 <./img/RadiotapWifi.png (PNG copy)>]
-<img/TypeSubtype.png, id=648, 1006.76125pt x 551.05875pt>
+<use img/RadiotapWifi.png> [37 <./img/RadiotapWifi.png (PNG copy)>]
+<img/TypeSubtype.png, id=635, 1006.76125pt x 551.05875pt>
 File: img/TypeSubtype.png Graphic file (type png)
 
-<use img/TypeSubtype.png> [37 <./img/TypeSubtype.png (PNG copy)>] [38]
-<img/FlowDiagram.png, id=672, 422.57875pt x 845.1575pt>
+<use img/TypeSubtype.png> [38 <./img/TypeSubtype.png (PNG copy)>] [39]
+<img/FlowDiagram.png, id=659, 422.57875pt x 845.1575pt>
 File: img/FlowDiagram.png Graphic file (type png)
 
-<use img/FlowDiagram.png>) [39] [40 <./img/FlowDiagram.png (PNG copy)>]
+<use img/FlowDiagram.png>) [40] [41 <./img/FlowDiagram.png (PNG copy)>]
 Rozdzia\l  5.
-(./ch_Conclusion.tex [41
+(./ch_Conclusion.tex [42
 
-] [42] [43] [44]) [45]
+] [43] [44] [45]) [46]
 Rozdzia\l  6.
-(./ch_Sumup.tex) (./praca.bbl [46
+(./ch_Sumup.tex) (./praca.bbl [47
 
-]) [47
+] [48
 
-] (./praca.aux) ) 
+]) [49] (./praca.aux) ) 
 Here is how much of TeX's memory you used:
- 8321 strings out of 494637
- 113840 string characters out of 1173845
+ 8312 strings out of 494637
+ 113708 string characters out of 1173845
  237486 words of memory out of 3000000
- 11000 multiletter control sequences out of 15000+50000
- 20102 words of font info for 52 fonts, out of 3000000 for 9000
+ 10995 multiletter control sequences out of 15000+50000
+ 19068 words of font info for 50 fonts, out of 3000000 for 9000
  309 hyphenation exceptions out of 8191
- 38i,12n,49p,1676b,1838s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/pl/plms.enc}{/usr/sh
-are/texmf-texlive/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texmf-texlive/fonts/e
-nc/dvips/pl/plit.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mmi9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/pl/plbx10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/pl/plbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plbxti
-10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr10.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/pl/plr12.pfb></usr/share/texmf-texlive/fonts/typ
-e1/public/pl/plr17.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr6.pfb
-></usr/share/texmf-texlive/fonts/type1/public/pl/plr9.pfb></usr/share/texmf-tex
-live/fonts/type1/public/pl/plsy9.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/pl/plti10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plti12.pfb>
-Output written on praca.pdf (51 pages, 656806 bytes).
+ 38i,8n,49p,1676b,1836s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/pl/plms.enc}{/
+usr/share/texmf-texlive/fonts/enc/dvips/pl/plrm.enc}{/usr/share/texmf-texlive/f
+onts/enc/dvips/pl/plmi.enc}{/usr/share/texmf-texlive/fonts/enc/dvips/pl/plit.en
+c}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/pl/plbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plbx1
+2.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plbxti10.pfb></usr/share/
+texmf-texlive/fonts/type1/public/pl/plmi10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/pl/plr10.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr6.
+pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plr9.pfb></usr/share/texmf-
+texlive/fonts/type1/public/pl/plsy10.pfb></usr/share/texmf-texlive/fonts/type1/
+public/pl/plsy9.pfb></usr/share/texmf-texlive/fonts/type1/public/pl/plti10.pfb>
+
+Output written on praca.pdf (49 pages, 566416 bytes).
 PDF statistics:
- 842 PDF objects out of 1000 (max. 8388607)
- 328 named destinations out of 1000 (max. 500000)
- 360 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 832 PDF objects out of 1000 (max. 8388607)
+ 336 named destinations out of 1000 (max. 500000)
+ 350 words of extra memory for PDF output out of 10000 (max. 10000000)
 

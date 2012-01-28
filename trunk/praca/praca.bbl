@@ -1,5 +1,8 @@
 \begin{thebibliography}{10}
 
+\bibitem{www:ECO-Mob}
+\emph{http://www.eco-mobilnosc.pw.edu.pl/}.
+
 \bibitem{pub:Comparison}
 A.Barbalace, A.Lucheta, G.Manduchi, M.Moro, A.Soppelsa, and C.Taliercio.
 \newblock \emph{Performance Comparison of VxWorks, Linux, RTAI and Xenomai in a
@@ -14,6 +17,11 @@ IEEE~Standards Association.
 IEEE~Standards Association.
 \newblock \emph{IEEE802.11n-2009: Wireless LAN Medium Access Control (MAC) and
   Physical Layer (PHY) specifications}, 2009.
+
+\bibitem{pub:VirtualAP}
+Maria~Eugenia Berezin, Franck Rousseau, and Andrzej Duda.
+\newblock \emph{Multichannel Virtual Access Points for Seamless Handoffs in
+  IEEE 802.11 Wireless Networks}, 2011.
 
 \bibitem{www:IW}
 Johannes Berg.
@@ -37,9 +45,19 @@ Bert Hubert, Thomas Graf, Gregory Maxwell, Remco van Mook, Martijn van
 Richard Kelly and Joseph Gasparakis.
 \newblock \emph{Common Functionality in the 2.6 Linux Network Stack}, 2010.
 
+\bibitem{pub:SpaceTimeCoding}
+Mohsen Maadani, Seyed~Ahmad Motamedi, and Mohammad Khayeri.
+\newblock \emph{A Cross-Layer Adaptive Space-Time Coding Scheme for IEEE
+  802.11-Based Soft-Real-Time Wireless Industrial Networks}, 2011.
+
 \bibitem{www:DieMan}
 Linux manual.
 \newblock \emph{http://www.die.net/}.
+
+\bibitem{pub:AdvAp}
+Henning Trsek, Stefan Schwalowsky, Bjoern Czybik, and Juergen Jasperneite.
+\newblock \emph{Implementation of an advanced IEEE 802.11 WLAN AP for real-time
+  wireless communications}, 2011.
 
 \bibitem{wiki:RTLinux}
 Theodore Ts'o, Darren Hart, and John Kacur.

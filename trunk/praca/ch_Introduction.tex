@@ -75,9 +75,9 @@ Warto wspomnieć również o udostępnianej w środowisku Xenomai opcji \emph{sk
 
 \subsection{Porównanie Linux 2.6, Xenomai, RTAI i VxWorks.}
 
-Z dostępnego w publikacji \cite{pub:Comparison} zestawienia systemów wynika głównie fakt, że w prostym scenariuszu, kiedy znana jest liczba (w tym przypadku wyłącznie jedna) i rodzaj pracujących aplikacji czasu rzeczywistego system Linux w wersji 2.6 spisuje się zadowalająco w roli systemu o łagodnych ograniczeniach czasowych. W przypadku jądra systemu Linux 2.6 razem z liczbą i stopniem skomplikowania uruchamianych aplikacji rośnie również ilość kodu do przeanalizowania, w celu zapewnienia całkowitego determinizmu operacji, co szybko staje się niepraktyczne.
+Z dostępnego w publikacji \cite{pub:Comparison} zestawienia systemów wynika głównie, że w prostym scenariuszu, kiedy znana jest liczba (w tym przypadku wyłącznie jedna) i rodzaj pracujących aplikacji czasu rzeczywistego, system Linux w wersji 2.6 spisuje się zadowalająco w roli systemu o łagodnych ograniczeniach czasowych. W przypadku jądra systemu Linux 2.6 razem z liczbą i stopniem skomplikowania uruchamianych aplikacji rośnie również ilość kodu do przeanalizowania, w celu zapewnienia całkowitego determinizmu operacji, co szybko staje się niepraktyczne.
 
-Interesujący jest dla mnie fakt, że gdy w rolę wchodzi dodatkowo komunikacja sieciowa, systemy \emph{open-source} (RTAI i Xenomai) spisują się znacznie lepiej od VxWorks. Mniejsze opóźnienia są spowodowane wykorzystaniem modułu RTnet, który przebudowuje standardowy stos IP systemu linux pod kątem deterministycznej pracy.
+Interesujący jest dla mnie fakt, że gdy w rolę wchodzi dodatkowo komunikacja sieciowa, systemy \emph{open-source} (RTAI i Xenomai) spisują się znacznie lepiej od VxWorks. Mniejsze opóźnienia są spowodowane wykorzystaniem modułu RTnet, który przebudowuje standardowy stos IP systemu Linux pod kątem deterministycznej pracy.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -113,7 +113,7 @@ Standard 802.11e wprowadził nowy protokół dostępu EDCA (ang. \emph{Enhanced 
 
 Każda klasa dostępu posiada własny odstęp międzyramkowy AIFS (ang. \emph{Arbitration Interframe Space}).
 
-Czas \emph{Backoff} nadal wyliczany jest w sposób losowy, ale w tym przypadku jest to wartość z przedziału od CWmin do CWmax (CWmin i CWmax są parametrami ustalanymi indywidualnie dla każdej klasy dostępu).
+Czas \emph{Backoff} nadal wyliczany jest w sposób losowy, ale w tym przypadku jest to wartość z przedziału od zera do górnej granicy, która na wstępie wynosi CWmin. W sytuacji dużej zajętości medium, kiedy stacja natrafia na zajęty kanał to wartość maksymalna jest zwiększana, ale nie wyniesie więcej niż CWmax (CWmin i CWmax są parametrami ustalanymi indywidualnie dla każdej klasy dostępu).
 
 Może dojść do sytuacji, kiedy natężenie ruchu w sieci komunikacyjnej jest na tyle duże, że priorytety nie wystarczają dla zapewnienia odpowiedniej jakości połączenia dla systemu czasu rzeczywistego. W takiej sytuacji możliwe jest użycie parametru TXOP (ang. \emph{Transmission Oportunity}). 
 
@@ -128,14 +128,22 @@ Podsumowując, istnieją 4 parametry podlegające niezależnej regulacji w ramac
 \begin{itemize}
 \item CWmin - minimalna długość losowego składnika czasu \emph{Backoff}.
 \item CWmax - maksymalna długość losowego składnika czasu \emph{Backoff}.
-\item AIFS - Odstęp międzyramkowy.
+\item AIFSN - Składnik odstępu międzyramkowego. 
 \item Max TXOP - Maksymalny czas dostępu bezkolizyjnego po uzyskaniu medium.
 \end{itemize}
 
-CWmin i CWmax są wykorzystywane w mechaniźmie \emph{Backoff} w celu wylosowania czasu trwania okresu wycofania stacji po
-kolizji. Ostateczna długość odstępu międzyramkowego wyliczana jest poprzez sumowanie czasu SIFS z iloczynem AIFS i czasu
-\emph{Slot Time} łącza. Warto zauważyć, że zmniejszanie czasów oczekiwania rywalizującej stacji umożliwia jej częstszy
-dostęp do medium, lecz powoduje również wzrost kolizji na łączu. 
+Ostateczna długość \eqref{eq:AIFS} odstępu międzyramkowego AIFS (ang. \emph{Arbitration Inter-frame Spacing}) wyliczana jest poprzez sumowanie czasu SIFS (ang. \emph{Shot Inter-frame Spacing}), który jest wartością stałą, z iloczynem AIFSN (Składnik odstępu międzyramkowego dla danej klasy dostępu) i czasu podróży danych w łączu (ang. \emph{Slot Time}). Czas SIFS jest najkrótszym z dostępnych w specyfikacji odstępów międzyramkowych.    
+
+\begin{figure}
+\caption{Wzór na odstęp międzyramkowy.}
+\begin{equation} 
+\label{eq:AIFS}
+AIFS = SIFS + AIFSN * Slot Time 
+\end{equation}
+\end{figure}
+
+Warto zauważyć, że zmniejszanie czasów oczekiwania rywalizującej stacji umożliwia jej częstszy
+dostęp do medium, lecz powoduje również wzrost kolizji na łączu. Wynika z tego, że w celu stworzenia dogodnego środowiska dla pracy systemu czasu rzeczywistego należy ograniczyć liczbę stacji obsługiwaną przez dany punkt dostępowy. W sytuacji osiągnięcia maksimum \emph{AP} nie musi wykonywać już procesu asocjacji. Parametr ten powinien być łatwo dostępny w większości interfejsów obsługi punktów dostępowych (przykładowo w pliku konfiguracyjnym demona \emph{hostapd} służy do tego wartość \emph{max\_num\_sta}).
 
 \subsection{Zastosowanie 802.11e w przykładowym środowisku.}
 
@@ -177,8 +185,10 @@ Bufor pakietu \emph{sk\_buff} został zastąpiony przez strukturę \emph{rtskb},
 \begin{itemize}
 \item Stały rozmiar (zawsze maksymalny)
 \item Pula buforów jest alokowana na początku działania systemu dla każdej warstwy stosu
-\item Zawsze wraca do nadawcy, chyba, że odbiorca może zwrócić wskazanie na inny bufor z własnej puli
+\item Bufory są przekazywane między warstwami na zasadzie wymiany
 \end{itemize}
+
+Wymiana buforów \emph{rtskb} jest konieczna ze względu na potrzebę utrzymania zapasu wskaźników na alokowaną pamięć dostępną w puli danej warstwy stosu.
 
 Inną ważną cechą RTnet jest fakt, że implementacja UDP/IP odbywa się poprzez statyczne przypisanie adresów (nie korzysta z protokołu ARP). Dla pakietów IP przesyłanych we fragmentach potrzebne bufory \emph{rtskb} pobierane są z puli globalnej.
 

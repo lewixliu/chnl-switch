@@ -31,6 +31,17 @@
 \addtolength\textheight{\topskip}
 \marginparwidth 15mm
 
+% sieroty
+\clubpenalty=10000 % to kara za sierotki
+\widowpenalty=10000 % nie pozostawia wdów
+\brokenpenalty=10000 % nie dzieli wyrazów pomiędzy stronami
+\sloppy
+
+\tolerance 4500
+\pretolerance 250
+\hfuzz=1.5pt
+\hbadness 1450
+
 %\lstlistoflistings
 \definecolor{darkgray}{rgb}{0.95,0.95,0.95}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -51,9 +62,9 @@
 %\author{ Marcin Harasimczuk }
 %\maketitle
 
-\input{Title_Page}
-\input{cv}
-\input{Abstract}
+%\input{Title_Page}
+%\input{cv}
+%\input{Abstract}
 
 \tableofcontents
 

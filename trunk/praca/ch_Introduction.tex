@@ -4,7 +4,7 @@
 
 Badanie komunikacji systemów czasu rzeczywistego wymaga analizy dostępnych rozwiązań na poziomie oprogramowania. Jest to czynność niezbędna ze względu na różnice w implementacji i stosowane techniki programistyczne. W swojej pracy skupiam się na rozwiązaniach \emph{open-source} i systemie \emph{Linux} ze względu na dostępność, zgodność ze standardem POSIX oraz otwarty kod źródłowy.
 
-Systemy z rodziny \emph{open-source} charakteryzują się możliwością stopniowania wsparcia dla procesów czasu rzeczywistego (\cite{wiki:RTLinux}). Zaczynając od podstawowej dystrybucji systemu \emph{Linux}, poprzez różnorodne opcje konfiguracyjne jądra w wersji 2.6 i kończąc na koncepcji współdzielenia zasobów sprzętowych. 
+Systemy z rodziny \emph{open-source} charakteryzują się możliwością stopniowania wsparcia dla procesów czasu rzeczywistego \cite{wiki:RTLinux}. Zaczynając od podstawowej dystrybucji systemu \emph{Linux}, poprzez różnorodne opcje konfiguracyjne jądra w wersji 2.6 i kończąc na koncepcji współdzielenia zasobów sprzętowych. 
 
 Niniejszy rozdział poświęcam na wprowadzenie do problemów systemów czasu rzeczywistego. Ze względu na tematykę pracy koncentruję się również na kwestii komunikacji sieciowej (implementacji stosu IP). 
 
@@ -69,7 +69,7 @@ Zarówno Xenomai, jak i RTAI są rozwiązaniami opartymi o ideę współdzieleni
 \end{center}
 \end{figure}
 
-Propagacja przerwań odbywa się za pośrednictwem kolejki. Kolejka jest łańcuchem (ang. \emph{pipeline}) systemów operacyjnych, które są kolejno budzone w reakcji na otrzymane przerwanie. W przypadku Xenomai jest on umieszczony na początku kolejki i obsługuje przerwania związane z zadaniami czasu rzeczywistego. RTAI, zgodnie ze swoją polityką maksymalnej redukcji opóźnień, samodzielnie przyjmuje przerwania, a kolejki Adeos używa jedynie do dalszej propagacji nieobsłużonych przerwań (\ref{XenomaiRTAI}). 
+Propagacja przerwań odbywa się za pośrednictwem kolejki. Kolejka jest łańcuchem (ang. \emph{pipeline}) systemów operacyjnych, które są kolejno budzone w reakcji na otrzymane przerwanie. W przypadku Xenomai jest on umieszczony na początku kolejki i obsługuje przerwania związane z zadaniami czasu rzeczywistego. RTAI, zgodnie ze swoją polityką maksymalnej redukcji opóźnień, samodzielnie przyjmuje przerwania, a kolejki Adeos używa jedynie do dalszej propagacji nieobsłużonych przerwań \ref{XenomaiRTAI}. 
 
 Warto wspomnieć również o udostępnianej w środowisku Xenomai opcji \emph{skórek RTOS} (ang. \emph{real-time operating system skins}). Pozwalają one na wybór API, z którego będą korzystać uruchamiane w Xenomai aplikacje. Do wyboru są przykładowo skórki VxWorks, co ukazuje tendencje rozwoju w stronę przenośności rozwiązania.
 
@@ -156,11 +156,11 @@ Standard 802.11e udostępnia następujące klasy dostępu:
 \item AC\_BK - ruch w tle (najniższy priorytet)
 \end{itemize}
 
-W tym przypadku system czasu rzeczywistego mógłby korzystać z klasy AC\_VO (\cite{pub:802.11e}). Inne stacje świadome istnienia systemu mogą komunikować się w klasie AC\_BK. Jeśli chodzi o stacje nieświadome istnienia systemu to można dla nich przeznaczyć klasę AC\_BE.
+W tym przypadku system czasu rzeczywistego mógłby korzystać z klasy AC\_VO \cite{pub:802.11e}. Inne stacje świadome istnienia systemu mogą komunikować się w klasie AC\_BK. Jeśli chodzi o stacje nieświadome istnienia systemu to można dla nich przeznaczyć klasę AC\_BE.
 
 \subsection{Rozwiązania na poziomie oprogramowania Linux.}
 
-Mechanizm QoS (ang. \emph{Quality Of Service}) jest realizowany w jądrze 2.6 w postaci struktury komponentów, z których każdy realizuje pewien podzbiór funkcjonalności związanych z sterowaniem ruchem sieciowym (\cite{pub:QoS}). Główne składniki modułu QoS w systemie Linux to:
+Mechanizm QoS (ang. \emph{Quality Of Service}) jest realizowany w jądrze 2.6 w postaci struktury komponentów, z których każdy realizuje pewien podzbiór funkcjonalności związanych z sterowaniem ruchem sieciowym. Główne składniki modułu QoS w systemie Linux to:
 
 \begin{itemize}
 \item qdisc - odpowiada za politykę kolejkowania ramek na urządzeniu.

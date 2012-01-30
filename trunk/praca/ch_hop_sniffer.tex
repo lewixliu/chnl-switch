@@ -4,6 +4,8 @@ Niniejszy rozdział poświęcony jest opisowi aplikacji powstałej na podstawie 
 
 Wymagane okazało się stworzenie aplikacji nasłuchującej (ang. \emph{sniffer}) przystosowanej do obserwacji typowych scenariuszy zachodzących w komunikacji w medium bezprzewodowym. Przystosowanie to rozumiem jako możliwość konfiguracji programu pod kątem wybranego zjawiska i środowiska pomiarowego. 
 
+Część tego rozdziału poświęcona jest opisowi dwóch bibliotek programistycznych pod kątem ich zastosowania do przechwytywania pakietów. \emph{Libnl} jest biblioteką bardziej ogólną niż \emph{libpcap}. Implementacja nasłuchiwania z jej udziałem napotkała problemy, które wymusiły przejście programu na bibliotekę \emph{libpcap}. \emph{Libnl} pozwala jednak na programistyczne nadawanie ramek typu MGMT (ang. \emph{Management}) co otwiera możliwość testowania rozwiązania \emph{hop-sniffer}.
+
 \section{Środowisko pracy programu.}
 \label{sec:ProgramEnviroment}
 
@@ -21,7 +23,7 @@ Skoncentrowałem się na współpracy ze sterownikiem \emph{ath9k}. Jest to cał
 
 \section{Biblioteki programistyczne.}
 
-Implementacja aplikacji pomiarowej wymagała zastosowania API (ang. \emph{Application interface}) umożliwiającego pochwycenie ramek zarządzających komunikacją 802.11 w przestrzeni użytkownika. Podczas procesu tworzenia programu hop-sniffer rozpatrzyłem zastosowanie dwóch bibliotek: \emph{libnl} i \emph{libpcap}.
+Implementacja aplikacji pomiarowej wymagała zastosowania API (ang. \emph{Application interface}) umożliwiającego przechwytywanie ramek zarządzających komunikacją 802.11 w przestrzeni użytkownika. Podczas procesu tworzenia programu hop-sniffer rozpatrzyłem zastosowanie dwóch bibliotek: \emph{libnl} i \emph{libpcap}. Wykorzystałem materiały ze stron projektów \emph{Linux Wireless} oraz \emph{Libpcap/Tcpdump}. Strony te zawierają dokumentację bibliotek \emph{libnl} \cite{www:LibnlDoc} i \emph{libpcap} \cite{www:LibPcapDoc} oraz kody źródłowe przykładowych programów \emph{iw} \cite{www:IWSrc} i \emph{tcpdump} \cite{www:TcpDumpSrc}. 
 
 \subsection{Nasłuchiwanie za pomocą interfejsu \emph{nl80211}.}
 
@@ -38,7 +40,7 @@ W wyniku analizy dokumentacji uznałem, że możliwa będzie implementacja progr
 \item[--] Komendy \emph{NL80211\_CMD\_FRAME}.
 \end{itemize}
 
-Adresy grupowe są wykorzystywane przez jądro do rozgłaszania zdarzeń warstwy \emph{mac80211} do zainteresowanych procesów (posiadających gniazdo z członkostwem w danej grupie rozgłaszania). W celu otrzymywania wszystkich zdarzeń należy zarejestrować gniazdo (\ref{code:MulticastExample}) we wszystkich czterech grupach: \emph{Configuration, Scan, Regulatory i MLME}. Podczas rejestracji (\ref{code:MulticastExample}) funkcja \emph{nl\_get\_multicast\_id(3)} przyjmuje uchwyt gniazda komunikacyjnego, nazwę rodziny, do której odnosi się zapytanie i nazwę grupy, której identyfikator chcę uzyskać. W wyniku wywołania otrzymuję liczbę całkowitą, którą mogę wykorzystać w celu rejestracji danego gniazda w grupie rozgłaszania przy pomocy funkcji \emph{nl\_socket\_add\_membership(2)}.
+Adresy grupowe są wykorzystywane przez jądro do rozgłaszania zdarzeń warstwy \emph{mac80211} do zainteresowanych procesów (posiadających gniazdo z członkostwem w danej grupie rozgłaszania). W celu otrzymywania wszystkich zdarzeń należy zarejestrować gniazdo \ref{code:MulticastExample} we wszystkich czterech grupach: \emph{Configuration, Scan, Regulatory i MLME}. Podczas rejestracji \ref{code:MulticastExample} funkcja \emph{nl\_get\_multicast\_id(3)} przyjmuje uchwyt gniazda komunikacyjnego, nazwę rodziny, do której odnosi się zapytanie i nazwę grupy, której identyfikator chcę uzyskać. W wyniku wywołania otrzymuję liczbę całkowitą, którą mogę wykorzystać w celu rejestracji danego gniazda w grupie rozgłaszania przy pomocy funkcji \emph{nl\_socket\_add\_membership(2)}.
 
 \lstset{caption={Przykład rejestracji gniazda w grupie \emph{Configuration}.}, label={code:MulticastExample}}
 \begin{lstlisting}[frame=tb]
@@ -54,9 +56,16 @@ if (ret)
         return ret;
 \end{lstlisting}
 
-Komenda \emph{NL80211\_CMD\_REGISTER\_FRAME} pozwala na rejestrację wybranych typów ramek do przetwarzania w przestrzeni użytkownika. Wymagane atrybuty to indeks interfejsu radiowego (\emph{NL80211\_ATTR\_IFINDEX} to liczba całkowita 32-bitowa), typ ramki (\emph{NL80211\_ATTR\_FRAME\_TYPE} to liczba całkowita 16-bitowa) oraz wzorca zawierającego pierwsze bajty ramki (\emph{NL80211\_ATTR\_FRAME\_MATCH} to wzorzec binarny z podaną długością), które powinny być dopasowane. Należy wziąć pod uwagę fakt, że w tym wypadku aplikacja musi obsłużyć dany typ ramek, gdyż nie zostaną one odpowiednio przetworzone w jądrze. Zamknięcie gniazda komunikacyjnego za pomocą, którego dokonano rejestracji powoduje jej porzucenie. 
+Komenda \emph{NL80211\_CMD\_REGISTER\_FRAME} pozwala na rejestrację wybranych typów ramek do przetwarzania w przestrzeni użytkownika. Wymagane atrybuty to:
+\begin{itemize}
+\item[--] indeks interfejsu radiowego (atrybut \emph{NL80211\_ATTR\_IFINDEX} to liczba całkowita 32-bitowa), 
+\item[--] typ ramki (atrybut \emph{NL80211\_ATTR\_FRAME\_TYPE} to liczba całkowita 16-bitowa),
+\item[--] wzorzec zawierający pierwsze bajty ramki (atrybut \emph{NL80211\_ATTR\_FRAME\_MATCH} to wzorzec binarny z podaną długością), które powinny być dopasowane
+\end{itemize}
 
-W mojej aplikacji zgłaszanie ramek do obsługi przez program nasłuchujący jest częścią inicjalizacji. Należy zarejestrować wszelkie ramki niezbędne do obserwacji wybranego zjawiska. Proces budowania wiadomości (\ref{code:RegisterFrame}) zaczyna się od stworzenia nagłówka opatrzonego odpowiednim adresem odbiorcy (identyfikatorem rodziny) oraz nazwą polecenia do wykonania. Służy do tego funkcja biblioteczna \emph{genlmsg\_put(8)}, która dodaje do otrzymanego uchwytu wiadomości nagłówek wybranej komendy przynależącej do identyfikatora podanej rodziny. Następnie dodaję atrybuty wymagane przez komendę specyfikując identyfikator (potrzebny w celu sprawdzenia poprawności) oraz wartość. Są one wstawiane do pól wiadomości za pomocą makr bibliotecznych \emph{NLA\_PUT} (odpowiadających typowi danych). Numer interfejsu tłumaczony jest z nazwy (np. \emph{wlan0}) na indeks (typ całkowity). Rodzaj ramki to liczba całkowita 16-bitowa, którą w języku C możemy wprowadzić \emph{in-situ} jako \emph{0x0040} (ramka typu \emph{Probe Request}). Po zbudowaniu prawidłowej wiadomości pozostaje wysłać ją za pomocą funkcji bibliotecznej \emph{nl\_send\_auto\_complete(2)}. 
+Należy wziąć pod uwagę fakt, że w tym wypadku aplikacja musi obsłużyć dany typ ramek, gdyż nie zostaną one odpowiednio przetworzone w jądrze. Zamknięcie gniazda komunikacyjnego za pomocą, którego dokonano rejestracji powoduje jej porzucenie. 
+
+W mojej aplikacji zgłaszanie ramek do obsługi przez program nasłuchujący jest częścią inicjalizacji. Należy zarejestrować wszelkie ramki niezbędne do obserwacji wybranego zjawiska. Proces budowania wiadomości \ref{code:RegisterFrame} zaczyna się od stworzenia nagłówka opatrzonego odpowiednim adresem odbiorcy (identyfikatorem rodziny) oraz nazwą polecenia do wykonania. Służy do tego funkcja biblioteczna \emph{genlmsg\_put(8)}, która dodaje do otrzymanego uchwytu wiadomości nagłówek wybranej komendy przynależącej do identyfikatora podanej rodziny. Następnie dodaję atrybuty wymagane przez komendę specyfikując identyfikator (potrzebny w celu sprawdzenia poprawności) oraz wartość. Są one wstawiane do pól wiadomości za pomocą makr bibliotecznych \emph{NLA\_PUT} (odpowiadających typowi danych). Numer interfejsu tłumaczony jest z nazwy (np. \emph{wlan0}) na indeks (typ całkowity). Rodzaj ramki to liczba całkowita 16-bitowa, którą w języku C możemy wprowadzić \emph{in-situ} jako \emph{0x0040} (ramka typu \emph{Probe Request}). Po zbudowaniu prawidłowej wiadomości pozostaje wysłać ją za pomocą funkcji bibliotecznej \emph{nl\_send\_auto\_complete(2)}. 
 
 \lstset{caption={Przykład rejestracji ramki do obsługi w przestrzeni użytkownika.}, label={code:RegisterFrame}}
 \begin{lstlisting}[frame=tb]
@@ -74,7 +83,7 @@ NLA_PUT(msg, NL80211_ATTR_FRAME_MATCH, 0, NULL);
 error = nl_send_auto_complete(cd->nl_sock, msg);
 \end{lstlisting}
 
-Po przyłączeniu gniazda do odpowiednich grup rozgłaszania i wybraniu niezbędnych typów ramek do przetwarzania przez program pozostaje rozpocząć nasłuchiwanie zdarzeń interfejsu \emph{nl80211} (\ref{code:ListenEvents}). W mojej aplikacji wybór badanego zjawiska (sposobu reakcji na zdarzenia) zależy od rodzaju funkcji do której wskaźnik jest przekazywany podczas rozpoczęcia nasłuchu. Funkcja ta przekazywana jest jako argument procedury typu \emph{callback} używanej do przetwarzania odebranych wiadomości (zdarzeń). 
+Po przyłączeniu gniazda do odpowiednich grup rozgłaszania i wybraniu niezbędnych typów ramek do przetwarzania przez program pozostaje rozpocząć nasłuchiwanie zdarzeń interfejsu \emph{nl80211} \ref{code:ListenEvents}. W mojej aplikacji wybór badanego zjawiska (sposobu reakcji na zdarzenia) zależy od rodzaju funkcji do której wskaźnik jest przekazywany podczas rozpoczęcia nasłuchu. Funkcja ta przekazywana jest jako argument procedury typu \emph{callback} używanej do przetwarzania odebranych wiadomości (zdarzeń). 
 
 Zdefiniowana przeze mnie funkcja \emph{custom\_event\_handler} zostaje wybrana do obsługi zdarzeń za pomocą procedury bibliotecznej \emph{nl\_cb\_set(5)} z flagami \emph{NL\_CB\_VALID} (używana do wiadomości poprawnych) i \emph{NL\_CB\_CUSTOM} (zdefiniowana przez użytkownika). Dodatkowo przekazuję wskaźnik na stworzone przez siebie argumenty wywołania (w tym uchwyt do funkcji obsługującej obserwację wybranego zjawiska \emph{fptr\_handle\_frame}), które będą dostępne w bloku procedury \emph{custom\_event\_handler}. Blokująca procedura biblioteczna \emph{nl\_recvmsgs} oczekuje na zdarzenia i wywołuje dla nich przekazaną jej funkcję \emph{callback}. 
 
@@ -96,7 +105,7 @@ while (!command)
 
 Komenda \emph{NL80211\_CMD\_FRAME} służy do nadawania i odbierania wybranych typów ramek z poziomu aplikacji użytkownika. W przypadku programu nasłuchującego interesuje mnie funkcjonowanie tej wiadomości jako zdarzenia propagowanego przez jądro w sytuacji otrzymania nieobsłużonej ramki. 
 
-Odebranie przez nasłuchujące gniazdo poprawnej wiadomości interfejsu \emph{nl80211} powoduje wywołanie własnej funkcji obsługi \emph{custom\_event\_handler} (\ref{code:EventHandler}). Celem jest rozpoznanie komendy \emph{NL80211\_CMD\_FRAME} i przekazanie jej atrybutu \emph{NL80211\_ATTR\_FRAME} do funkcji obsługujące obserwowane zjawisko. Atrybut \emph{NL80211\_ATTR\_FRAME} reprezentuje odebraną ramkę (nagłówek i pole danych) i jest typu binarnego (ciąg bajtów). 
+Odebranie przez nasłuchujące gniazdo poprawnej wiadomości interfejsu \emph{nl80211} powoduje wywołanie własnej funkcji obsługi \emph{custom\_event\_handler} \ref{code:EventHandler}. Celem jest rozpoznanie komendy \emph{NL80211\_CMD\_FRAME} i przekazanie jej atrybutu \emph{NL80211\_ATTR\_FRAME} do funkcji obsługujące obserwowane zjawisko. Atrybut \emph{NL80211\_ATTR\_FRAME} reprezentuje odebraną ramkę (nagłówek i pole danych) i jest typu binarnego (ciąg bajtów). 
 
 Pierwszym krokiem jest ekstrakcja nagłówka wiadomości \emph{netlink} w postaci argumentu wywołania i jego rozpakowanie  do postaci struktury \emph{genlmsghdr} za pomocą funkcji bibliotecznych \emph{nlmsg\_hdr(1)} i \emph{nlmsg\_data(1)}. Struktura ta zawiera pole \emph{cmd} będące identyfikatorem komendy, którego używam w bloku \emph{switch}.
 
@@ -134,7 +143,7 @@ int custom_event_handler(struct nl_msg *msg, void *arg)
 }
 \end{lstlisting}
 
-Przykładowym sposobem obsługi wybranego zjawiska komunikacji bezprzewodowej w standardzie 802.11 jest procedura \emph{handle\_frame} (\ref{code:HandleFrame}). Przekazanie funkcji obsługi poprzez wskaźnik jest sposobem na różnicowanie działania programu w zależności od scenariuszy komunikacyjnych, które są obiektem badań oraz dostarczenie ujednoliconego interfejsu ich implementacji. 
+Przykładowym sposobem obsługi wybranego zjawiska komunikacji bezprzewodowej w standardzie 802.11 jest procedura \emph{handle\_frame} \ref{code:HandleFrame}. Przekazanie funkcji obsługi poprzez wskaźnik jest sposobem na różnicowanie działania programu w zależności od scenariuszy komunikacyjnych, które są obiektem badań oraz dostarczenie ujednoliconego interfejsu ich implementacji. 
 
 Głównym krokiem procedury jest ekstrakcja atrybutu \emph{nl80211} reprezentującego ramkę standardu 802.11 do postaci ciągu bajtów za pomocą funkcji bibliotecznej \emph{nla\_data(1)}. Otrzymana w ten sposób tablica jest indeksowana w poszukiwaniu konkretnych bajtów, a ekstrakcja informacji polega na zastosowaniu maski bitowej (przykładowo \emph{0xfc} do bajtu podtypu). 
 
@@ -209,14 +218,14 @@ Procedura inicjalizacji programu nasłuchującego wymaga podjęcia następujący
 \item Uruchomienie pętli głównej programu.
 \end{enumerate}
 
-Przygotowanie interfejsu pomiarowego może być wykonane poza programem za pomocą narzędzia konfiguracji interfejsów \emph{iw} \cite{www:IW}. Interfejs w trybie \emph{monitor} tworzy się (\ref{code:MakeMonitor}) poprzez podanie nazwy istniejącego interfejsu radiowego, dzięki czemu możliwa jest identyfikacja urządzenia \emph{Wiphy}, które ma być współdzielone. 
+Przygotowanie interfejsu pomiarowego może być wykonane poza programem za pomocą narzędzia konfiguracji interfejsów \emph{iw} \cite{www:IW}. Interfejs w trybie \emph{monitor} tworzy się \ref{code:MakeMonitor} poprzez podanie nazwy istniejącego interfejsu radiowego, dzięki czemu możliwa jest identyfikacja urządzenia \emph{Wiphy}, które ma być współdzielone. 
 
 \lstset{caption={Dodanie interfejsu \emph{mon0} w trybie \emph{monitor}}, label={code:MakeMonitor}}
 \begin{lstlisting}[frame=tb]
 marcin@marcin-PC:~$ iw dev wlan0 interface add mon0 type monitor
 \end{lstlisting}
 
-Podstawowym krokiem programu jest utworzenie uchwytu do urządzenia przechwytującego. Zadanie to polega na inicjalizacji wskaźnika na strukturę \emph{pcap\_t}. Struktura ta zdefiniowana jest w bibliotece w sposób nietransparentny (ang. \emph{opaque structure}), więc jej zawartość deklarowana jest w plikach źródłowych, a nie nagłówkowych. Funkcja tworząca urządzenie (\ref{code:PcapCreate}) przyjmuje tablicę znaków określającą nazwę interfejsu oraz tablicę bajtów przeznaczoną na kody ewentualnych błędów. 
+Podstawowym krokiem programu jest utworzenie uchwytu do urządzenia przechwytującego. Zadanie to polega na inicjalizacji wskaźnika na strukturę \emph{pcap\_t}. Struktura ta zdefiniowana jest w bibliotece w sposób nietransparentny (ang. \emph{opaque structure}), więc jej zawartość deklarowana jest w plikach źródłowych, a nie nagłówkowych. Funkcja tworząca urządzenie \ref{code:PcapCreate} przyjmuje tablicę znaków określającą nazwę interfejsu oraz tablicę bajtów przeznaczoną na kody ewentualnych błędów. 
 
 \lstset{caption={Utworzenie uchwytu urządzenia przechwytującego}, label={code:PcapCreate}}
 \begin{lstlisting}[frame=tb]
@@ -224,7 +233,7 @@ Podstawowym krokiem programu jest utworzenie uchwytu do urządzenia przechwytuj�
 pdev = pcap_create(device, ebuf);
 \end{lstlisting}
 
-Pierwszą z ważnych do ustalenia opcji jest długość migawki (ang \emph{snapshot length}). Długość wystarczająca do przechwycenia całej ramki wynosi \emph{65000} (\ref{code:PcapInit}). Zdecydowałem się na przechwytywanie całych ramek ze względu na przyszły rozwój aplikacji. Aktualnie nie jest możliwe do ustalenia do jakich typów pakietów będzie używany program. Rozmiar ramek zmienia się w zależności od użytych metod szyfrowania oraz zawartości nagłówka \emph{radiotap}. Użyta funkcja biblioteczna \emph{pcap\_set\_snaplen(2)} przyjmuje uchwyt do urządzenia oraz zmienną typu \emph{long long} reprezentującą długość migawki. 
+Pierwszą z ważnych do ustalenia opcji jest długość migawki (ang \emph{snapshot length}). Długość wystarczająca do przechwycenia całej ramki wynosi \emph{65000} \ref{code:PcapInit}. Zdecydowałem się na przechwytywanie całych ramek ze względu na przyszły rozwój aplikacji. Aktualnie nie jest możliwe do ustalenia do jakich typów pakietów będzie używany program. Rozmiar ramek zmienia się w zależności od użytych metod szyfrowania oraz zawartości nagłówka \emph{radiotap}. Użyta funkcja biblioteczna \emph{pcap\_set\_snaplen(2)} przyjmuje uchwyt do urządzenia oraz zmienną typu \emph{long long} reprezentującą długość migawki. 
 
 % Czemu 65000 ? Czego ? Jak się zmienia rozmiar ? (przykłady).
 
@@ -243,7 +252,7 @@ err = pcap_set_promisc(pdev, 1);
 err = pcap_set_timeout(pdev, 1000);
 \end{lstlisting}
 
-Na zakończenie procesu inicjalizacji uchwytu urządzenia należy go aktywować (\ref{code:PcapActivate}). Jest to okazja do obsługi wszelkich ostrzeżeń i błędów wygenerowanych w wyniku ustawionych powyżej opcji. Pomyślna aktywacja pozwala na rozpoczęcie nasłuchu w medium pracy wybranego interfejsu. Do błędów zaliczam wszelkie sytuacje, które nie pozwolą na dalszą poprawną pracę programu, a więc następujące wartości zwracane:
+Na zakończenie procesu inicjalizacji uchwytu urządzenia należy go aktywować \ref{code:PcapActivate}. Jest to okazja do obsługi wszelkich ostrzeżeń i błędów wygenerowanych w wyniku ustawionych powyżej opcji. Pomyślna aktywacja pozwala na rozpoczęcie nasłuchu w medium pracy wybranego interfejsu. Do błędów zaliczam wszelkie sytuacje, które nie pozwolą na dalszą poprawną pracę programu, a więc następujące wartości zwracane:
 \begin{itemize}
 \item[--] {\bf PCAP\_ERROR\_NO\_SUCH\_DEVICE:} Nie istnieje urządzenie o podanej nazwie interfejsu. 
 \item[--] {\bf PCAP\_ERROR\_PERM\_DENIED:} Użytkownik wywołujący program nie posiada uprawnień do otwarcia wybranego interfejsu.
@@ -261,7 +270,7 @@ Ostrzeżenia pozwalają na dalszą pracę programu, ale mogą poważnie ogranicz
 err = pcap_activate(pdev);
 \end{lstlisting}
 
-Po uruchomieniu urządzenia nasłuchującego należy sprawdzić część parametrów związanych z aktywacją (\ref{code:PcapCheck}). Po pierwsze rozmiar migawki, ponieważ mógł on ulec zmianie. Następnie fakt przynależności wybranego interfejsu przechwytywania do sieci. Rozmiar migawki pobiera się wykorzystując funkcję \emph{pcap\_snapshot(1)} podając uchwyt urządzenia. Podglądu sieci dokonuję wywołując procedurę \emph{pcap\_lookupnet(4)} z argumentem nazwy interfejsu, wskazania na 32-bitowe liczby całkowite reprezentujące sieć i jej maskę (do wypełnienia przez wywołanie) oraz tablicę bajtów na kod ewentualnych błędów. Kroki te są wykonywane w celach prezentacji informacji i mogą wygenerować jedynie ostrzeżenia.
+Po uruchomieniu urządzenia nasłuchującego należy sprawdzić część parametrów związanych z aktywacją \ref{code:PcapCheck}. Po pierwsze rozmiar migawki, ponieważ mógł on ulec zmianie. Następnie fakt przynależności wybranego interfejsu przechwytywania do sieci. Rozmiar migawki pobiera się wykorzystując funkcję \emph{pcap\_snapshot(1)} podając uchwyt urządzenia. Podglądu sieci dokonuję wywołując procedurę \emph{pcap\_lookupnet(4)} z argumentem nazwy interfejsu, wskazania na 32-bitowe liczby całkowite reprezentujące sieć i jej maskę (do wypełnienia przez wywołanie) oraz tablicę bajtów na kod ewentualnych błędów. Kroki te są wykonywane w celach prezentacji informacji i mogą wygenerować jedynie ostrzeżenia.
 
 \lstset{caption={Sprawdzenie parametrów po aktywacji urządzenia.}, label={code:PcapCheck}}
 \begin{lstlisting}[frame=tb]
@@ -285,7 +294,7 @@ Maszyna stanowa LSF może zostać uruchomiona zaraz po odebraniu pakietu ze ster
 
 Kompilacja kodu filtra w bibliotece \emph{libpcap} odbywa się poprzez wywołanie funkcji \emph{pcap\_compile(5)} podając uchwyt urządzenia, wskazanie na strukturę \emph{bpf\_program}, która zostanie wypełniona utworzonym filtrem, ciąg znaków zawierający opis filtra za pomocą języka reguł logicznych, przełącznik optymalizacji oraz maskę sieci, w której aplikacja prowadzi nasłuch. W przypadku mojej aplikacji nasłuchującej maska sieci, w większości przypadków, nie będzie znana (będzie miała wartość \emph{PCAP\_NETMASK\_UNKNOWN}).
 
-Zakończenie procesu ustalania filtra odbywa się za pomocą funkcji bibliotecznej \emph{pcap\_setfilter(2)} podając uchwyt urządzenia i wskazanie na jego program (\ref{code:PcapSetFilter}).
+Zakończenie procesu ustalania filtra odbywa się za pomocą funkcji bibliotecznej \emph{pcap\_setfilter(2)} podając uchwyt urządzenia i wskazanie na jego program \ref{code:PcapSetFilter}.
 
 \lstset{caption={Kompilacja i ustalenie programu filtra BPF}, label={code:PcapSetFilter}}
 \begin{lstlisting}[frame=tb]
@@ -323,17 +332,17 @@ handle_packet(u_char *user, const struct pcap_pkthdr *h,
 }
 \end{lstlisting}
 
-Mechanizm przechwytywania ramek oferowany przez bibliotekę \emph{libpcap} jest wystarczający do implementacji programu spełniającego wymagania wypracowane w procesie projektowania procedury pomiarowej \ref{sec:ApplicationRequirements}. W przeciwieństwie do biblioteki \emph{libnl} możliwe jest odbieranie dowolnego rodzaju pakietów standardu 802.11 bez potrzeby asocjacji z żadnym punktem dostępowym (uczestnictwa w sieci), a zatem z minimalną ingerencją w środowisko pomiarowe. Jego użycie wymaga jednak bardziej skomplikowanych metod ekstrakcji danych, ze względu na konieczność odczytywania nagłówka \emph{radiotap}. Krok ten jest niezbędny ze względu na fakt wstawiania przez niektóre karty radiowe dodatkowego odstępu między nagłówkiem, a pozostałą częścią ramki (ang. \emph{Atheros padding}). Informacja o tym dostępna jest w postaci pola \emph{radiotap}, które trzeba odnaleźć.
+Mechanizm przechwytywania ramek oferowany przez bibliotekę \emph{libpcap} jest wystarczający do implementacji programu spełniającego wymagania wypracowane w procesie projektowania procedury pomiarowej \ref{sec:ApplicationRequirements}. W przeciwieństwie do biblioteki \emph{libnl} możliwe jest odbieranie dowolnego rodzaju pakietów standardu 802.11 bez potrzeby asocjacji z punktem dostępowym (uczestnictwa w sieci), a zatem z minimalną ingerencją w środowisko pomiarowe. Jego użycie wymaga jednak bardziej skomplikowanych metod ekstrakcji danych, ze względu na konieczność odczytywania nagłówka \emph{radiotap}. Krok ten jest niezbędny ze względu na fakt wstawiania przez niektóre karty radiowe dodatkowego odstępu między nagłówkiem, a pozostałą częścią ramki (ang. \emph{Atheros padding}). Informacja o tym dostępna jest w postaci pola \emph{radiotap}, które trzeba odnaleźć.
 
 \section{Implementacja programu \emph{hop-sniffer}.}
 
 Niniejszy rozdział opisuje implementację programu \emph{hop-sniffer}. Pomijam część opisu związaną z inicjalizacją urządzenia przechwytującego i pętli obsługującej wywoływanie funkcji \emph{callback} (kroki te zostały objaśnione w rozdziale dotyczącym bibliotek programistycznych \ref{sec:LibPcap}). Aplikacja została stworzona w języku \emph{C} pod kątem wybranego wcześniej środowiska Linux. Biblioteka \emph{libpcap} wykorzystywana jest do przechwytywania i wstępnej selekcji pakietów. Używany do selekcji filtr BPF zapisany jest w postaci reguł logicznych w pliku. Program nasłuchujący odczytuje plik jako ciąg znaków, kompiluje go i ustawia jego program jako nowy filtr.   
 
-Podstawą logiki programu (\ref{FlowDiagram}) jest reagowanie na przetworzone składniki pakietów w celu pomiaru opóźnienia roamingu stacji klienckiej w standardzie 802.11.   
+Podstawą logiki programu \ref{FlowDiagram} jest reagowanie na przetworzone składniki pakietów w celu pomiaru opóźnienia roamingu stacji klienckiej w standardzie 802.11.   
 
 \subsection{Obsługa sygnałów i zwalnianie zasobów.}
 
-Głównie ze względu na fakt, iż funkcja startująca pętlę przetwarzania pakietów \emph{pcap\_loop(4)} działa w sposób blokujący istnieje potrzeba obsługi sygnałów. Procedury obsługi są możliwie najkrótsze i skupiają się na prawidłowym zwolnieniu zasobów w przypadku otrzymania określonego typu sygnału. 
+Funkcja startująca pętlę przetwarzania pakietów \emph{pcap\_loop(4)} działa w sposób blokujący, więc istnieje potrzeba obsługi sygnałów (np. wysłanych przez użytkownika w celu zakończenia programu). Procedury obsługi są możliwie najkrótsze i skupiają się na prawidłowym zwolnieniu zasobów w przypadku otrzymania określonego typu sygnału. 
 
 Sygnały obsługiwane przez aplikację \emph{hop-sniffer} to:
 \begin{itemize}
@@ -352,7 +361,7 @@ Sygnał SIGHUP wspiera możliwość pracy programu w tle (po wylogowaniu wywołu
 
 \subsection{Pomiar zależności czasowych między ramkami.} 
 
-Wszystkie pakiety przechwytywane przez bibliotekę \emph{libpcap} posiadają dodany wspólny nagłówek (\ref{code:PcapHdr}) (ang. \emph{Generic Pcap Header}), który ujednolica ich obsługę na przestrzeni różnych interfejsów, z których mogą pochodzić. Jedną z części reprezentującej go struktury (\emph{pcap\_pkthdr}) jest pole \emph{ts} typu \emph{timeval}. Pole to jest stemplem czasowym momentu odebrania ramki i służy programowi \emph{hop-sniffer} do wszelkich obliczeń związanych z opóźnieniami między poszczególnymi zdarzeniami.
+Wszystkie pakiety przechwytywane przez bibliotekę \emph{libpcap} posiadają dodany wspólny nagłówek \ref{code:PcapHdr} (ang. \emph{Generic Pcap Header}), który ujednolica ich obsługę na przestrzeni różnych interfejsów, z których mogą pochodzić. Jedną z części reprezentującej go struktury (\emph{pcap\_pkthdr}) jest pole \emph{ts} typu \emph{timeval}. Pole to jest stemplem czasowym momentu odebrania ramki i służy programowi \emph{hop-sniffer} do wszelkich obliczeń związanych z opóźnieniami między poszczególnymi zdarzeniami.
 
 \lstset{caption={Wspólny nagłówek pakietów \emph{pcap}.}, label={code:PcapHdr}}
 \begin{lstlisting}[frame=tb]
@@ -363,7 +372,7 @@ struct pcap_pkthdr {
 }
 \end{lstlisting}
 
-Struktura \emph{timeval} (\ref{code:Timeval}) jest jedną z metod reprezentacji fragmentu czasu w systemie Linux. Jest ona automatycznie wypełniana w ramach działania biblioteki \emph{libpcap}. Pole \emph{tv\_usec} zapewnia wystarczającą dokładność pomiaru ze względu na aktualny fakt nie występowania w standardzie 802.11 interwałów czasowych między zdarzeniami (wysyłanymi ramkami) poniżej rzędu milisekund. 
+Struktura \emph{timeval} \ref{code:Timeval} jest jedną z metod reprezentacji fragmentu czasu w systemie Linux. Jest ona automatycznie wypełniana w ramach działania biblioteki \emph{libpcap}. Pole \emph{tv\_usec} zapewnia wystarczającą dokładność pomiaru ze względu na aktualny fakt nie występowania w standardzie 802.11 interwałów czasowych między zdarzeniami (wysyłanymi ramkami) poniżej rzędu milisekund. 
 
 \lstset{caption={Struktura \emph{timeval}.}, label={code:Timeval}}
 \begin{lstlisting}[frame=tb]
@@ -377,9 +386,9 @@ Biorąc pod uwagę fakt, że czas trwania dowolnego zdarzenia jest \emph{de fact
 
 \subsection{Przetwarzanie nagłówka \emph{radiotap}.}
 
-Odczytywanie danych z nagłówka \emph{radiotap} jest konieczne ze względu na potrzebę sprawdzenia pola zawierającego flagi (ang. \emph{radiotap flags}). Ma ono postać bajtu danych będącego bitmapą ustawionych przełączników . Aplikacja \emph{hop-sniffer} sprawdza czy ustawione są flagi \emph{IEEE80211\_RADIOTAP\_F\_FCS} i \emph{IEEE80211\_RADIOTAP\_F\_DATAPAD}. Oznaczają kolejno dodatkowy odstęp między nagłówkiem i polem danych ramki 802.11 oraz fakt posiadania przez ramkę części FCS (ang. \emph{Frame check sequence}). Są to informacje konieczne do prawidłowego przetworzenia pakietu standardu 802.11.
+Odczytywanie danych z nagłówka \emph{radiotap} jest konieczne ze względu na potrzebę sprawdzenia pola zawierającego flagi (ang. \emph{radiotap flags}). Ma ono postać bajtu danych będącego bitmapą ustawionych przełączników. Aplikacja \emph{hop-sniffer} sprawdza czy ustawione są flagi \emph{IEEE80211\_RADIOTAP\_F\_FCS} i \emph{IEEE80211\_RADIOTAP\_F\_DATAPAD}. Oznaczają kolejno dodatkowy odstęp między nagłówkiem i polem danych ramki 802.11 oraz fakt posiadania przez ramkę części FCS (ang. \emph{Frame check sequence}). Są to informacje konieczne do prawidłowego przetworzenia pakietu standardu 802.11.
 
-Pierwszym elementem nagłówka (\ref{RadiotapHeader}) jest pole \emph{it\_version} o rozmiarze 8 bitów reprezentujące wersję nagłówka. Aktualnie jest ono ustawiane na wartość 0. Element \emph{it\_pad} o rozmiarze 8 bitów nie jest aktualnie używany. Kolejnym polem jest \emph{it\_len} o rozmiarze 16 bitów wyznaczające długość całego fragmentu \emph{radiotap} (wraz z danymi). Ostatnim i ważnym elementem nagłówka jest pole \emph{it\_present} będące 32-bitową mapą posiadanych przez daną ramkę pól danych \emph{radiotap}. Bitmapa ta może być w prosty sposób poszerzana. Ustawienie ostatniego bitu (numer 31) oznacza, że dany element \emph{it\_present} poprzedza kolejną bitmapę. Obecność pola danych \emph{radiotap flags} oznaczona jest poprzez ustawienie bitu numer 1. 
+Pierwszym elementem nagłówka \ref{RadiotapHeader} jest pole \emph{it\_version} o rozmiarze 8 bitów reprezentujące wersję nagłówka. Aktualnie jest ono ustawiane na wartość 0. Element \emph{it\_pad} o rozmiarze 8 bitów nie jest aktualnie używany. Kolejnym polem jest \emph{it\_len} o rozmiarze 16 bitów wyznaczające długość całego fragmentu \emph{radiotap} (wraz z danymi). Ostatnim i ważnym elementem nagłówka jest pole \emph{it\_present} będące 32-bitową mapą posiadanych przez daną ramkę pól danych \emph{radiotap}. Bitmapa ta może być w prosty sposób poszerzana. Ustawienie ostatniego bitu (numer 31) oznacza, że dany element \emph{it\_present} poprzedza kolejną bitmapę. Obecność pola danych \emph{radiotap flags} oznaczona jest poprzez ustawienie bitu numer 1. 
 
 \begin{figure}[htb]
 \begin{center}
@@ -395,7 +404,7 @@ Pierwszym krokiem jest odnalezienie ostatniej bitmapy \emph{it\_present} sprawdz
 
 Następnie program pomiarowy przegląda dostępne bitmapy i dla każdego kolejnego, ustawionego bitu rozpakowuje odpowiadające mu pole danych. Przeglądanie bitmapy od najmniej znaczącego bitu polega na odjęciu od niej liczby 1 i wykonania operacji XOR między tablicą wynikową i wejściową. W ten sposób program otrzymuje bitmapę z ustawionym jedynie aktualnie najmniej znaczącym bitem. W celu określenia odpowiadającego mu pola \emph{radiotap} należy obliczyć na której pozycji w 32-bitowym słowie się on znajduje. Odnalezienie pozycji realizowane jest za pomocą zagnieżdżonego makra, które wykonuje przesunięcia bitowe w prawo sprawdzając czy otrzymane słowo równe jest zeru. Przesunięcia wykonywane są kolejno połowiąc pozostałe do sprawdzenia słowo, czyli kolejno o 16, 8, 4 i 2 bity. Jeśli przesunięcie wyzerowało tablicę oznacza to, że bit znajduje się na numerze pozycji mniejszym niż przesunięcie i należy ponownie wywołać makro dla tej samej tablicy przesuwając o połowę mniej bitów. Otrzymanie słowa niezerowego oznacza, że numer bitu jest wyższy niż przesunięcie. W tym przypadku można zwrócić sumę liczby przesuniętych bitów (szukany numer jest większy) i wywołania makra przesuwającego o dwukrotnie mniejszą ilość bitów, ale dla aktualnego (już przesuniętego) słowa. Jest to implementacja wzorowana na algorytmie wyszukiwania binarnego opartego na idei \emph{dziel i zwyciężaj} co sugeruje jej działanie w czasie logarytmicznym. 
 
-Specyfikacja \emph{radiotap} zakłada, że programista znający nazwę pola zna również jego rozmiar. Pola danych rozmieszczone są zgodnie z naturalnym porządkiem binarnym. Oznacza to, że odczytując słowo określonej wielkości należy sprawdzić, czy mieści się ono w do tej pory przetworzonym fragmencie danych całkowitą liczbę razy. Jeśli tak nie jest to słowo należy odczytać z pozycji znajdującej się o brakującą liczbę bitów dalej, gdyż program trafił na wypełnienie (ang. \emph{padding}). Jest to przyjęty standard konstrukcji nagłówka \emph{radiotap}, więc \emph{hop-sniffer} również go respektuje. Przykładowo (\ref{RadiotapUnpack}), jeśli do tej pory program odczytał trzy pola o rozmiarze 8 bitów i otrzymuje polecenie odczytania słowa 16-bitowego to powinno być ono odczytane z adresu (uznając początek przestrzeni danych za 0) 32, a nie 24. 
+Specyfikacja \emph{radiotap} zakłada, że programista znający nazwę pola zna również jego rozmiar. Pola danych rozmieszczone są zgodnie z naturalnym porządkiem binarnym. Oznacza to, że odczytując słowo określonej wielkości należy sprawdzić, czy mieści się ono w do tej pory przetworzonym fragmencie danych całkowitą liczbę razy. Jeśli tak nie jest to słowo należy odczytać z pozycji znajdującej się o brakującą liczbę bitów dalej, gdyż program trafił na wypełnienie (ang. \emph{padding}). Jest to przyjęty standard konstrukcji nagłówka \emph{radiotap}, więc \emph{hop-sniffer} również go respektuje. Przykładowo \ref{RadiotapUnpack}, jeśli do tej pory program odczytał trzy pola o rozmiarze 8 bitów i otrzymuje polecenie odczytania słowa 16-bitowego to powinno być ono odczytane z adresu (uznając początek przestrzeni danych za 0) 32, a nie 24. 
 
 \begin{figure}[htb]
 \begin{center}
@@ -405,7 +414,7 @@ Specyfikacja \emph{radiotap} zakłada, że programista znający nazwę pola zna 
 \end{center}
 \end{figure}
 
-Do rozpakowywania pól danych nagłówka \emph{radiotap} służy struktura \emph{unpacker} (\ref{code:Unpacker}). Pole \emph{u\_buf} inicjowane jest przez adresem pierwszego bajtu za ostatnią bitmapą \emph{it\_present}, \emph{u\_next} za pomocą  wskaźnika na bajt za ostatnim odczytanym słowem, a \emph{u\_len} jest różnicą wskaźnika na początek ramki i ostatnią bitmapę. 
+Do rozpakowywania pól danych nagłówka \emph{radiotap} służy struktura \emph{unpacker} \ref{code:Unpacker}. Pole \emph{u\_buf} inicjowane jest przez adresem pierwszego bajtu za ostatnią bitmapą \emph{it\_present}, \emph{u\_next} za pomocą  wskaźnika na bajt za ostatnim odczytanym słowem, a \emph{u\_len} jest różnicą wskaźnika na początek ramki i ostatnią bitmapę. 
 
 \lstset{caption={Struktura \emph{unpacker}.}, label={code:Unpacker}}
 \begin{lstlisting}[frame=tb]
@@ -436,7 +445,7 @@ Nagłówek \emph{radiotap} przechowuje również szczegółowe informacje dotycz
 
 \subsection{Przetwarzanie nagłówka standardu \emph{802.11}.}
 
-Wskaźnik \emph{packet} na początek migawki przechwyconej ramki (\ref{RadiotapWifi}) trafia na wejście funkcji przetwarzania nagłówka standardu 802.11 po przesunięciu o \emph{it\_len} bitów w przód. Tym samym powinien wskazywać na początek elementu FC (ang. \emph{Frame control}). Do funkcji przekazane zostają również wartości zmiennych \emph{pad} i \emph{fcslen} wyliczone w procesie przetwarzania nagłówka \emph{radiotap}. 
+Wskaźnik \emph{packet} na początek migawki przechwyconej ramki \ref{RadiotapWifi} trafia na wejście funkcji przetwarzania nagłówka standardu 802.11 po przesunięciu o \emph{it\_len} bitów w przód. Tym samym powinien wskazywać na początek elementu FC (ang. \emph{Frame control}). Do funkcji przekazane zostają również wartości zmiennych \emph{pad} i \emph{fcslen} wyliczone w procesie przetwarzania nagłówka \emph{radiotap}. 
 
 \begin{figure}[htb]
 \begin{center}
@@ -475,7 +484,7 @@ Kolejnym krokiem jest rozgałęzienie przepływu programu na obsługę wybranych
 \end{center}
 \end{figure}
 
-Ostatnią brakującą daną jest adres źródłowy MAC obsługiwanego pakietu. Najłatwiej dostać się do tej informacji poprzez rzutowanie otrzymanego w argumentach wywołania funkcji wskaźnika na początek nagłówka standardu 802.11 typu \emph{MGMT} na jego reprezentację w postaci struktury danych języka \emph{C} (\ref{code:MgmtHeader}). Krok ten ułatwia dostęp do dwóch 6-bajtowych tablic \emph{sa} i \emph{da} odpowiadających źródłowemu i docelowemu adresowi MAC ramki. Pozostałe pola są zgodne ze specyfikacją i odpowiadają kolejno polu kontrolnemu, polu \emph{duration} odpowiadającemu pozostałemu czasowi z tablicy \emph{NAV}, polu \emph{BSSID} (ang. \emph{Basic Service Set Identifier}) i numerowi kontrolnemu sekwencji.
+Ostatnią brakującą daną jest adres źródłowy MAC obsługiwanego pakietu. Najłatwiej dostać się do tej informacji poprzez rzutowanie otrzymanego w argumentach wywołania funkcji wskaźnika na początek nagłówka standardu 802.11 typu \emph{MGMT} na jego reprezentację w postaci struktury danych języka \emph{C} \ref{code:MgmtHeader}. Krok ten ułatwia dostęp do dwóch 6-bajtowych tablic \emph{sa} i \emph{da} odpowiadających źródłowemu i docelowemu adresowi MAC ramki. Pozostałe pola są zgodne ze specyfikacją i odpowiadają kolejno polu kontrolnemu, polu \emph{duration} odpowiadającemu pozostałemu czasowi z tablicy \emph{NAV}, polu \emph{BSSID} (ang. \emph{Basic Service Set Identifier}) i numerowi kontrolnemu sekwencji.
 
 \lstset{caption={Struktura \emph{mgmt\_hdr}.}, label={code:MgmtHeader}}
 \begin{lstlisting}[frame=tb]
@@ -497,8 +506,7 @@ struct mgmt_hdr
 Podstawową charakterystyką interfejsu karty radiowej jest jego praca wyłącznie na jednej częstotliwości w danej chwili. Popularne programy przechwytywania ramek komunikacji bezprzewodowej (np. \emph{Wireshark}) udostępniają opcję ciągłej zmiany kanału pracy w celu obrazowania ruchu w całym spektrum dostępnym w medium transmisyjnym (ang. \emph{channel hopping}). Z punktu widzenia aplikacji \emph{hop-sniffer} zachowanie takie utrudniałoby i wprowadzało zakłamania kalkulacji opóźnień wybranych zjawisk. Nie zmienia to faktu, że w obserwacji przełączania częstotliwości pracy podczas roamingu 802.11 potrzebna jest jednorazowa zmiana kanału interfejsu urządzenia przechwytującego.     
 
 Jednym z możliwych rozwiązań, które wyklucza potrzebę przełączania kanału jest użycie dwóch kart radiowych pracujących odpowiednio na częstotliwości każdego z punktów dostępowych biorących udział w eksperymencie. Ideą programu \emph{hop-sniffer} jest jednak możliwość uruchomienia na niewielkim komputerze przenośnym i łatwa implementacja procedur pomiarowych w oparciu o pojedynczy interfejs przechwytujący. 
-
-Zastosowane rozwiązanie jest zgodne z założeniem o przeprowadzaniu scenariusza pomiarowego w odpowiedzi na wykryte zdarzenia (ramki protokołu) i wykorzystuje metodę jawnego przełączenia kanału pracy karty radiowej. Zastosowałem udostępniany przez sterownik interfejs wywołań systemowych IOCTL za pomocą, którego program nasłuchujący wystosowuje polecenie SIOCSIWFREQ służące do wprowadzenia urządzenia w podaną w jednostkach hertz częstotliwość pracy. 
+Zastosowane rozwiązanie jest zgodne z założeniem o przeprowadzaniu scenariusza pomiarowego w odpowiedzi na wykryte zdarzenia (ramki protokołu) i wykorzystuje metodę jawnego przełączenia kanału pracy karty radiowej. Zastosowałem udostępniany przez sterownik interfejs wywołań systemowych IOCTL, za pomocą którego program nasłuchujący wystosowuje polecenie SIOCSIWFREQ służące do wprowadzenia urządzenia w podaną w jednostkach hertz częstotliwość pracy. 
 
 Procedurę można podzielić na następujące fazy:
 \begin{enumerate}

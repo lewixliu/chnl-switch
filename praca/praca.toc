@@ -1,6 +1,6 @@
 \select@language {polish}
 \contentsline {chapter}{\numberline {1}Cel pracy.}{4}{chapter.1}
-\contentsline {chapter}{\numberline {2}Wprowadzenie do dziedziny.}{6}{chapter.2}
+\contentsline {chapter}{\numberline {2}Standard \emph {802.11} i systemy czasu rzeczywistego.}{6}{chapter.2}
 \contentsline {section}{\numberline {2.1}Problemy system\IeC {\'o}w czasu rzeczywistego.}{6}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}System operacyjny Linux ( wersja j\IeC {\k a}dra 2.6 ).}{6}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Techniki programistyczne w standardzie POSIX.}{8}{subsection.2.1.2}
@@ -16,24 +16,24 @@
 \contentsline {chapter}{\numberline {3}Pomiar czasu prze\IeC {\l }\IeC {\k a}czania kana\IeC {\l }u radiowego.}{14}{chapter.3}
 \contentsline {section}{\numberline {3.1}Prze\IeC {\l }\IeC {\k a}czanie kana\IeC {\l }u radiowego.}{15}{section.3.1}
 \contentsline {section}{\numberline {3.2}Metodyka pomiaru.}{16}{section.3.2}
-\contentsline {section}{\numberline {3.3}Scenariusz pomiaru: Roaming 802.11.}{16}{section.3.3}
+\contentsline {section}{\numberline {3.3}Scenariusz pomiaru: Roaming 802.11.}{17}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}\IeC {\'S}rodowisko pomiarowe.}{18}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Mierzona warto\IeC {\'s}\IeC {\'c}: Czas roamingu.}{18}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Wymagania co do aplikacji \emph {hop-sniffer}.}{19}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.2}Mierzona warto\IeC {\'s}\IeC {\'c}: Czas roamingu.}{19}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Wymagania co do aplikacji \emph {hop-sniffer}.}{20}{subsection.3.3.3}
 \contentsline {chapter}{\numberline {4}Narz\IeC {\k e}dzie pomiarowe: \emph {hop-sniffer}.}{22}{chapter.4}
 \contentsline {section}{\numberline {4.1}\IeC {\'S}rodowisko pracy programu.}{22}{section.4.1}
 \contentsline {section}{\numberline {4.2}Biblioteki programistyczne.}{23}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} interfejsu \emph {nl80211}.}{23}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} biblioteki typu \emph {pcap}.}{28}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.2}Nas\IeC {\l }uchiwanie za pomoc\IeC {\k a} biblioteki typu \emph {pcap}.}{29}{subsection.4.2.2}
 \contentsline {section}{\numberline {4.3}Implementacja programu \emph {hop-sniffer}.}{33}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}Obs\IeC {\l }uga sygna\IeC {\l }\IeC {\'o}w i zwalnianie zasob\IeC {\'o}w.}{33}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Pomiar zale\IeC {\.z}no\IeC {\'s}ci czasowych mi\IeC {\k e}dzy ramkami.}{33}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Przetwarzanie nag\IeC {\l }\IeC {\'o}wka \emph {radiotap}.}{34}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.2}Pomiar zale\IeC {\.z}no\IeC {\'s}ci czasowych mi\IeC {\k e}dzy ramkami.}{34}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Przetwarzanie nag\IeC {\l }\IeC {\'o}wka \emph {radiotap}.}{35}{subsection.4.3.3}
 \contentsline {subsection}{\numberline {4.3.4}Przetwarzanie nag\IeC {\l }\IeC {\'o}wka standardu \emph {802.11}.}{37}{subsection.4.3.4}
 \contentsline {subsection}{\numberline {4.3.5}Prze\IeC {\l }\IeC {\k a}czanie kana\IeC {\l }u radiowego stacji pomiarowej.}{39}{subsection.4.3.5}
 \contentsline {chapter}{\numberline {5}Wnioski z pomiaru roamingu \emph {802.11}.}{42}{chapter.5}
 \contentsline {section}{\numberline {5.1}Stan medium transmisyjnego.}{43}{section.5.1}
 \contentsline {section}{\numberline {5.2}Testowane modele kart radiowych i system\IeC {\'o}w.}{43}{section.5.2}
 \contentsline {section}{\numberline {5.3}Metody u\IeC {\'s}redniania wynik\IeC {\'o}w.}{44}{section.5.3}
-\contentsline {section}{\numberline {5.4}Wnioski na temat wynik\IeC {\'o}w pomiaru.}{44}{section.5.4}
-\contentsline {chapter}{\numberline {6}Kierunki rozwoju.}{47}{chapter.6}
+\contentsline {section}{\numberline {5.4}Wnioski na temat wynik\IeC {\'o}w pomiaru.}{45}{section.5.4}
+\contentsline {chapter}{\numberline {6}Kierunki rozwoju.}{49}{chapter.6}

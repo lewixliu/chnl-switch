@@ -2,46 +2,44 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: praca.aux
 The style file: plain.bst
 Database file #1: bibliografia.bib
-Warning--to sort, need author or key in www:ECO-Mob
-You've used 15 entries,
+You've used 19 entries,
             2118 wiz_defined-function locations,
-            563 strings with 6274 characters,
-and the built_in function-call counts, 3794 in all, are:
-= -- 309
-> -- 243
+            587 strings with 6931 characters,
+and the built_in function-call counts, 4984 in all, are:
+= -- 437
+> -- 299
 < -- 0
-+ -- 97
-- -- 82
-* -- 203
-:= -- 631
-add.period$ -- 29
-call.type$ -- 15
-change.case$ -- 86
++ -- 119
+- -- 100
+* -- 256
+:= -- 878
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 101
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 105
-empty$ -- 332
-format.name$ -- 82
-if$ -- 789
+cite$ -- 19
+duplicate$ -- 169
+empty$ -- 409
+format.name$ -- 100
+if$ -- 1032
 int.to.chr$ -- 0
-int.to.str$ -- 15
-missing$ -- 0
-newline$ -- 62
-num.names$ -- 28
-pop$ -- 157
+int.to.str$ -- 19
+missing$ -- 14
+newline$ -- 98
+num.names$ -- 38
+pop$ -- 175
 preamble$ -- 1
-purify$ -- 71
+purify$ -- 88
 quote$ -- 0
-skip$ -- 130
+skip$ -- 137
 stack$ -- 0
-substring$ -- 75
-swap$ -- 15
+substring$ -- 95
+swap$ -- 19
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 60
-warning$ -- 1
-while$ -- 28
-width$ -- 17
-write$ -- 115
-(There was 1 warning)
+type$ -- 64
+warning$ -- 0
+while$ -- 38
+width$ -- 21
+write$ -- 182

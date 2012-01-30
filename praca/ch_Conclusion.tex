@@ -5,7 +5,7 @@ Niniejszy rozdział poświęcony jest opisowi faktycznej realizacji planowanego 
 \item[--] Stosowana metoda uwierzytelniania stacji klienckiej.
 \item[--] Wielkość różnicy częstotliwości między punktami dostępowymi.
 \item[--] Moc sygnału \emph{TX} punktów dostępowych. 
-\item[--] Obecność innych stacji na pracujących na tym samym kanale.
+\item[--] Obecność innych stacji pracujących na tym samym kanale.
 \end{itemize}
 
 W celu najbardziej wyraźnego zobrazowania wpływu metody uwierzytelniania wybrałem dwie skrajne techniki:
@@ -16,9 +16,9 @@ W celu najbardziej wyraźnego zobrazowania wpływu metody uwierzytelniania wybra
 
 W opcji pierwszej obydwa punkty dostępowe zezwalają każdej stacji na natychmiastową asocjację. Uwierzytelnianie \emph{WPA2} natomiast wykorzystuje bardziej czasochłonne operacje wymagające wymiany danych między \emph{AP} i stacją kliencką (np. \emph{Four Way Handshake}). W eksperymencie z użyciem uwierzytelniania dodatkowo stosuję również szyfrowanie blokowe \emph{CCMP} (ang. \emph{Counter Mode with Cipher Block Chaining Message Authentication Code Protocol}). Hasło w postaci \emph{pass-phrase} jest wspólne dla obydwu punktów dostępowych i stacji klienckiej.
 
-Specyfikacja eksperymentu zakłada, że wszystkie uczestniczące w nim stacje pracują na nienachodzących na siebie kanałach 1, 5, 9 lub 13. Dodatkowo przeprowadzam pomiar dla stacji pracujących na sąsiednich kanałach 5 i 6 w celu zbadania wpływu zakresu zmian częstotliwości na opóźnienie zjawiska.
+Specyfikacja eksperymentu zakłada, że wszystkie uczestniczące w nim stacje pracują na nienachodzących na siebie kanałach 1, 5, 9 lub 13. Dodatkowo przeprowadzam pomiar dla stacji pracujących na sąsiednich kanałach 5 i 6 w celu wprowadzenia dodatkowych zakłóceń związanych z wykorzystaniem nachodzących na siebie kanałów.
 
-Podczas roamingu ważnym parametrem jest moc sygnału punktów dostępowych. W zależności od stopnia w jaki obszary działania \emph{AP} na siebie nachodzą przełączanie stacji klienckiej może zachodzić w warunkach zróżnicowanych poziomów mocy nadawania. Ze względu na usytuowanie uczestników pomiaru najbardziej skutecznym i zastosowanym przeze mnie sposobem ograniczenia siły sygnału jest wykręcenie anten obsługujących \emph{pigtail MAIN} przy jednoczesnej drastycznej redukcji parametru \emph{power} przynależnych im interfejsów radiowych.
+Podczas roamingu ważnym parametrem jest moc sygnału punktów dostępowych. W zależności od usytuaowania obszarów wpływu, przełączanie między nimi może zachodzić w zróżnicowanych warunkach mocy sygnału z punktu widzenia stacji klienckiej. Sytuacja taka zachodzi, gdyż roaming 802.11 jest zjawiskiem występującym na skraju zasięgu punktów dostępowych. Ze względu na usytuowanie uczestników pomiaru najbardziej skutecznym i zastosowanym przeze mnie sposobem ograniczenia siły sygnału jest wykręcenie anten obsługujących \emph{pigtail MAIN} przy jednoczesnej drastycznej redukcji parametru \emph{power} przynależnych im interfejsów radiowych.
 
 Ostatecznie badam wpływ obecności stacji nie przewidzianych w specyfikacji scenariusza. W tym celu wykorzystuję pracujące w medium transmisyjnym punkty dostępowe nie będące uczestnikami pomiaru. Ustawiam ich kanały pracy na częstotliwości wykorzystywane w eksperymencie. 
 
@@ -38,7 +38,7 @@ Jest to typowa sytuacja, z którą można się spotkać w bloku mieszkalnym. Cz�
 
 \section{Testowane modele kart radiowych i systemów.}
 
-Zorganizowane środowisko pomiarowe jest zgodne ze specyfikacją \ref{sec:MeasurementEnviroment} i przedstawia się następująco:
+Zorganizowane środowisko pomiarowe \ref{TestEnviroment} jest zgodne ze specyfikacją \ref{sec:MeasurementEnviroment} i przedstawia się następująco:
 \begin{itemize}
 \item[--] {\bf Punkt dostępowy 1:} Stacja \emph{PC} pod kontrolą systemu \emph{Linux} w wersji jądra 2.6.
 \item[--] {\bf Punkt dostępowy 2:} Router \emph{802.11g} pod kontrolą wbudowanego systemu operacyjnego.
@@ -46,7 +46,15 @@ Zorganizowane środowisko pomiarowe jest zgodne ze specyfikacją \ref{sec:Measur
 \item[--] {\bf Stacja pomiarowa:} Komputer przenośny pod kontrolą systemu \emph{Linux} w wersji jądra 2.6.
 \end{itemize}
 
-Komputer osobisty wyposażony jest w kartę radiową \emph{PCI-Express 802.11bgn} obsługiwaną przez sterownik \emph{ath9k} z \emph{chipsetem} \emph{AR9285} firmy \emph{Atheros} pozwalającą na utworzenie interfejsu w trybie \emph{AP} na bazie warstwy \emph{mac80211}. Funkcjonalność punktu dostępowego realizowana jest w przestrzeni użytkownika przez demona \emph{hostapd}, który steruje asocjacją i uwierzytelnianiem stacji klienckich. 
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=250px]{img/TestEnviroment}
+\caption{Środowisko pomiarowe.}
+\label{TestEnviroment}
+\end{center}
+\end{figure}
+
+Stacja \emph{PC} wyposażona jest w kartę radiową \emph{PCI-Express 802.11bgn} obsługiwaną przez sterownik \emph{ath9k} z \emph{chipsetem} \emph{AR9285} firmy \emph{Atheros} pozwalającą na utworzenie interfejsu w trybie \emph{AP} na bazie warstwy \emph{mac80211}. Funkcjonalność punktu dostępowego realizowana jest w przestrzeni użytkownika przez demona \emph{hostapd}, który steruje asocjacją i uwierzytelnianiem stacji klienckich. 
 
 Rolę punktu dostępowego docelowego (numer 2) pełni router \emph{802.11bg TP-Link TL-WR543G}. Działa on pod kontrolą systemu wbudowanego i umożliwia konfigurację parametrów \emph{AP} poprzez interfejs sieciowy. 
 
@@ -66,53 +74,45 @@ Wstępna analiza puli wyników wskazuje na okresowe pojawianie się wartości od
 
 \section{Wnioski na temat wyników pomiaru.}
 
-W pierwszym przypadku pomiarowym z użyciem uwierzytelniania \emph{WPA2-PSK} mediana i średnia arytmetyczna wyników są do siebie zbliżone. Oznacza to, że wartości mierzone były zbierane przy minimalnym stopniu zakłóceń w łączu. Wynik ten nie jest zaskakujący, gdyż punkty dostępowe działają z mocą nadawania 20 \emph{dbM} na częstotliwościach o niskim zatłoczeniu.
+Wykonałem następujące scenariusze pomiarowe:
+\begin{itemize}
+\item[--] {\bf SC1}: Uwierzytelnianie WPA2-PSK, przełączanie z kanału 9 na 13, moc sygnału interfejsów \emph{AP} 20 dBm.
+\item[--] {\bf SC2}: System otwarty, przełączanie z kanału 9 na 13, moc sygnału interfejsów \emph{AP} 20 dBm.
+\item[--] {\bf SC3}: System otwarty, przełączanie z kanału 5 na 6, moc sygnału interfejsów \emph{AP} 20 dBm.
+\item[--] {\bf SC4}: System otwarty, przełączanie z kanału 5 na 6, moc pracy interfejsów \emph{AP} obniżona (na routerze do minimum, a w punkcie dostępowym zorganizowanym na komputerze \emph{PC} do wartości ułamkowej), wykręcone anteny.
+\item[--] {\bf SC5}: Uwierzytelnianie WPA2-PSK, przełączanie z kanału 5 na 6, moc pracy interfejsów \emph{AP} obniżona (na routerze do minimum, a w punkcie dostępowym zorganizowanym na komputerze \emph{PC} do wartości ułamkowej), wykręcone anteny.
+\item[--] {\bf SC6}: Uwierzytelnianie WPA2-PSK, brak przełączania kanału (obydwa punkty pracują na kanale 9), moc sygnału interfejsów \emph{AP} 20 dBm.
+\end{itemize}
 
-Przypadek drugi został przeprowadzony w warunkach maksymalnie zbliżonych do swojego poprzednika z tą różnicą, że nie używane są żadne metody uwierzytelniania stacji klienckiej. Pocieszający jest tutaj fakt zbliżenia mediany i średniej arytmetycznej (mało wartości odstających), gdyż umożliwia on porównanie uzyskanego wyniku ze scenariuszem wykorzystującym uwierzytelnianie \emph{WPA-PSK}. Widoczny jest czas jaki stacje poświęcają na negocjację (\emph{Four Way Handshake}) kluczy zabezpieczeń. Duże prawdopodobieństwo niskiego poziomu zakłamań pozwala przypuszczać, że różnica średniej arytmetycznej opóźnień przypadku pomiarowego o liczbie porządkowej 2 i 1 jest czasem jaki punkt dostępowy poświęca na uwierzytelnianie asocjującego klienta. W tym przypadku wynik \emph{20.48} milisekund to w przybliżeniu jedna trzecia czasu poświęcanego na procedurę roamingu (\emph{59.88}) co ukazuje ogromny narzut algorytmów zabezpieczeń sieci bezprzewodowych na parametry czasowe komunikacji.
+Każdy scenariusz składa się z 10 próbek, wyniki przedstawiłem w tabeli \ref{tab:Results}.
 
-W scenariuszu opatrzonym liczbą porządkową 3 nie jest wykorzystywana żadna metoda uwierzytelniania. Koncentruje się on na wprowadzeniu zakłóceń do medium transmisyjnego w postaci innych stacji. Po pierwsze, na kanale docelowym 6 pracują już dwa nie związane z pomiarem punkty dostępowe. Dodatkowe zakłócenia wprowadza również początkowa stacja \emph{AP} pracująca na nachodzącym kanale 5. Pojawia się znaczna różnica między medianą i średnią arytmetyczną pomiarów co potwierdza przypuszczenia co do faktu związania wartości odstających z poziomem zaszumienia łącza. Zwiększenie opóźnień wynika z faktu gubienia i retransmisji części ramek składających się na przebieg roamingu stacji klienckiej. Przypadek ten służy głównie jako porównanie dla swojego poprzednika opatrzonego numerem 2. Skutecznie udowadnia on, że wzrost zaszumienia łącza może doprowadzić do zwiększenia opóźnień roamingu.
+W pierwszym przypadku pomiarowym SC1 z użyciem uwierzytelniania \emph{WPA2-PSK} mediana i średnia arytmetyczna wyników są do siebie zbliżone. Oznacza to, że wartości mierzone były zbierane przy minimalnym stopniu zakłóceń w łączu. Wynik ten nie jest zaskakujący, gdyż punkty dostępowe działają z mocą nadawania 20 \emph{dBm} na częstotliwościach o niskim zatłoczeniu.
 
-Przypadek \emph{lp. 4} został wybrany w celu zobrazowania wpływu obniżenia mocy sygnału punktów dostępowych. Ze względu na fakt, że uczestnicy pomiaru znajdowali się we wspólnym pomieszczeniu o niewielkich rozmiarach programistyczna manipulacja mocą nadawania interfejsów radiowych miała znikomy wpływ na poziom sygnału odbierany przez stację kliencką. Dopiero próba obniżenia sygnału do wartości ułamkowej \emph{dBM} wprowadziła widoczne osłabienie. Aby symulować znaczne pogorszenie tego parametru zdecydowałem się na usunięcie anten z używanych urządzeń. Krok ten spowodował natychmiastowy spadek sygnału do odpowiednio niskich wartości zbliżonych do sytuacji zauważalnego oddalenia uczestników scenariusza. Zaobserwowałem wyjątkowo wysoki poziom gubienia ramek, który miejscami utrudniał zebranie wystarczającej liczby pomiarów. Wartości charakteryzują się bardzo dużym rozrzutem opóźnień (blisko czterokrotna różnica mediany i średniej arytmetycznej). Przewiduję, że przy zakłóceniach tego stopnia subtelny wpływ metody uwierzytelniania, czy nawet zajętości kanału staje się niezauważalny i niemożliwy do trafnej analizy. Wniosek ten sugerowany jest wynikiem kolejnego przypadku pomiarowego (\emph{lp. 5}), który dla tych samych warunków wprowadza uwierzytelnianie \emph{WPA2-PSK}. Wbrew przypuszczeniom opóźnienie jest mniejsze. Według mnie ilość pomiarów wykonanych przez program w tym scenariuszu nie uchwyciła stopnia zmienności czasu roamingu stacji klienckiej co zaowocowało nie możnością ustalenia wartości odstających i średnich. 
+Przypadek drugi SC2 został przeprowadzony w warunkach maksymalnie zbliżonych do swojego poprzednika (SC2) z tą różnicą, że nie używane są metody uwierzytelniania stacji klienckiej. Pocieszający jest tutaj fakt zbliżenia mediany i średniej arytmetycznej (mało wartości odstających), gdyż umożliwia on porównanie uzyskanego wyniku ze scenariuszem wykorzystującym uwierzytelnianie \emph{WPA-PSK}. Widoczny jest czas jaki stacje poświęcają na negocjację (\emph{Four Way Handshake}) kluczy zabezpieczeń. Duże prawdopodobieństwo niskiego poziomu zakłamań pozwala przypuszczać, że różnica średniej arytmetycznej opóźnień przypadku pomiarowego SC2 i SC1 jest czasem jaki punkt dostępowy poświęca na uwierzytelnianie asocjującego klienta. W tym przypadku wynik \emph{20.48} milisekund to w przybliżeniu jedna trzecia czasu poświęcanego na procedurę roamingu (\emph{59.88 ms}) co ukazuje ogromny narzut algorytmów zabezpieczeń sieci bezprzewodowych na parametry czasowe komunikacji.
 
-Ostatecznie wykonałem procedurę pomiarową, w której stacja kliencka przełącza się między dwoma punktami dostępowymi pracującymi na tej samej częstotliwości. Krok ten miał w zamierzeniu umożliwić oszacowania interesującego mnie czasu przełączania kanału radiowego. Należy wziąć pod uwagę, że stacje w trybie \emph{AP} pracujące w tym samym kanale zakłócają się wzajemnie. Możliwe jest jednak wzięcie poprawki na ten typ zakłamania dzięki analizie przypadków \emph{lp. 2} i \emph{lp. 3}, które obrazują możliwy, spodziewany wzrost opóźnień związany ze zbliżonymi częstotliwościami pracy punktów dostępowych. Biorąc pod uwagę medianę pomiaru \emph{lp. 6} \emph{64.27 ms} i \emph{lp. 1} \emph{82.05 ms} wnioskuję, że czynnikami składającymi się na różnicę tych wartości (\emph{17.78}) są zakłócenia częstotliwościowe i szukana wartość czasu zmiany kanału pracy. Niestety różnica median pomiarów \emph{lp. 2 55.27 ms} i \emph{lp. 3 83.83 ms} wynosi aż \emph{28.56 ms} co wskazuje na fakt, iż wahania opóźnień związane z zakłóceniami wynikającymi ze zbliżonych częstotliwości są zbyt duże, aby możliwa była ekstrakcja czasu przełączania kanału. 
+W scenariuszu SC3 nie jest wykorzystywana żadna metoda uwierzytelniania. Koncentruje się on na wprowadzeniu zakłóceń do medium transmisyjnego w postaci innych stacji. Po pierwsze, na kanale docelowym 6 pracują już dwa nie związane z pomiarem punkty dostępowe. Dodatkowe zakłócenia wprowadza również początkowa stacja \emph{AP} pracująca na nachodzącym kanale 5. Pojawia się znaczna różnica między medianą i średnią arytmetyczną pomiarów co potwierdza przypuszczenia co do faktu związania wartości odstających z poziomem zaszumienia łącza. Zwiększenie opóźnień wynika z faktu gubienia i retransmisji części ramek składających się na przebieg roamingu stacji klienckiej. Przypadek ten służy głównie jako porównanie z poprzednim pomiarem SC2. Skutecznie udowadnia on, że wzrost zaszumienia łącza może doprowadzić do zwiększenia opóźnień roamingu.
 
-\begin{center}
-\begin{table}
-\caption{Wyniki pomiaru opóźnień roamingu (lp. 1-3).}
-\begin{tabular}{ | l || l | l | l | }
+Przypadek SC4 został wybrany w celu zobrazowania wpływu obniżenia mocy sygnału punktów dostępowych. Ze względu na fakt, że uczestnicy pomiaru znajdowali się we wspólnym pomieszczeniu o niewielkich rozmiarach, programistyczna manipulacja mocą nadawania interfejsów radiowych miała znikomy wpływ na poziom sygnału odbierany przez stację kliencką. Dopiero próba obniżenia sygnału do wartości ułamkowej \emph{dBm} wprowadziła widoczne osłabienie. Aby symulować znaczne pogorszenie tego parametru zdecydowałem się na usunięcie anten z używanych urządzeń. Krok ten spowodował natychmiastowy spadek sygnału do odpowiednio niskich wartości zbliżonych do sytuacji zauważalnego oddalenia uczestników scenariusza. Zaobserwowałem wyjątkowo wysoki poziom gubienia ramek, który miejscami utrudniał zebranie wystarczającej liczby pomiarów. Wartości charakteryzują się bardzo dużym rozrzutem opóźnień (blisko czterokrotna różnica mediany i średniej arytmetycznej). Przewiduję, że przy zakłóceniach tego stopnia subtelny wpływ metody uwierzytelniania, czy nawet zajętości kanału staje się niezauważalny i niemożliwy do trafnej analizy. Wniosek ten sugerowany jest wynikiem kolejnego przypadku pomiarowego SC5, który dla tych samych warunków wprowadza uwierzytelnianie \emph{WPA2-PSK}. Wbrew przypuszczeniom opóźnienie jest mniejsze. Według mnie ilość pomiarów wykonanych przez program w tym scenariuszu nie uchwyciła stopnia zmienności czasu roamingu stacji klienckiej co zaowocowało niemożnością ustalenia wartości odstających i średnich. 
+
+Ostatecznie wykonałem procedurę pomiarową SC6, w której stacja kliencka przełącza się między dwoma punktami dostępowymi pracującymi na tej samej częstotliwości. Krok ten miał w zamierzeniu umożliwić oszacowania interesującego mnie czasu przełączania kanału radiowego. Należy wziąć pod uwagę, że stacje w trybie \emph{AP} pracujące w tym samym kanale zakłócają się wzajemnie. Możliwe jest jednak wzięcie poprawki na ten typ zakłamania dzięki analizie przypadków SC2 i SC3, które obrazują możliwy, spodziewany wzrost opóźnień związany ze zbliżonymi częstotliwościami pracy punktów dostępowych. Biorąc pod uwagę medianę pomiaru SC6 \emph{64.27 ms} i SC1 \emph{82.05 ms} wnioskuję, że czynnikami składającymi się na różnicę tych wartości (\emph{17.78} ms) są zakłócenia częstotliwościowe i szukana wartość czasu zmiany kanału pracy. Niestety różnica median pomiarów SC2 \emph{55.27 ms} i SC3 \emph{83.83 ms} wynosi aż \emph{28.56 ms} co wskazuje na fakt, iż wahania opóźnień związane z zakłóceniami wynikającymi ze zbliżonych częstotliwości są zbyt duże, aby możliwa była ekstrakcja czasu przełączania kanału. 
+
+\begin{sidewaystable}
+\caption{Wyniki scenariuszy pomiarowych.}
+\label{tab:Results}
+\begin{tabular}{ | l || l | l | l | l | l | l | }
 \hline                       
-Lp. Pomiaru & 1 & 2 & 3 \\ 
-Uwierzytelnianie & WPA2-PSK & Open sys. & Open sys. \\
-Kanał początkowy & 9 & 9 & 5 \\
-Kanał końcowy & 13 & 13 & 6 \\
-Inne stacje & Nie & Nie & Tak \\
-Obniżona moc & Nie & Nie & Nie \\ \hline \hline
-Średnia arytmetyczna [ms] & 80.36 & 59.88 & 75.87 \\ \hline \hline
-Mediana [ms] & 82.05 & 55.27 & 83.83 \\
+Pomiar & SC1 & SC2 & SC3 & SC4 & SC5 & SC6 \\ 
+Uwierzytelnianie & WPA2-PSK & Open sys. & Open sys. & Open sys. & WPA2-PSK & WPA2-PSK \\
+Kanał początkowy & 9 & 9 & 5 & 5 & 5 & 9 \\
+Kanał końcowy & 13 & 13 & 6  & 6 & 6 & 9 \\
+Inne stacje & Nie & Nie & Tak & Tak & Tak & Nie \\
+Obniżona moc & Nie & Nie & Nie & Tak & Tak & Nie \\ \hline \hline
+Średnia arytmetyczna [ms] & 80.36 & 59.88 & 75.87 & 428.91 & 86.09 & 81.26 \\ \hline \hline
+Mediana [ms] & 82.05 & 55.27 & 83.83 & 101.35 & 91.38 & 64.27 \\
 \hline  
 \end{tabular}
-\end{table}
-\end{center}
 
-\begin{center}
-\begin{table}
-\caption{Wyniki pomiaru opóźnień roamingu (lp. 4-6).}
-\begin{tabular}{ | l || l | l | l | }
-\hline                       
-Lp. Pomiaru & 4 & 5 & 6 \\ 
-Uwierzytelnianie & Open sys. & WPA2-PSK & WPA2-PSK \\
-Kanał początkowy & 5 & 5 & 9 \\
-Kanał końcowy & 6 & 6 & 9 \\
-Inne stacje & Tak & Tak & Nie \\
-Obniżona moc & Tak & Tak & Nie \\ \hline \hline
-Średnia arytmetyczna [ms] & 428.91 & 86.09 & 81.26 \\ \hline \hline
-Mediana [ms] & 101.35 & 91.38 & 64.27 \\
-\hline  
-\end{tabular}
-\end{table}
-\end{center}
-
-
+\end{sidewaystable}
 
 
 

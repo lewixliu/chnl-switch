@@ -1,71 +1,109 @@
 \begin{thebibliography}{10}
 
-\bibitem{www:ECO-Mob}
-\emph{http://www.eco-mobilnosc.pw.edu.pl/}.
-
 \bibitem{pub:Comparison}
 A.Barbalace, A.Lucheta, G.Manduchi, M.Moro, A.Soppelsa, and C.Taliercio.
-\newblock \emph{Performance Comparison of VxWorks, Linux, RTAI and Xenomai in a
-  Hard Real-time Application}, 2007.
+\newblock {\em \emph{Performance Comparison of VxWorks, Linux, RTAI and Xenomai
+  in a Hard Real-time Application}}.
+\newblock IEEE, 2007.
 
 \bibitem{std:IEEE80211}
 IEEE~Standards Association.
-\newblock \emph{IEEE802.11-2007: Wireless LAN Medium Access Control (MAC) and
-  Physical Layer (PHY) specifications}, 2007.
+\newblock {\em \emph{IEEE802.11-2007: Wireless LAN Medium Access Control (MAC)
+  and Physical Layer (PHY) specifications}}.
+\newblock IEEE, 2007.
 
 \bibitem{std:IEEE80211n}
 IEEE~Standards Association.
-\newblock \emph{IEEE802.11n-2009: Wireless LAN Medium Access Control (MAC) and
-  Physical Layer (PHY) specifications}, 2009.
+\newblock {\em \emph{IEEE802.11n-2009: Wireless LAN Medium Access Control (MAC)
+  and Physical Layer (PHY) specifications}}.
+\newblock IEEE, 2009.
 
 \bibitem{pub:VirtualAP}
 Maria~Eugenia Berezin, Franck Rousseau, and Andrzej Duda.
-\newblock \emph{Multichannel Virtual Access Points for Seamless Handoffs in
-  IEEE 802.11 Wireless Networks}, 2011.
+\newblock {\em \emph{Multichannel Virtual Access Points for Seamless Handoffs
+  in IEEE 802.11 Wireless Networks}}.
+\newblock IEEE, 2011.
+
+\bibitem{www:LibnlDoc}
+Johannes Berg.
+\newblock \emph{libnl documentation}.
+\newblock
+  \url{http://linuxwireless.org/en/developers/Documentation/nl80211/kerneldoc}.
 
 \bibitem{www:IW}
 Johannes Berg.
-\newblock \emph{http://linuxwireless.org/en/users/Documentation/iw}.
+\newblock \emph{Project iw}.
+\newblock \url{http://linuxwireless.org/en/users/Documentation/iw}.
+
+\bibitem{www:IWSrc}
+Johannes Berg.
+\newblock \emph{Project iw source}.
+\newblock \url{http://linuxwireless.org/download/iw/}.
 
 \bibitem{pub:802.11e}
 Gianluca Cena, Lucia Seno, Adiano Valenzano, and Claudio Zunino.
 \newblock \emph{On the Performance of IEEE 802.11e Wireless Infrastructures for
-  Soft-Real-Time Industrial Applications}, 2010.
+  Soft-Real-Time Industrial Applications}.
+\newblock {\em IEEE transactions on industrial informatics, vol. 6, no. 3},
+  2010.
 
-\bibitem{www:ArchLinux}
-Arch~Linux distribution.
-\newblock \emph{http://www.archlinux.org/}.
+\bibitem{www:ECO-Mob}
+\emph{Kierownik Projektu:} Prof. nzw. dr hab.~inż. Włodzimierz~Choromański.
+\newblock \emph{Projekt ECO-Mobilność}.
+\newblock \url{http://www.eco-mobilnosc.pw.edu.pl/}.
 
 \bibitem{www:LinuxTCHowto}
 Bert Hubert, Thomas Graf, Gregory Maxwell, Remco van Mook, Martijn van
   Oosterhout, Paul~B Schroeder, Jasper Spaans, and Pedro Larroy.
 \newblock \emph{Linux Advanced Routing \& Traffic Control HOWTO}.
+\newblock \url{http://linuxreviews.org/howtos/networking/lartc/}.
 
-\bibitem{pub:QoS}
-Richard Kelly and Joseph Gasparakis.
-\newblock \emph{Common Functionality in the 2.6 Linux Network Stack}, 2010.
+\bibitem{www:LibPcapDoc}
+Van Jacobson, Craig Leres, and Steven McCanne.
+\newblock \emph{libpcap documentation}.
+\newblock \url{http://www.tcpdump.org/pcap3_man.html}.
+
+\bibitem{www:TcpDumpSrc}
+Van Jacobson, Craig Leres, and Steven McCanne.
+\newblock \emph{tcpdump source}.
+\newblock \url{http://www.tcpdump.org/#source}.
 
 \bibitem{pub:SpaceTimeCoding}
 Mohsen Maadani, Seyed~Ahmad Motamedi, and Mohammad Khayeri.
-\newblock \emph{A Cross-Layer Adaptive Space-Time Coding Scheme for IEEE
-  802.11-Based Soft-Real-Time Wireless Industrial Networks}, 2011.
+\newblock {\em \emph{A Cross-Layer Adaptive Space-Time Coding Scheme for IEEE
+  802.11-Based Soft-Real-Time Wireless Industrial Networks}}.
+\newblock IEEE, 2011.
 
 \bibitem{www:DieMan}
 Linux manual.
-\newblock \emph{http://www.die.net/}.
+\newblock die.net.
+\newblock \url{http://www.die.net/}.
+
+\bibitem{www:Radiotap}
+Open source \emph{wiki}.
+\newblock \emph{Radiotap Wiki}.
+\newblock \url{http://www.radiotap.org/}.
 
 \bibitem{pub:AdvAp}
 Henning Trsek, Stefan Schwalowsky, Bjoern Czybik, and Juergen Jasperneite.
-\newblock \emph{Implementation of an advanced IEEE 802.11 WLAN AP for real-time
-  wireless communications}, 2011.
+\newblock {\em \emph{Implementation of an advanced IEEE 802.11 WLAN AP for
+  real-time wireless communications}}.
+\newblock IEEE, 2011.
 
 \bibitem{wiki:RTLinux}
 Theodore Ts'o, Darren Hart, and John Kacur.
-\newblock \emph{Real-Time Linux Wiki}, 2008.
+\newblock \emph{Real-Time Linux Wiki}.
+\newblock \url{https://rt.wiki.kernel.org/}, 2008.
+
+\bibitem{www:ArchLinux}
+Judd Vinet and Aaron Griffin.
+\newblock \emph{A simple, lightweight distribution}.
+\newblock \url{http://www.archlinux.org/}.
 
 \bibitem{pub:DCS}
 Gang Wu, Sathyanarayana Singh, and Tzi cker Chiueh.
 \newblock \emph{Implementation of Dynamic Channel Switching on IEEE
-  802.11-Based Wireless Mesh Networks}, 2008.
+  802.11-Based Wireless Mesh Networks}.
+\newblock {\em WICON'08}, 2008.
 
 \end{thebibliography}

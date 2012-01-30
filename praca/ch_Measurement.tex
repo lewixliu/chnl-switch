@@ -9,9 +9,9 @@ Ciężko uniknąć sytuacji, w której systemy wykorzystujące do komunikacji st
 \end{itemize}
 Łatwo zauważyć jak bardzo zróżnicowane urządzenia mogą doprowadzić do problemów w bezprzewodowej komunikacji systemów czasu rzeczywistego.
 
-Warto wspomnieć, że istnieje już specyfikacja standardu pracującego w paśmie \emph{5 GHz} (\cite{std:IEEE80211n}), lecz nie jest on jeszcze powszechnie wspierany. Biorąc za przykład rozwiązania \emph{open-source} można zauważyć, że standard \emph{802.11n} jest obsługiwany przez nowe sterowniki (\emph{ath9k} dla urządzeń firmy \emph{Atheros}). Problemem jest natomiast fakt, że tego typu sterowniki dostępne są jedynie w najnowszych dystrybucjach systemów operacyjnych przeznaczonych dla urządzeń wbudowanych (przykładowo \emph{OpenWrt Backfire 10.03}), które nie zawsze od początku wspierają zadowalającą gamę urządzeń. Dla przykładu nadal istnieją problemy z dostępnością tego typu sterowników dla popularnej płytki \emph{MagicBox}.
+Warto wspomnieć, że istnieje już specyfikacja standardu pracującego w paśmie \emph{5 GHz} \cite{std:IEEE80211n}, lecz nie jest on jeszcze powszechnie wspierany. Biorąc za przykład rozwiązania \emph{open-source} można zauważyć, że standard \emph{802.11n} jest obsługiwany przez nowe sterowniki (\emph{ath9k} dla urządzeń firmy \emph{Atheros}). Problemem jest natomiast fakt, że tego typu sterowniki dostępne są jedynie w najnowszych dystrybucjach systemów operacyjnych przeznaczonych dla urządzeń wbudowanych (przykładowo \emph{OpenWrt Backfire 10.03}), które nie zawsze od początku wspierają zadowalającą gamę urządzeń. Dla przykładu nadal istnieją problemy z dostępnością tego typu sterowników dla popularnej płytki \emph{MagicBox}.
 
-Biorąc pod uwagę fakt zaszumienia medium transmisyjnego wnioskuję, że możliwość zmiany częstotliwości pracy interfejsu \emph{NIC} w poszukiwaniu dogodnego kanału komunikacji jest jedną z jego kluczowych i wymagających uwagi cech. W ostatnich latach powstało wiele publikacji dotyczących możliwości adaptacji struktury sieci bezprzewodowych do panującej jakości medium komunikacyjnego (\cite{pub:DCS}). Prace te koncentrują się głównie na algorytmach dynamicznej modyfikacji częstotliwości pracy interfejsów w sieciach kratowych \emph{WMN} (ang. \emph{Wireless Mesh Network}). Oczywiście u podstaw zastosowanych rozwiązań leży zjawisko przełączania kanału radiowego.
+Biorąc pod uwagę fakt zaszumienia medium transmisyjnego wnioskuję, że możliwość zmiany częstotliwości pracy interfejsu \emph{NIC} w poszukiwaniu dogodnego kanału komunikacji jest jedną z jego kluczowych i wymagających uwagi cech. W ostatnich latach powstało wiele publikacji dotyczących możliwości adaptacji struktury sieci bezprzewodowych do panującej jakości medium komunikacyjnego \cite{pub:DCS}. Prace te koncentrują się głównie na algorytmach dynamicznej modyfikacji częstotliwości pracy interfejsów w sieciach kratowych \emph{WMN} (ang. \emph{Wireless Mesh Network}). Oczywiście u podstaw zastosowanych rozwiązań leży zjawisko przełączania kanału radiowego.
 
 Powyższe czynniki sugerują, że całkowite wyeliminowanie potrzeby przełączania kanału (zmiany częstotliwości pracy) interfejsów radiowych nie jest aktualnie osiągalne. Co więcej, udostępnianie nowych pasm częstotliwości, w sytuacji ciągle rosnącego zapotrzebowania, jest jedynie tymczasowym rozwiązaniem.  
 
@@ -27,7 +27,7 @@ Typowe scenariusze, w których może zajść potrzeba zmiany częstotliwości pr
 \end{itemize}
 Identyfikacja powyższych sytuacji to pierwszy krok ku specyfikacji konkretnych scenariuszy pomiarowych. 
 
-Najczęstszą przyczyną przełączania kanału jest procedura skanowania medium komunikacyjnego. Podczas skanowania stacja wysyła ramki typu \emph{Probe Request} na każdej z dostępnych w specyfikacji (\cite{std:IEEE80211}) częstotliwości pracy i oczekuje na ramki \emph{Probe Response} od punktów dostępowych, lub stacji w trybie \emph{Ad-hoc} (w zależności od typu interfejsu NIC, czyli rodzaju docelowej sieci).
+Najczęstszą przyczyną przełączania kanału jest procedura skanowania medium komunikacyjnego. Podczas skanowania stacja wysyła ramki typu \emph{Probe Request} na każdej z dostępnych w specyfikacji \cite{std:IEEE80211} częstotliwości pracy i oczekuje na ramki \emph{Probe Response} od punktów dostępowych, lub stacji w trybie \emph{Ad-hoc} (w zależności od typu interfejsu NIC, czyli rodzaju docelowej sieci).
 
 Przełączanie kanału następuje również, kiedy stacja kliencka oddala się zbyt daleko od punktu dostępowego i musi rozpocząć poszukiwanie nowego w swoim zasięgu. Jest to sytuacja zwana roamingiem i wymaga uwagi podczas rozważania systemów, w których skład wchodzą mobilne stacje, czy agenci. Obszar działania systemu może być na tyle różnorodny pod względem zakłóceń, że konieczne będzie przełączanie kanału między kolejnymi punktami dostępowymi pracującymi na różnych częstotliwościach.
 
@@ -42,7 +42,7 @@ Opis stosowanych metodyk pomiarowych rozpocznę od definicji podstawowych poję�
 \item[--] {\bf Stacja kliencka}: Komputer pełniący rolę klienta w sieci o strukturze wykorzystującej punkty dostępowe (ang. \emph{Infrastructure mode}). Może być to zarówno komputer pod kontrolą systemu interakcyjnego, lub wbudowanego.
 \item[--] {\bf Punkt dostępowy}: Komputer pełniący w trybie infrastruktury (ang. \emph{Infrastructure mode}) rolę stacji AP (ang. \emph{Access Point}). Może być to zarówno komputer pod kontrolą systemu interakcyjnego, lub wbudowanego.
 \item[--] {\bf Rozwiązanie asocjacji}: Zdarzenie wysłania ramki rozwiązującej asocjację między stacją kliencką, a punktem dostępowym (ang. \emph{Disassociation frame}).
-\item[--] {\bf Skanowanie}: Wysyłanie przez stację ramek typu \emph{Probe Request} na wszystkich dostępnych w specyfikacji (\cite{std:IEEE80211}) częstotliwościach pracy.
+\item[--] {\bf Skanowanie}: Wysyłanie przez stację ramek typu \emph{Probe Request} na wszystkich dostępnych w specyfikacji \cite{std:IEEE80211} częstotliwościach pracy.
 \item[--] {\bf Scenariusz pomiaru}: Jeden ze scenariuszy możliwych do zaistnienia podczas komunikacji stacji w standardzie 802.11, w którego czasie następuje przełączenie kanału interfejsu NIC.
 \item[--] {\bf Zdarzenie}: Przechwycenie ramki standardu 802.11 biorącej udział w scenariuszu pomiarowym. 
 \end{itemize}
@@ -60,7 +60,11 @@ punktu dostępowego \#1 jest poniżej progu roamingu.
 \item[--] Punkt dostępowy \#2 dokonuje asocjacji stacji klienckiej i potwierdza to zdarzenie wysyłając ramkę typu \emph{Association response}.
 \end{itemize}
 
-Łatwo zauważyć, że zjawisko roamingu jest kluczowe w przypadku systemu czasu rzeczywistego zarządzającego stacjami mobilnymi na rozległym obszarze (\ref{MobileAgentSystem}). System może wykorzystywać wiele punktów dostępowych, które obsługuje poprzez sieć przewodową (ang. \emph{Ethernet}). Każda zarządzana stacja w trybie AP przystosowana jest do działania w panujących na swoim obszarze warunkach zaszumienia łącza. Roaming 802.11 byłby w tym wypadku główną przyczyną przełączania kanału radiowego interfejsu NIC w mobilnych stacjach klienckich. 
+Łatwo zauważyć, że zjawisko roamingu jest kluczowe w przypadku systemu czasu rzeczywistego zarządzającego stacjami mobilnymi na rozległym obszarze \ref{MobileAgentSystem}. System może wykorzystywać wiele punktów dostępowych, które obsługuje poprzez sieć przewodową (ang. \emph{Ethernet}). Każda zarządzana stacja w trybie AP przystosowana jest do działania w panujących na swoim obszarze warunkach zaszumienia łącza. Roaming 802.11 byłby w tym wypadku główną przyczyną przełączania kanału radiowego interfejsu NIC w mobilnych stacjach klienckich. 
+
+Podobna sytuacja ma miejsce w sieciach o architekturze infrastruktury wykorzystujących ESS (ang. \emph{Extended Service Set}). Tryb ten polega na wykorzystaniu wielu punktów dostępowych ze wspólnym identyfikatorem SSID (ang. \emph{Service Set Identifier}). Punkty te korzystają z dodatkowej struktury komunikacyjnej używanej do wymiany danych (np. podczas roamingu stacji klienckiej). Wymiana danych między \emph{AP} pozwala na stworzenie przeźroczystości z punktu widzenia stacji klienckich. Stacje postrzegają ESSID (ang. \emph{Extended Service Set Identifier}) jako pojedynczy punkt dostępowy (nawet jeśli jego składowe \emph{AP} pracują na różnych częstotliwościach).
+
+Aby zwolnić punkty dostępowe z potrzeby kontrolowania komunikacji między sobą można zastosować LWAPP (ang. \emph{Lightweight Access Point Protocol}). Protokół ten wykorzystuje serwer zarządzający konfiguracją podłączonych do niego punktów.
 
 \begin{figure}[htb]
 \begin{center}
@@ -83,11 +87,11 @@ Oczywiście roaming nie implikuje ruchu żadnej z maszyn, co ułatwia przeprowad
 \subsection{Środowisko pomiarowe.}
 \label{sec:MeasurementEnviroment}
 
-W skład środowiska pomiarowego (\ref{RoamingEnviroment}) wchodzą dwa punkty dostępowe, stacja kliencka oraz stacja pomiarowa. Punkty dostępowe pracują na różnych częstotliwościach. Do wyboru, zgodnie ze standardem 802.11g (\cite{std:IEEE80211}), są kanały numer 1, 5, 9, lub 13. Są to nienachodzące na siebie zakresy częstotliwości. W celu ułatwienia roamingu stacja kliencka umieszczona jest na granicy zasięgu punktów dostępowych. Stacja pomiarowa musi znajdować się w zasięgu stacji klienckiej, oraz obydwu punktów dostępowych (musi być w stanie rejestrować ruch sieciowy). 
+W skład środowiska pomiarowego \ref{RoamingEnviroment} wchodzą dwa punkty dostępowe, stacja kliencka oraz stacja pomiarowa. Punkty dostępowe pracują na różnych częstotliwościach. Do wyboru, zgodnie ze standardem 802.11g \cite{std:IEEE80211}, są kanały numer 1, 5, 9, lub 13. Są to nienachodzące na siebie zakresy częstotliwości. W celu ułatwienia roamingu stacja kliencka umieszczona jest na granicy zasięgu punktów dostępowych. Stacja pomiarowa musi znajdować się w zasięgu stacji klienckiej, oraz obydwu punktów dostępowych (musi być w stanie rejestrować ruch sieciowy). 
 Należy zwrócić uwagę na zapewnienie odpowiedniej jakości medium transmisyjnego. Wysoki poziom zakłóceń na kanałach wykorzystywanych w eksperymencie wprowadzi zakłamania, jeśli interesuje nas wyłącznie czas trwania samej procedury roamingu. 
 
 \subsection{Mierzona wartość: Czas roamingu.}
-Czas roamingu 802.11 rozumiem jako czas (\ref{RoamingTime}) mierzony od momentu decyzji stacji klienckiej o zaprzestaniu normalnej wymiany danych z punktem dostępowym do momentu powiązania z nową stacją w trybie AP o mocniejszym sygnale. Zdarzeniem inicjującym pomiar jest wysłanie przez stację kliencką pierwszej ramki rozwiązującej asocjację (ang. \emph{Disassociation frame}). Pomiar zostaje zakończony w momencie wysłania przez nowy punkt dostępowy ramki potwierdzającej asocjację nowej stacji (ang. \emph{Association Response frame}).
+Czas roamingu 802.11 rozumiem jako czas \ref{RoamingTime} mierzony od momentu decyzji stacji klienckiej o zaprzestaniu normalnej wymiany danych z punktem dostępowym do momentu powiązania z nową stacją w trybie AP o mocniejszym sygnale. Zdarzeniem inicjującym pomiar jest wysłanie przez stację kliencką pierwszej ramki rozwiązującej asocjację (ang. \emph{Disassociation frame}). Pomiar zostaje zakończony w momencie wysłania przez nowy punkt dostępowy ramki potwierdzającej asocjację nowej stacji (ang. \emph{Association Response frame}).
 
 Podstawowa procedura pomiarowa składa się z następujących kroków:
 \begin{itemize}
@@ -106,6 +110,8 @@ Podstawowa procedura pomiarowa składa się z następujących kroków:
 \end{center}
 \end{figure}
 
+Interesującym parametrem jest również efektywny czas roamingu. Jest to czas między ostatnią ramką danych wysłanych do początkowego punktu dostępowego, a pierwszą nadaną do punktu docelowego. Źródłem ramek danych może być wybrana aplikacja działająca na stacji klienckiej i pełniąca rolę generatora ruchu sieciowego. Czas ten jest jednak zależny od zastosowanego generatora ze względu na różne częstotliwości nadawania pakietów przez poszczególne typy aplikacji. Przykładowo, jeśli aplikacja generuje ruch o okresie większym niż czas roamingu \ref{RoamingTime} to efektywne opóźnienie zależy od momentu zerwania asocjacji z początkowym punktem dostępowym (link). Z tego względu skupiam się na pomiarze roamingu jako opóźnienia między ramkami typu MGMT (ang. \emph{Management}) \ref{RoamingTime}.   
+
 \subsection{Wymagania co do aplikacji \emph{hop-sniffer}.}
 \label{sec:ApplicationRequirements}
 
@@ -121,7 +127,7 @@ Do przeprowadzenia powyżej zdefiniowanej procedury pomiaru opóźnienia roaming
 \item Pomiar czasu musi być wykonany w zdefiniowanym momencie na określonym poziomie modelu stosu \emph{TCP/IP}.
 \end{enumerate}
 
-Scentralizowana architektura aplikacji oznacza działanie jej składników wyłącznie na stacji pomiarowej. Oznacza to, że wszelkie biblioteki i narzędzia programistyczną muszą być dostępne tylko na jednej maszynie. Ułatwia to przeprowadzenie pomiaru z udziałem dowolnych stacji (np. systemów wbudowanych uniemożliwiających instalację własnego oprogramowania). Eliminacji ulega również dodatkowy i ciężki do oszacowania narzut związany z komunikacją elementów samego systemu pomiarowego.
+Scentralizowana architektura aplikacji oznacza działanie jej składników wyłącznie na stacji pomiarowej. Oznacza to, że wszelkie biblioteki i narzędzia programistyczne muszą być dostępne tylko na jednej maszynie. Ułatwia to przeprowadzenie pomiaru z udziałem dowolnych stacji (np. systemów wbudowanych uniemożliwiających instalację własnego oprogramowania). Eliminacji ulega również dodatkowy i ciężki do oszacowania narzut związany z komunikacją elementów samego systemu pomiarowego.
 
 Działanie na komputerze przenośnym jest podyktowane łatwą organizacją określonego w specyfikacji środowiska. Stacja pomiarowa musi znajdować się w zasięgu wszystkich uczestników obserwowanego scenariusza, więc możliwa powinna być łatwa manipulacja jej położeniem.
 

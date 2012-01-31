@@ -208,26 +208,54 @@ main(int argc, char **argv)
         char *filter;
 
         char *ifname;
+        char *user_freq;
+
         double freq;
 
         /*
+         * Handle user input
+         */
+        if(argc != 4)
+        {
+                printf("error: too few arguments\n");
+                printf("usage: hop-sniffer INTERFACE MONITOR FREQUENCY\n");
+                exit(-1);
+        }
+
+        ifname = argv[1];
+        device = argv[2];
+        user_freq = argv[3];
+        /* Convert string frequency to double */
+        freq = strtod(user_freq, NULL);
+        if(freq == 0)
+        {
+                printf("error: unable to convert frequency\n");
+                exit(-1);
+        }
+
+        printf("hop-sniffer: Capture interface: %s\n", ifname);
+        printf("hop-sniffer: Monitor interface: %s\n", device);
+        printf("hop-sniffer: Next frequency for %s and %s: %f Hz\n", ifname, device, freq);
+        
+        /*
          * Hardcoded:
-         * Always listen on mon0 monitor interface.
          * With snapshot size 65000.
          * Listen forever.
          * Open filter filenamne "filter".
          */
         snapshot_size = 65000;
 	cnt = -1;
-	device = "mon0";
+        /* Now as user input */
+	/* device = "mon0"; */
         filter = read_filter("filter");
         
         /*
          * Prepare data for channel switching ioctl
          */
         skfd = -1;
-        ifname = "wlan0";
-        freq = 2472000000;
+        /* Now as user input */
+        /* ifname = "wlan0"; */
+        /* freq = 2472000000; */
 
         /* Create channel to NET kernel */
         if((skfd = sockets_open()) < 0)
@@ -313,7 +341,7 @@ main(int argc, char **argv)
 
         /* Compile filter code */
 	if (pcap_compile(pdev, &filtercode, filter, 0, netmask) < 0)
-		fprintf(stderr, "filter compilation error: %s", pcap_geterr(pdev));
+		fprintf(stderr, "filter compilation error: %s\n", pcap_geterr(pdev));
 
         /* Set signals for graceful exit */
 	sigset(SIGPIPE, clean);

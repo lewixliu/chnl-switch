@@ -100,7 +100,12 @@ ieee802_11_parse(const u_char *packet, u_int length, u_int orig_caplen, int padd
                         printf("ReAssoc Response ");
                         break;
                 case ST_PROBE_REQUEST:
-                        printf("Probe Request ");
+                        if(ioctl(skfd, SIOCSIWFREQ, &wrq) < 0)
+                        {
+                                fprintf(stderr, "failed to switch channel\n");
+                                return(-1);
+                        }                                                   
+                        printf("Probe Request - channel switched ");
                         break;
                 case ST_PROBE_RESPONSE:
                         printf("Probe Response ");

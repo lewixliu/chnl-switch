@@ -4,10 +4,10 @@ obj = unpack.o ieee802_11.o sniffer.o
 CFLAGS = -Wall -g -pedantic
 LDFLAGS= -lpcap -lm
 
-all: sniff
+all: hop-sniffer
 
-sniff : $(obj)
-	$(CC) -o sniff $(obj) $(LDFLAGS)
+hop-sniffer: $(obj)
+	$(CC) -o hop-sniffer $(obj) $(LDFLAGS)
 
 sniffer.o: sniffer.c
 	$(CC) $(CFLAGS) -c sniffer.c
@@ -19,4 +19,4 @@ unpack.o: unpack.c
 	$(CC) $(CFLAGS) -c unpack.c
 
 clean:
-	rm sniff $(obj)
+	rm hop-sniffer $(obj)
